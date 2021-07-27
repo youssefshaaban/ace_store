@@ -13,20 +13,31 @@ import com.google.android.material.tabs.TabLayoutMediator
 class OnBoardingActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityOnBoardingBinding
+    val list:List<ModelBoarding> by lazy {
+        listOf(ModelBoarding(getString(R.string.title1),getString(R.string.subtitle1),R.drawable.ic_image_first),
+            ModelBoarding(getString(R.string.title2),getString(R.string.subtitle2),R.drawable.ic_image_second),
+            ModelBoarding(getString(R.string.title3),getString(R.string.subtitle3),R.drawable.ic_image_third)
+            )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         makeStatusBarTransparent()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_on_boarding)
-        binding.boardingPager.adapter = OnBoardingAdapter(this)
+        binding.boardingPager.adapter = OnBoardingAdapter(this,list)
         TabLayoutMediator(binding.tabLayoutDots, binding.boardingPager, { _, _ -> }).attach()
-//        val states = StateListDrawable()
-//        states.addState(
-//            intArrayOf(android.R.attr.state_selected),GradientDrawable()
-//        )
         initClickListner()
     }
 
     private fun initClickListner() {
+        binding.skip.setOnClickListener { goToHome() }
+        binding.login.setOnClickListener {  goToLogin() }
+    }
+
+    private fun goToHome() {
+
+    }
+
+    private fun goToLogin() {
 
     }
 

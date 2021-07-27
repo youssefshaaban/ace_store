@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVM_Template">
-        <activity android:name=".ui.component.SplashActivity"></activity>
+        <activity android:name=".ui.component.login.LoginActivity"></activity>
+        <activity android:name=".ui.component.SplashActivity" />
     </application>
 
 </manifest>

@@ -2,4 +2,15 @@
     <string name="app_name" translatable="false">aceStore</string>
     <string name="some_error">يوجد خطأ</string>
     <string name="login">تسجيل دخول</string>
+    <string name="skip">تخطى</string>
+    <string name="title1">اختر البطاقة</string>
+    <string name="subtitle1">يمكنك البحث في جميع البطاقات الموجوده داخل المتجر واختيار البطاقة التي تريد شراءها</string>
+    <string name="title2">اختار طريقة الدفع</string>
+    <string name="subtitle2">قم باختيار طريقة الدفع المناسبة لك من بين العديد من طرق الدفع المتواجدة بالمتجر</string>
+    <string name="title3">استلم كود البطاقة</string>
+    <string name="subtitle3">يمكنك البحث في جميع البطاقات الموجوده داخل المتجر واختيار البطاقة التي تريد شراءها</string>
+    <string name="plz_number">من فضلك ادخل رقم جوالك</string>
+    <string name="phone">رقم الجوال</string>
+    <string name="hint_phone">ادخل رقم جوالك</string>
+    <string name="login2">دخول</string>
 </resources>

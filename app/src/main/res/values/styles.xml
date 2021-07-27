@@ -2,16 +2,24 @@
 <resources>
 
     <style name="TextMediumFont">
-        <item name="android:textSize">@dimen/text_size14</item>
+        <item name="android:textSize">@dimen/text_size15</item>
         <item name="fontFamily">@font/tajawal_medium</item>
     </style>
 
     <style name="TextRegularFont">
-        <item name="android:textSize">@dimen/text_size14</item>
+        <item name="android:textSize">@dimen/text_size15</item>
         <item name="fontFamily">@font/tajawal_regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="TextBoldFont">
+        <item name="android:textSize">@dimen/text_size15</item>
+        <item name="fontFamily">@font/tajawal_bold</item>
     </style>
     <style name="TextRegularFontDigit">
-        <item name="android:textSize">@dimen/text_size14</item>
+        <item name="android:textSize">@dimen/text_size15</item>
         <item name="fontFamily">@font/digit_regular</item>
     </style>
+
+    <dimen name="text_size15">15sp</dimen>
 </resources>
