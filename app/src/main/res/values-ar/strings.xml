@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">aceStore</string>
+    <string name="app_name">aceStore</string>
     <string name="some_error">يوجد خطأ</string>
     <string name="login">تسجيل دخول</string>
 </resources>
