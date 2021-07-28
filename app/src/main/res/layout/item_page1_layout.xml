@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/back_color_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="@dimen/_204sdp"
+        android:id="@+id/image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/ic_image_first"
+        android:layout_height="@dimen/_238sdp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/txt_color1"
+        style="@style/TextBoldFont"
+        android:textSize="@dimen/text_size16"
+        android:text="@string/title1"
+        android:id="@+id/title"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/TextRegularFont"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/txt_color2"
+        android:id="@+id/subTitle"
+     />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

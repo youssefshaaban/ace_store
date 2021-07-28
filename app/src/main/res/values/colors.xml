@@ -8,8 +8,13 @@
   <color name="black">#FF000000</color>
   <color name="white">#FFFFFFFF</color>
 
-  <color name="back_color_ppage">#F7F7F7</color>
+  <color name="back_color_page">#F7F7F7</color>
+  <color name="back_color_page1">#4f008c</color>
   <color name="colorAccent">#00ba85</color>
   <color name="colorPrimary">#4f008c</color>
   <color name="colorPrimaryDark">#4F088C</color>
+  <color name="colorOnSecondary">#FFFFFFFF</color>
+  <color name="colorOnPrimary">#FFFFFFFF</color>
+  <color name="txt_color1">#FF000000</color>
+  <color name="txt_color2">##777777</color>
 </resources>

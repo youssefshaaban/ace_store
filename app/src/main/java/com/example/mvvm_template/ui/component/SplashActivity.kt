@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.example.mvvm_template.R
+import com.example.mvvm_template.data.pojo.LoginResponse
+import com.example.mvvm_template.ui.component.on_boarding.OnBoardingActivity
+import com.example.mvvm_template.utils.SavePrefs
 import com.example.mvvm_template.utils.startActivityWithFade
-import com.smart_zone.mnasati.ui.common.intro.OnBoardingActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
