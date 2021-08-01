@@ -27,4 +27,10 @@
     </style>
 
     <dimen name="text_size15">15sp</dimen>
+
+    <style name="CustomRatingBarStyle" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/custom_rate</item>
+        <item name="android:minHeight">15dip</item>
+        <item name="android:maxHeight">47dip</item>
+    </style>
 </resources>

@@ -55,4 +55,9 @@
     <string name="voucher">قسيمة شراء</string>
     <string name="account_setting">اعدادات الحساب</string>
     <string name="buyNow">إشترى الأن</string>
+    <string name="txt_title">كيف كان اخر طلب لك معنا</string>
+    <string name="txt_product">المنتجات</string>
+    <string name="comment">اكتب رأيك بمتجرنا</string>
+    <string name="sendRate">إرسال التقييم</string>
+    <string name="ignore">تجاهل</string>
 </resources>
