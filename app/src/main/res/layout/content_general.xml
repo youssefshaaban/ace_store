@@ -8,6 +8,7 @@
             name="baseViewModel"
             type="com.example.mvvm_template.ui.base.BaseViewModel" />
         <import type="com.example.mvvm_template.utils.DataStatus"/>
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -35,7 +36,7 @@
 
                 <TextView
                     android:id="@+id/tv_no_result"
-                    style="@style/Medium_TextViewStyle"
+                    style="@style/TextMediumFont"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5sdp"
@@ -69,7 +70,7 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    style="@style/Medium_TextViewStyle"
+                    style="@style/TextMediumFont"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"

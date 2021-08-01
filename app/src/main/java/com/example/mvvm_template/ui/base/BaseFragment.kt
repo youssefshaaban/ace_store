@@ -83,7 +83,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         observeViewModel()
         mActivity?.initLoaderObservable()
-        mActivity?.initMessageObservable()
+       // mActivity?.initMessageObservable()
         super.onActivityCreated(savedInstanceState)
     }
 

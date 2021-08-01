@@ -1,4 +1,4 @@
-package com.example.mvvm_template.ui.base;
+package com.example.mvvm_template.ui;
 
 import android.app.Activity;
 import android.app.Dialog;

@@ -34,7 +34,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.example.mvvm_template.App
-import com.example.mvvm_template.ui.base.LoadingDialog
+import com.example.mvvm_template.ui.LoadingDialog
+
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.sql.DataSource

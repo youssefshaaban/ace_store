@@ -13,4 +13,46 @@
     <string name="phone">رقم الجوال</string>
     <string name="hint_phone">ادخل رقم جوالك</string>
     <string name="login2">دخول</string>
+    <string name="haveNoAccount">ليس لديك حساب ؟</string>
+    <string name="newAccount">انشاء حساب جديد</string>
+    <string name="verfiy">كود التحقق</string>
+    <string name="plz_number_verify">ادخل الرمز الذي أرسلناه لك للتو علي رقمك</string>
+    <string name="nothing_comming">لم تتلقّ أي رمز ؟</string>
+    <string name="resend">إعادة إرسال</string>
+    <string name="send">إرسال</string>
+    <string name="continue_register">استكمال بيانات الحساب</string>
+    <string name="userName">اسم المستخدم</string>
+    <string name="family_name">اسم العائلة</string>
+    <string name="hint_second_name">الاسم الثاني</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="haveAccount">هل لديك حساب بالفعل ؟</string>
+    <string name="createAccount">إنشاء حساب</string>
+    <string name="validate_must_enter_usern">لابد من إدخال اسم الإسم الاول</string>
+    <string name="validate_must_enter_second_name">لابد من إدخال الإسم العائبة</string>
+    <string name="validate_must_enter_email">لابد من إدخال الأيميل</string>
+    <string name="title_home">الرئيسية</string>
+    <string name="title_cards">البطاقات</string>
+    <string name="title_purchases">مشترياتى</string>
+    <string name="title_profile">حسابى</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="menu_status">نظام الإحالة</string>
+    <string name="menu_support">الدعم الفنى</string>
+    <string name="menu_about">حول التطبيق</string>
+    <string name="menu_replacment">الإستبدال والإسترجاع</string>
+    <string name="menu_rate">قيم التطبيق</string>
+    <string name="menu_question">الأسئلة الشائعة</string>
+    <string name="menu_share_app">شارك التطبيق</string>
+    <string name="list_no_result">"لايوج بيانات "</string>
+    <string name="no_internet">لايوجد اتصال بالانترنت</string>
+    <string name="nav_header_title">زائر</string>
+    <string name="categoryCard">تصنيفات البطاقات</string>
+    <string name="orderNum">رقم الطلب :</string>
+    <string name="reOrder">إعادة الطلب</string>
+    <string name="account_info">معلومات الحساب</string>
+    <string name="voucher">قسيمة شراء</string>
+    <string name="account_setting">اعدادات الحساب</string>
+    <string name="buyNow">إشترى الأن</string>
 </resources>

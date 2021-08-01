@@ -1,6 +1,6 @@
 package com.example.mvvm_template.utils
 import android.util.Log
-
+import com.example.mvvm_template.BuildConfig
 
 
 class LogUtil {
