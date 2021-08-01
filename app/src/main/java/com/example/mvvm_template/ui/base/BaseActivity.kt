@@ -15,7 +15,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 import com.example.mvvm_template.R
+import com.example.mvvm_template.ui.LoadingDialog
 import com.example.mvvm_template.utils.showLoadingDialog
+import java.util.*
 
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
@@ -27,18 +29,18 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        performDataBinding()
         val dm = resources.displayMetrics
         val conf = resources.configuration
-//        val lang = "ar"
-//        conf.setLocale(Locale(lang.toLowerCase())) // API 17+ only.
-//       resources.updateConfiguration(conf, dm)
-        performDataBinding()
+        val lang = "ar"
+        conf.setLocale(Locale(lang.toLowerCase())) // API 17+ only.
+       resources.updateConfiguration(conf, dm)
         //added
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         observeViewModel()
         initLoaderObservable()
-        initMessageObservable()
+        //initMessageObservable()
         initHideKeyboardObservable()
     }
 
@@ -95,9 +97,9 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     open fun onError(message: String?) {
         if (message != null && !message.isEmpty()) {
-            this.showSnackBar(message)
+            this.showToast(message)
         } else {
-            this.showSnackBar(getString(R.string.some_error))
+            this.showToast(getString(R.string.some_error))
         }
     }
     open fun showMessage(@StringRes resId: Int) {
@@ -108,23 +110,23 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         onError(getString(resId))
     }
 
-    fun initMessageObservable() {
-        baseViewModel?.messageLiveDat?.observe(this) { message ->
-            if (message.type == MessageType.INFO_MSG) {
-                if (message.messageResourceId == -1) {
-                    showMessage(message.messageText)
-                } else {
-                    showMessage(message.messageResourceId)
-                }
-            } else if (message.type == MessageType.ERROR_MSG) {
-                if (message.messageResourceId == -1) {
-                    onError(message.messageText)
-                } else {
-                    onError(message.messageResourceId)
-                }
-            }
-        }
-    }
+//    fun initMessageObservable() {
+//        baseViewModel?.messageLiveDat?.observe(this) { message ->
+//            if (message.type == MessageType.INFO_MSG) {
+//                if (message.messageResourceId == -1) {
+//                    showMessage(message.messageText)
+//                } else {
+//                    showMessage(message.messageResourceId)
+//                }
+//            } else if (message.type == MessageType.ERROR_MSG) {
+//                if (message.messageResourceId == -1) {
+//                    onError(message.messageText)
+//                } else {
+//                    onError(message.messageResourceId)
+//                }
+//            }
+//        }
+//    }
 
 
     open fun showMessage(message: String?) {

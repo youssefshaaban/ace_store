@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/back_top_raduis_white"
+        android:backgroundTint="@color/back_color_page"
+        tools:context=".ui.component.main.bottom.offer.DialogOfferFragment">
+
+        <include layout="@layout/empty_recycle_layout_without_refresh"
+            android:id="@+id/content"
+            />
+
+    </LinearLayout>
+</layout>

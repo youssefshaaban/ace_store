@@ -85,7 +85,6 @@ object Dependencies {
     const val RoomKapt =
         "androidx.room:room-compiler:${Versions.AndroidX.lifeCycle}"
     const val HiltDagger = "com.google.dagger:hilt-android:${Versions.HILT_VERSION}"
-    const val HiltKapt = "com.google.dagger:hilt-compile:${Versions.HILT_VERSION}"
     const val Koin =
         "org.koin:koin-androidx-scope:${Versions.KOIN}"
 
@@ -102,6 +101,9 @@ object Dependencies {
     const val SDB = "com.intuit.sdp:sdp-android:${Versions.SDB_VERSION}"
 
     const val CIRCLE_IMAGE = "de.hdodenhof:circleimageview:${Versions.CIRCLE_IMAGE}"
+
+
+    const val RoundImageView = "com.makeramen:roundedimageview:2.3.0"
 
     const val LOADING = "com.github.ybq:Android-SpinKit:${Versions.SPIN_KIT}"
     val exo_player = arrayOf(

@@ -8,7 +8,7 @@ object Versions {
     const val targetSdkVersion = 28
     const val kotlin = "1.4.0"
     const val GLIDE = "4.11.0"
-    const val HILT_VERSION = "2.28-alpha"
+    const val HILT_VERSION = "2.31.2-alpha"
     const val androidGradlePlugin = "4.0.1"
     const val SPIN_KIT = "1.4.0"
 

@@ -1,0 +1,7 @@
+<resources>
+
+  <declare-styleable name="MaskedEditText">
+    <attr format="string" name="mask" />
+    <attr format="string" name="placeholder" />
+  </declare-styleable>
+</resources>
