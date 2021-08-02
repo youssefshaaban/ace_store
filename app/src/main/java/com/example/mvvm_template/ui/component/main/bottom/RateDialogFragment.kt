@@ -9,10 +9,12 @@ import android.view.*
 import android.widget.RelativeLayout
 import com.example.mvvm_template.R
 import com.example.mvvm_template.databinding.DialogOfferFragmentBinding
+import com.example.mvvm_template.databinding.DialogRateLayoutBinding
 import com.example.mvvm_template.ui.base.BaseFragment
 import com.example.mvvm_template.utils.configGridRecycle
+import com.example.mvvm_template.utils.configRecycle
 
-class RateDialogFragment : BaseFragment<DialogOfferFragmentBinding>() {
+class RateDialogFragment : BaseFragment<DialogRateLayoutBinding>() {
 
     companion object {
         fun newInstance() = RateDialogFragment()
@@ -20,13 +22,13 @@ class RateDialogFragment : BaseFragment<DialogOfferFragmentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
-
+        getViewDataBinding().rvProduct.configRecycle(true)
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.dialog_offer_fragment
+        return R.layout.dialog_rate_layout
     }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // the content
@@ -57,7 +59,7 @@ class RateDialogFragment : BaseFragment<DialogOfferFragmentBinding>() {
         val size = Point()
         val display = window!!.windowManager.defaultDisplay
         display.getSize(size)
-        val height = (resources.displayMetrics.heightPixels * 0.9).toInt()
+        val height = (resources.displayMetrics.heightPixels * 0.8).toInt()
         window.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             height
