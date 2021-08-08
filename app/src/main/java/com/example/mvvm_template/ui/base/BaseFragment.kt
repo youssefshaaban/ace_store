@@ -10,8 +10,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import com.example.mvvm_template.R
 
 
 abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {

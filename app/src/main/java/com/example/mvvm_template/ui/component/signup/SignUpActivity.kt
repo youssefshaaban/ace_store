@@ -9,6 +9,7 @@ import com.example.mvvm_template.databinding.ActivitySignUpBinding
 import com.example.mvvm_template.ui.base.BaseActivity
 import com.example.mvvm_template.utils.showToast
 
+
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

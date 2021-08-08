@@ -8,6 +8,8 @@ import com.example.mvvm_template.databinding.ActivityItemCategoriesBinding
 import com.example.mvvm_template.ui.base.BaseActivity
 import com.example.mvvm_template.utils.configGridRecycle
 import com.example.mvvm_template.utils.configRecycle
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class ItemCategoriesActivity : BaseActivity<ActivityItemCategoriesBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {

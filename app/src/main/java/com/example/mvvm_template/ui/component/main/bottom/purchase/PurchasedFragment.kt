@@ -15,12 +15,11 @@ import com.example.mvvm_template.databinding.FragmentPurchasedBinding
 import com.example.mvvm_template.ui.base.BaseFragment
 import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.configRecycle
-import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-@AndroidEntryPoint
+
 class PurchasedFragment : BaseFragment<FragmentPurchasedBinding>() {
 
-    val sharedViewModel: MainViewModel by activityViewModels()
+    val sharedViewModel: MainViewModel by sharedViewModel()
     override fun onAttach(context: Context) {
         super.onAttach(context)
 

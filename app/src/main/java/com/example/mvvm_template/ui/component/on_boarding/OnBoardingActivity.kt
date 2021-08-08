@@ -10,6 +10,7 @@ import com.example.mvvm_template.databinding.ActivityOnBoardingBinding
 import com.example.mvvm_template.utils.makeStatusBarTransparent
 import com.google.android.material.tabs.TabLayoutMediator
 
+
 class OnBoardingActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityOnBoardingBinding

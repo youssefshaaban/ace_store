@@ -61,4 +61,6 @@
     <string name="sendRate">إرسال التقييم</string>
     <string name="ignore">تجاهل</string>
     <string name="last_order">آخر طلب</string>
+    <string name="save">حفظ التغييرات</string>
+    <string name="cancel">الغاء</string>
 </resources>

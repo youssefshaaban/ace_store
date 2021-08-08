@@ -11,13 +11,13 @@ import androidx.fragment.app.activityViewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.databinding.ProfileFragmentBinding
 import com.example.mvvm_template.ui.base.BaseFragment
+import com.example.mvvm_template.ui.component.login.LoginActivity
 import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.ui.component.main.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-@AndroidEntryPoint
+
 class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
-    val sharedViewModel: MainViewModel by activityViewModels()
+    val sharedViewModel: MainViewModel by sharedViewModel()
     companion object {
         fun newInstance() = ProfileFragment()
     }
@@ -41,5 +41,24 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
     override fun observeViewModel() {
 
     }
+
+    private fun showMustSignInPopUp(content: String) {
+//        Builder(getBaseActivity())
+//            .setTitle(resources.getString(R.string.login))
+//            .setContent(content)
+//            .setContentColor(resources.getColor(R.color.))
+//            .setPositiveButton(R.string.login) { popUp ->
+//                popUp.dismiss()
+//                openSignIn()
+//            }
+//            .setNegativeButton(resources.getString(R.string.cancel), null)
+//            .setCanceledOnTouchOutside(true)
+//            .create()
+    }
+
+    private fun openSignIn() {
+        LoginActivity.getIntent(getViewDataBinding().root.context)
+    }
+
 
 }

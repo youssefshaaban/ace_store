@@ -17,10 +17,10 @@ import com.example.mvvm_template.ui.component.main.pojo.ActionType
 import com.example.mvvm_template.ui.component.main.pojo.MenuItem
 import com.example.mvvm_template.utils.configRecycle
 import com.example.mvvm_template.utils.observe
-import dagger.hilt.android.AndroidEntryPoint
+
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.String
-@AndroidEntryPoint
+
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 
@@ -36,7 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
     }
 
-    val viewModel:MainViewModel by viewModels()
+    val viewModel:MainViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)

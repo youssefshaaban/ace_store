@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.mvvm_template.R
 import com.example.mvvm_template.databinding.ActivityLoginBinding
 import com.example.mvvm_template.ui.base.BaseActivity
-import com.example.mvvm_template.ui.component.verfication.VerficationActivity
+
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {

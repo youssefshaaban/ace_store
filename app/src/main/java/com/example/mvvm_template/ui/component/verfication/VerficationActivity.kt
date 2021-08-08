@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mvvm_template.R
-import com.example.mvvm_template.ui.component.signup.SignUpActivity
+
 
 class VerficationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
