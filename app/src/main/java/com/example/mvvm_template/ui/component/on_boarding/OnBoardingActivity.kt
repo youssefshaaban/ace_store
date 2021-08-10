@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.mvvm_template.R
 import com.example.mvvm_template.databinding.ActivityOnBoardingBinding
+import com.example.mvvm_template.ui.component.login.LoginActivity
+import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.utils.makeStatusBarTransparent
+import com.example.mvvm_template.utils.startActivityWithFade
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -35,11 +38,13 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun goToHome() {
-
+        startActivityWithFade(MainActivity.getIntent(this))
+        finishAffinity()
     }
 
     private fun goToLogin() {
-
+        startActivityWithFade(LoginActivity.getIntent(this))
+        finishAffinity()
     }
 
     companion object {

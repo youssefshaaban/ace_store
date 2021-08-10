@@ -64,5 +64,10 @@
     <string name="review">أراء العملاء</string>
     <string name="rateMe">قم بتقيمنا</string>
     <string name="descRate">تقييمك للتطبيق يساعدنا في نشره و تطوير المتجر اكثر. اذا كانت تجربتك حلوة معنا لا تنسى تقيمنا</string>
+    <string name="dateOrder">تاريخ الطلب</string>
+    <string name="copoun">لديك كوبون خصم ؟</string>
+    <string name="total">الاجمالي</string>
+    <string name="apply">تطبيق</string>
+    <string name="hintCopoun">كوبون الخصم</string>
 
 </resources>
