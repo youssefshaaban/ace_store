@@ -85,11 +85,11 @@ object Dependencies {
     const val RoomKapt =
         "androidx.room:room-compiler:${Versions.AndroidX.lifeCycle}"
     const val HiltDagger = "com.google.dagger:hilt-android:${Versions.HILT_VERSION}"
-    const val Koin =
-        "org.koin:koin-androidx-scope:${Versions.KOIN}"
+//    const val Koin =
+//        "org.koin:koin-androidx-scope:${Versions.KOIN}"
 
     val KoinAndroid = arrayOf(
-        Koin,
+        "org.koin:koin-androidx-scope:${Versions.KOIN}",
         "org.koin:koin-androidx-viewmodel:${Versions.KOIN}",
         "org.koin:koin-androidx-ext:${Versions.KOIN}"
     )

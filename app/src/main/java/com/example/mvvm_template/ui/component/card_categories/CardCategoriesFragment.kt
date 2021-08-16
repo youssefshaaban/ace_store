@@ -1,22 +1,28 @@
-package com.example.mvvm_template.ui.component.item_categories
+package com.example.mvvm_template.ui.component.card_categories
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.mvvm_template.R
 import com.example.mvvm_template.databinding.ActivityItemCategoriesBinding
-import com.example.mvvm_template.ui.base.BaseActivity
-import com.example.mvvm_template.utils.configGridRecycle
-import com.example.mvvm_template.utils.configRecycle
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.mvvm_template.ui.base.BaseFragment
+import com.example.mvvm_template.utils.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class ItemCategoriesActivity : BaseActivity<ActivityItemCategoriesBinding>() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class CardCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() {
+
+    val viewModel:CardViewModel by sharedViewModel()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2,true)
         getViewDataBinding().content.emptyRecycle.setEmptyView(getViewDataBinding().content.contentEmptyView)
         onClickListner()
+        if (arguments?.getBoolean("isSearch",false)==null||requireArguments().getBoolean("isSearch",false)){
+            getViewDataBinding().lastOrder.toGone()
+        }else{
+            getViewDataBinding().lastOrder.toVisible()
+        }
     }
 
     private fun onClickListner() {
@@ -37,6 +43,9 @@ class ItemCategoriesActivity : BaseActivity<ActivityItemCategoriesBinding>() {
     }
 
     override fun observeViewModel() {
-
+        observe(viewModel.searchQueryLiveData){
+            // perform search
+            getViewDataBinding().root.showToast(it,10000)
+        }
     }
 }

@@ -5,17 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.component.item_categories.ItemCategoriesActivity">
+    tools:context=".ui.component.card_categories.CardCategoriesFragment">
 
-    <include layout="@layout/app_bar_layout"
-        android:id="@+id/app_bar"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:id="@+id/contentFilter"
-        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="wrap_content">
