@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/back_color_page"
+        tools:context=".ui.component.profile_info.ProfileInfoActivity">
+
+        <include layout="@layout/app_bar_layout"
+            android:id="@+id/app_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextRegularFont"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            android:textColor="@color/txt_color2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/descRate"
+            android:id="@+id/description"
+            />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_online_review"
+            app:layout_constraintBottom_toTopOf="@id/rateMe"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/_10sdp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:id="@+id/rateMe"
+            android:text="@string/rateMe"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

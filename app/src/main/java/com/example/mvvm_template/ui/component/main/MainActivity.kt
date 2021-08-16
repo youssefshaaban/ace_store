@@ -1,5 +1,7 @@
 package com.example.mvvm_template.ui.component.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +17,7 @@ import com.example.mvvm_template.ui.base.BaseActivity
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
 import com.example.mvvm_template.ui.component.main.pojo.MenuItem
+import com.example.mvvm_template.ui.component.on_boarding.OnBoardingActivity
 import com.example.mvvm_template.utils.configRecycle
 import com.example.mvvm_template.utils.observe
 
@@ -82,4 +85,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+    companion object {
+        fun getIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 }

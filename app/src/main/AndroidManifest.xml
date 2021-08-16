@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVM_Template">
+        <activity android:name=".ui.component.reorder.ReorderActivity"></activity>
+        <activity android:name=".ui.component.main.rate_app.RateMeActivity" />
         <activity
             android:name=".ui.component.card_categories.CardCategoriesActivity"
             android:exported="true" />

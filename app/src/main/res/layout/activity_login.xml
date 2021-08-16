@@ -130,6 +130,7 @@
                     android:textColor="@color/color_txt_new_account"
                     android:text="@string/newAccount"
                     android:padding="@dimen/_5sdp"
+                    android:id="@+id/newAccount"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 

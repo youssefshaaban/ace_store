@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import com.example.mvvm_template.R
 import com.example.mvvm_template.data.pojo.LoginResponse
+import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.ui.component.on_boarding.OnBoardingActivity
 import com.example.mvvm_template.utils.SavePrefs
 import com.example.mvvm_template.utils.startActivityWithFade
@@ -20,8 +21,10 @@ class SplashActivity : AppCompatActivity() {
             val user = SavePrefs(this, LoginResponse::class.java).load()
             if (user == null) {
                 startActivityWithFade(OnBoardingActivity.getIntent(this))
+                finishAffinity()
             } else {
-
+                startActivityWithFade(MainActivity.getIntent(this))
+                finishAffinity()
             }
             finish()
         }, 2000)
