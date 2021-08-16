@@ -1,5 +1,7 @@
 package com.example.mvvm_template.ui.component.search
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +11,7 @@ import com.example.mvvm_template.databinding.ActivitySearchBinding
 import com.example.mvvm_template.ui.base.BaseActivity
 import com.example.mvvm_template.ui.component.card_categories.CardCategoriesFragment
 import com.example.mvvm_template.ui.component.card_categories.CardViewModel
+import com.example.mvvm_template.ui.component.main.rate_app.RateMeActivity
 import com.example.mvvm_template.utils.RxSearchObservable.getQueryTextChangeStateFlow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -73,5 +76,9 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    companion object{
+        fun getIntent(context: Context): Intent = Intent(context, SearchActivity::class.java)
     }
 }

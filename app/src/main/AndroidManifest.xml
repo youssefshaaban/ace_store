@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVM_Template">
-        <activity android:name=".ui.component.reorder.ReorderActivity"></activity>
+        <activity android:name=".ui.component.main.web_view.WebViewActivity"></activity>
+        <activity android:name=".ui.component.reorder.ReorderActivity" />
         <activity android:name=".ui.component.main.rate_app.RateMeActivity" />
         <activity
             android:name=".ui.component.card_categories.CardCategoriesActivity"
@@ -33,7 +34,7 @@
         <activity
             android:name=".ui.component.item_detail.ItemDetailActivity"
             android:exported="true" />
-        <activity android:name=".ui.component.main.MainActivity"></activity>
+        <activity android:name=".ui.component.main.MainActivity" />
         <activity android:name=".ui.component.signup.SignUpActivity" />
         <activity android:name=".ui.component.verfication.VerficationActivity" />
         <activity android:name=".ui.component.login.LoginActivity" />
