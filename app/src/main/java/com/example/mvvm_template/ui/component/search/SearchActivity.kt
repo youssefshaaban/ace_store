@@ -19,8 +19,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SearchActivity : BaseActivity<ActivitySearchBinding>() {
-    val scope = CoroutineScope(Job() + Dispatchers.Main)
+
     val viewModel: CardViewModel by viewModel()
+    val scope = CoroutineScope(Job() + Dispatchers.Main)
     lateinit var job: Job
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

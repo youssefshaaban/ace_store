@@ -112,6 +112,10 @@ object Dependencies {
         "com.google.android.exoplayer:exoplayer-dash:${Versions.EXO_VERSION}",
         "com.google.android.exoplayer:exoplayer-ui:${Versions.EXO_VERSION}"
     )
+    val hiltAndroid = "com.google.dagger:hilt-android:${Versions.HILT}"
+    val hiltAndroidCompiler = "com.google.dagger:hilt-compiler:${Versions.HILT}"
 
-
+}
+object BuildPlugins {
+    val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}"
 }

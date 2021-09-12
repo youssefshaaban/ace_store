@@ -8,12 +8,25 @@ import com.example.mvvm_template.databinding.ActivityLoginBinding
 import com.example.mvvm_template.ui.base.BaseActivity
 import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.utils.startActivityWithFade
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         performAction()
+        GlobalScope.launch {
+            flowOf(2,3,2,5).flowOn(Dispatchers.Main).collect {
+                
+            }
+        }
+
     }
 
     private fun performAction() {

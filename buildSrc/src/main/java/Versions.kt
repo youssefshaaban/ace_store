@@ -11,7 +11,7 @@ object Versions {
     const val HILT_VERSION = "2.31.2-alpha"
     const val androidGradlePlugin = "4.0.1"
     const val SPIN_KIT = "1.4.0"
-
+    val HILT = "2.37"
     object AndroidX {
         const val main = "1.3.1"
         const val material = "1.0.0"
