@@ -1,4 +1,4 @@
-package com.example.mvvm_template
+package com.example.mvvm_template.core.common
 
 import android.content.Context
 import android.provider.Settings

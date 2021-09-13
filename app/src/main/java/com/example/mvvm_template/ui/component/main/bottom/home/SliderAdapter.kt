@@ -5,12 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_template.R
-import com.example.mvvm_template.data.pojo.Category
-import com.example.mvvm_template.databinding.ItemCategoryLayoutBinding
-import com.example.mvvm_template.databinding.ItemRvLayoutBinding
+import com.example.mvvm_template.domain.entity.Category
 import com.example.mvvm_template.databinding.ItemSlideLayoutBinding
-import com.example.mvvm_template.ui.component.main.pojo.ActionType
-import com.example.mvvm_template.ui.component.main.pojo.MenuItem
 
 class SliderAdapter(val list: List<Category>?=null, val clickItem:(Category)->Unit) :
     RecyclerView.Adapter<SliderAdapter.SingleRow>() {

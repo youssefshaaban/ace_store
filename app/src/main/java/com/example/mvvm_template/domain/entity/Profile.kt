@@ -1,4 +1,4 @@
-package com.example.mvvm_template.data.remote_service.response
+package com.example.mvvm_template.domain.entity
 
 data class Profile(
     val email: String,

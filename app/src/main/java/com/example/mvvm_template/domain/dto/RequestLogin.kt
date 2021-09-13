@@ -1,4 +1,4 @@
-package com.example.mvvm_template.data.remote_service.request
+package com.example.mvvm_template.domain.dto
 
 data class RequestLogin(
     val grantType: String,

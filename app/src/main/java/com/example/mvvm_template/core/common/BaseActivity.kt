@@ -1,20 +1,15 @@
-package com.example.mvvm_template.core
+package com.example.mvvm_template.core.common
 
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-import com.example.mvvm_template.R
 import com.example.mvvm_template.ui.LoadingDialog
 import com.example.mvvm_template.utils.showLoadingDialog
 import java.util.*
@@ -23,7 +18,7 @@ import java.util.*
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     private lateinit var mViewDataBinding: T
-
+    var mProgressDialog: LoadingDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         performDataBinding()
@@ -31,13 +26,12 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         val conf = resources.configuration
         val lang = "ar"
         conf.setLocale(Locale(lang.toLowerCase())) // API 17+ only.
-       resources.updateConfiguration(conf, dm)
+        resources.updateConfiguration(conf, dm)
         //added
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
     }
-
 
 
     open fun showLoading() {
@@ -74,8 +68,6 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
     }
-
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

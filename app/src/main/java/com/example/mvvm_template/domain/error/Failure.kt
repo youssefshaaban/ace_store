@@ -1,4 +1,4 @@
-package com.example.mvvm_template.data.error
+package com.example.mvvm_template.domain.error
 
 
 sealed class Failure {
