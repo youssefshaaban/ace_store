@@ -1,4 +1,4 @@
-package com.example.mvvm_template.ui.base
+package com.example.mvvm_template.core
 
 
 import android.content.Intent
@@ -35,17 +35,10 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         //added
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        observeViewModel()
-        initLoaderObservable()
-        //initMessageObservable()
-        initHideKeyboardObservable()
+
     }
 
 
-
-    open fun setUpViewModel(baseViewModel: BaseViewModel) {
-        this.baseViewModel = baseViewModel
-    }
 
     open fun showLoading() {
         hideLoading()
@@ -67,53 +60,12 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
      */
     @LayoutRes
     abstract fun getLayoutId(): Int
-    fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
 
     private fun performDataBinding() {
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
         mViewDataBinding.executePendingBindings()
 
     }
-
-
-    fun initLoaderObservable() {
-        baseViewModel?.loaderLiveDat?.observe(this) {
-            if (it) {
-                showLoading()
-            } else {
-                hideLoading()
-            }
-        }
-    }
-
-    private  fun initHideKeyboardObservable() {
-        baseViewModel?.hideKeyboardLiveDat?.observe(this) { v ->  }
-    }
-
-    open fun onError(message: String?) {
-        if (message != null && !message.isEmpty()) {
-            this.showToast(message)
-        } else {
-            this.showToast(getString(R.string.some_error))
-        }
-    }
-    open fun showMessage(@StringRes resId: Int) {
-        showMessage(getString(resId))
-    }
-
-    open fun onError(@StringRes resId: Int) {
-        onError(getString(resId))
-    }
-    open fun showMessage(message: String?) {
-        if (message != null && message.isNotEmpty()) {
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, getString(R.string.some_error), Toast.LENGTH_LONG).show()
-        }
-    }
-
 
     fun getViewDataBinding(): T {
         return mViewDataBinding

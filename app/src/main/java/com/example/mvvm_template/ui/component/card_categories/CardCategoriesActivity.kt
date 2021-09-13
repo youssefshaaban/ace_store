@@ -22,7 +22,4 @@ class CardCategoriesActivity : BaseActivity<ActivityCardCategoriesBinding>() {
         return R.layout.activity_card_categories
     }
 
-    override fun observeViewModel() {
-
-    }
 }
