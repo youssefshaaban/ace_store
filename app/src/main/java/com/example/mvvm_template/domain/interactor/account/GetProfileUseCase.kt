@@ -13,8 +13,8 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class GetProfileUseCase @Inject constructor(private val accountRepository: AccountRepository, private val ioDispatcher: CoroutineContext):
-    UseCase<Nothing,DataState<Profile> > {
-    override fun execute(param: Nothing?): Flow<DataState<Profile>> {
+    UseCase<Unit,DataState<Profile> > {
+    override fun execute(param: Unit): Flow<DataState<Profile>> {
         return flow {
             emit(accountRepository.getProfile())
         }.flowOn(ioDispatcher)

@@ -6,6 +6,7 @@ import com.example.mvvm_template.data.remote_service.response.ProfileResponse
 import com.example.mvvm_template.data.remote_service.response.ReponseOTP
 import com.example.mvvm_template.domain.interactor.account.GenerateOtpUseCase
 import com.example.mvvm_template.domain.interactor.account.LoginUseCaseWithOt
+import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.domain.interactor.account.UpdateProfileUseCase
 import retrofit2.Response
 import retrofit2.http.*
@@ -27,5 +28,9 @@ interface AccountApiService {
 
     @DELETE("Account/Logout")
     suspend fun logOut(): Response<BaseReponse<Boolean>>
+
+    @PUT("Account/FirebaseToken/Update")
+    suspend fun updateFireBase(updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase): Response<BaseReponse<Boolean>>
+
 
 }

@@ -8,6 +8,7 @@ import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.domain.entity.Profile
 import com.example.mvvm_template.domain.interactor.account.GetProfileUseCase
 import com.example.mvvm_template.domain.interactor.account.LogOutUseCase
+import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
-    private val logOutUseCase: LogOutUseCase
+    private val logOutUseCase: LogOutUseCase,
+    private val updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase
 ) : ViewModel() {
 
     val title = MutableLiveData<String>()
@@ -27,7 +29,7 @@ class MainViewModel @Inject constructor(
     val observeSuccess: LiveData<DataState<Boolean>> get() = successDataLiveDate
     fun getProfile() {
         viewModelScope.launch {
-            getProfileUseCase.execute(null).collect {
+            getProfileUseCase.execute(Unit).collect {
                 profileDataLiveDate.value = it
             }
         }
@@ -35,8 +37,16 @@ class MainViewModel @Inject constructor(
 
     fun logOut() {
         viewModelScope.launch {
-            logOutUseCase.execute(null).collect {
+            logOutUseCase.execute(Unit).collect {
                 successDataLiveDate.value=it
+            }
+        }
+    }
+
+    fun updateFirebaseToken(param:UpdateFirBaseTokenUseCase.RequestUpdateFirbase){
+        viewModelScope.launch {
+            updateFirBaseTokenUseCase.execute(param).collect {
+
             }
         }
     }

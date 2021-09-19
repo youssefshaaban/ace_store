@@ -16,7 +16,7 @@ class LoginUseCaseWithOt @Inject constructor(
     private val accountRepository: AccountRepository,
     private val ioDispatcher: CoroutineContext
 ) : UseCase<LoginUseCaseWithOt.RequestLogin, DataState<User>> {
-    override fun execute(param: RequestLogin?): Flow<DataState<User>> {
+    override fun execute(param: RequestLogin): Flow<DataState<User>> {
         val validate=validate(param!!)
         return if (validate!=null){
             flow {

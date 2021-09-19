@@ -6,6 +6,7 @@ import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.domain.entity.Profile
 import com.example.mvvm_template.domain.interactor.account.GenerateOtpUseCase
 import com.example.mvvm_template.domain.interactor.account.LoginUseCaseWithOt
+import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.domain.interactor.account.UpdateProfileUseCase
 import retrofit2.http.*
 
@@ -21,4 +22,6 @@ interface AccountRepository {
     suspend fun updateProfile(@Body requestProfile: UpdateProfileUseCase.UpdateRequestProfile): DataState<Profile>
 
     suspend fun logOut(): DataState<Boolean>
+
+    suspend fun updateFireBaseToken(updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase):DataState<Boolean>
 }

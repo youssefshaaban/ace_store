@@ -15,7 +15,7 @@ import kotlin.coroutines.CoroutineContext
 
 class GenerateOtpUseCase @Inject constructor(private val accountRepository: AccountRepository, private val ioDispatcher: CoroutineContext):
     UseCase<GenerateOtpUseCase.RequestOTP,DataState<Boolean> > {
-    override fun execute(param: RequestOTP?): Flow<DataState<Boolean>> {
+    override fun execute(param: RequestOTP): Flow<DataState<Boolean>> {
         if (validate(param!!)!=null){
             return flow {
                 emit(DataState.Validation(validate(param)!!))

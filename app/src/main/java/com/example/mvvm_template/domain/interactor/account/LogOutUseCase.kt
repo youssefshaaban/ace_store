@@ -10,8 +10,8 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class LogOutUseCase @Inject constructor(private val accountRepository: AccountRepository, private val ioDispatcher: CoroutineContext)
-    : UseCase<Nothing, DataState<Boolean>> {
-    override fun execute(param: Nothing?): Flow<DataState<Boolean>> {
+    : UseCase<Unit, DataState<Boolean>> {
+    override fun execute(param: Unit): Flow<DataState<Boolean>> {
         return  flow {
             emit(accountRepository.logOut())
         }.flowOn(ioDispatcher)
