@@ -4,13 +4,11 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.example.mvvm_template.App
-import com.example.mvvm_template.BASE_URL
+import com.example.mvvm_template.core.common.BASE_URL
 import com.example.mvvm_template.utils.LogUtil
-
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
-import okhttp3.logging.HttpLoggingInterceptor
 import okio.Buffer
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -56,54 +54,28 @@ class ServiceGenerator() {
         val original = chain.request()
         val requestBuilder = original.newBuilder()
             .header(contentType, contentTypeValue)
-            .method(original.method, original.body)
-
+        App.getUser()?.let {
+            requestBuilder.addHeader(authrization,"Bearer ${it.token}")
+        }
         requestBuilder.addHeader(academyId, academyIdValue)
         val request = requestBuilder.build()
-        try {
-            val url = requestBuilder.build().url.toString()
-            LogUtil.error("urlHelper", url)
-            LogUtil.error(
-                "bodyHelper",
-                bodyToString(request.body) + ""
-            )
-            LogUtil.error(
-                "headerHelper",
-                request.headers.toString()
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
         chain.proceed(request)
     }
 
 
-    private fun bodyToString(body: RequestBody?): String {
-        try {
-            val buffer = Buffer()
-            if (body != null)
-                body.writeTo(buffer)
-            else
-                return ""
-            return buffer.readUtf8()
-        } catch (e: IOException) {
-            return "did not work"
-        }
-    }
-
-    private val logger: HttpLoggingInterceptor
-        get() {
-            val loggingInterceptor = HttpLoggingInterceptor()
-//            if (BuildConfig.DEBUG) {
-//                loggingInterceptor.apply { level = HttpLoggingInterceptor.Level.BODY }
-//            }
-            loggingInterceptor.apply { level = HttpLoggingInterceptor.Level.BODY }
-            return loggingInterceptor
-        }
+//    private val logger: HttpLoggingInterceptor
+//        get() {
+//            val loggingInterceptor = HttpLoggingInterceptor()
+////            if (BuildConfig.DEBUG) {
+////                loggingInterceptor.apply { level = HttpLoggingInterceptor.Level.BODY }
+////            }
+//            loggingInterceptor.apply { level = HttpLoggingInterceptor.Level.BODY }
+//            return loggingInterceptor
+//        }
 
     init {
         okHttpBuilder.addInterceptor(headerInterceptor)
-        okHttpBuilder.addInterceptor(logger)
+
         okHttpBuilder.addInterceptor(chuckerInterceptor)
         okHttpBuilder.connectTimeout(timeoutConnect.toLong(), TimeUnit.SECONDS)
         okHttpBuilder.readTimeout(timeoutRead.toLong(), TimeUnit.SECONDS)

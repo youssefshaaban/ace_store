@@ -14,3 +14,11 @@ fun File.toKiloBytes():Int{
 fun File.toGigaBytes():Int{
     return (this.length()/(1024*1024*1024)).toInt()
 }
+
+fun getPhoneWithoutZero(mobil: String): String {
+    var phone = mobil
+    if (phone.startsWith("0")) {
+        phone = phone.removePrefix("0")
+    }
+    return phone
+}

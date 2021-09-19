@@ -2,21 +2,22 @@ package com.example.mvvm_template.data.repositery
 
 import android.util.Log
 import com.example.mvvm_template.core.common.DataState
-import com.example.mvvm_template.domain.interactor.BaseDataSource
+import com.example.mvvm_template.data.mapper.MapProfileReponseToProfile
+import com.example.mvvm_template.data.remote_service.BaseDataSource
 import com.example.mvvm_template.data.remote_service.api.AccountApiService
-import com.example.mvvm_template.domain.dto.RequestLogin
-import com.example.mvvm_template.domain.dto.RequestOTP
-import com.example.mvvm_template.domain.dto.RequestProfile
-import com.example.mvvm_template.data.remote_service.response.LoginResponse
-import com.example.mvvm_template.domain.entity.Authenticate
-import com.example.mvvm_template.domain.entity.Profile
-import com.example.mvvm_template.domain.repository.AccountRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
-class AccountRepoImp(private val accountApiService: AccountApiService) :
+import com.example.mvvm_template.domain.entity.User
+import com.example.mvvm_template.domain.entity.Profile
+import com.example.mvvm_template.domain.interactor.account.GenerateOtpUseCase
+import com.example.mvvm_template.domain.interactor.account.LoginUseCaseWithOt
+import com.example.mvvm_template.domain.interactor.account.UpdateProfileUseCase
+import com.example.mvvm_template.domain.repository.AccountRepository
+import javax.inject.Inject
+
+class AccountRepoImp @Inject constructor(private val accountApiService: AccountApiService) :
     AccountRepository, BaseDataSource() {
-    override suspend fun generateOtp(requestOTP: RequestOTP): DataState<Boolean> {
+    private val mapProfileReponseToProfile=MapProfileReponseToProfile()
+    override suspend fun generateOtp(requestOTP: GenerateOtpUseCase.RequestOTP): DataState<Boolean> {
            val res=getResult {
                 accountApiService.generateOtp(requestOTP)
             }
@@ -24,39 +25,25 @@ class AccountRepoImp(private val accountApiService: AccountApiService) :
             Log.e("code",res.data.result.code)
             DataState.Success(true)
         }else{
-            DataState.Error(res as DataState.Error)
+            DataState.Error((res as DataState.Error).error)
         }
-//            return flow {
-//                when (result) {
-//                    is DataState.Success -> {
-//                        emit(DataState.Success(result.data.result))
-//                    }
-//                    is DataState.Error -> {
-//                       emit( DataState.Error(result))
-//                    }
-//                    else -> {
-//                        emit(DataState.Loading)
-//                    }
-//                }
-//            }
     }
 
-    override suspend fun login(registerRequest: RequestLogin): DataState<Authenticate> {
+    override suspend fun login(registerRequest: LoginUseCaseWithOt.RequestLogin): DataState<User> {
         val res=getResult {
             accountApiService.login(registerRequest)
         }
         return if (res is DataState.Success){
-            DataState.Success(Authenticate(accountStatus = res.data.result.accountStatus,
+            DataState.Success(User(accountStatus = res.data.result.accountStatus,
                 refreshToken = res.data.result.refreshToken,
                 token = res.data.result.token,
                 imagePath = res.data.result.imagePath,
-                isCompleteRegistration = res.data.result.isCompleteRegistration,
                 userId = res.data.result.userId,
                 name = res.data.result.name,
                 tokenExpirationDate = res.data.result.tokenExpirationDate
                 ))
         }else{
-            DataState.Error(res as DataState.Error)
+            DataState.Error((res as DataState.Error).error)
         }
     }
 
@@ -66,49 +53,27 @@ class AccountRepoImp(private val accountApiService: AccountApiService) :
         val result=getResult {
             accountApiService.getProfile()
         }
-        return if (result is DataState.Success){
-            DataState.Success(result.data.result)
-        }else{
-            DataState.Error(result as DataState.Error)
+        return when (result) {
+            is DataState.Success -> {
+                DataState.Success(mapProfileReponseToProfile.map(result.data.result))
+            }
+            else -> {
+                DataState.Error((result as DataState.Error).error)
+            }
         }
-//        return flow {
-//            when (result) {
-//                is DataState.Success -> {
-//                    emit(DataState.Success(result.data.result))
-//                }
-//                is DataState.Error -> {
-//                    emit( DataState.Error(result))
-//                }
-//                else -> {
-//                    emit(DataState.Loading)
-//                }
-//            }
-//        }
     }
 
-    override suspend fun updateProfile(requestProfile: RequestProfile): DataState<Profile> {
-       val result=getResult {
-            accountApiService.updateProfile(requestProfile)
+    override suspend fun updateProfile(requestProfile: UpdateProfileUseCase.UpdateRequestProfile): DataState<Profile> {
+        val result=getResult {
+            accountApiService.updateProfile(requestProfile.token,requestProfile)
         }
         return if (result is DataState.Success){
-            DataState.Success(result.data.result)
+            DataState.Success(mapProfileReponseToProfile.map(result.data.result))
         }else{
-            DataState.Error(result as DataState.Error)
+            DataState.Error((result as DataState.Error).error)
         }
-//        return flow {
-//            when (result) {
-//                is DataState.Success -> {
-//                    emit(DataState.Success(result.data.result))
-//                }
-//                is DataState.Error -> {
-//                    emit( DataState.Error(result))
-//                }
-//                else -> {
-//                    emit(DataState.Loading)
-//                }
-//            }
-//        }
     }
+
 
     override suspend fun logOut():DataState<Boolean> {
         val result=getResult {
@@ -117,20 +82,7 @@ class AccountRepoImp(private val accountApiService: AccountApiService) :
         return if (result is DataState.Success){
             DataState.Success(result.data.result)
         }else{
-            DataState.Error(result as DataState.Error)
+            DataState.Error((result as DataState.Error).error)
         }
-//        return flow {
-//            when (result) {
-//                is DataState.Success -> {
-//                    emit(DataState.Success(result.data.result))
-//                }
-//                is DataState.Error -> {
-//                    emit( DataState.Error(result))
-//                }
-//                else -> {
-//                    emit(DataState.Loading)
-//                }
-//            }
-//        }
     }
 }

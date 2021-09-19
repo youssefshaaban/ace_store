@@ -8,11 +8,11 @@ import android.os.Bundle
 import android.view.*
 import android.widget.RelativeLayout
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.databinding.DialogOfferFragmentBinding
 import com.example.mvvm_template.databinding.DialogRateLayoutBinding
-import com.example.mvvm_template.ui.base.BaseFragment
-import com.example.mvvm_template.utils.configGridRecycle
 import com.example.mvvm_template.utils.configRecycle
+
 
 class RateDialogFragment : BaseFragment<DialogRateLayoutBinding>() {
 

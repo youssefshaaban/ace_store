@@ -2,9 +2,13 @@ package com.example.mvvm_template.ui.component.card_categories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mvvm_template.ui.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 
-class CardViewModel : BaseViewModel() {
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class CardViewModel @Inject constructor() : ViewModel() {
     private val searchQueryPrivateLive = MutableLiveData<String>()
     val searchQueryLiveData: LiveData<String> get() = searchQueryPrivateLive
 

@@ -9,6 +9,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
+import com.example.mvvm_template.R
+import com.example.mvvm_template.domain.error.Failure
 
 
 abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
@@ -29,6 +31,15 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
             this.mActivity = context
         }
     }
+
+    fun handleFaluir(error: Failure) {
+        when (error) {
+            is Failure.UnknownError -> mActivity?.displayError(error.message)
+            is Failure.NetworkConnection -> mActivity?.displayError(getString(R.string.check_your_notwrk))
+            is Failure.ServerError -> mActivity?.displayError(getString(R.string.something_wron))
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

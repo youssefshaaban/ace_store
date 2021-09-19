@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.databinding.FragmentCardsBinding
-import com.example.mvvm_template.ui.base.BaseFragment
+
 import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.configRecycle
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+
 
 class CardsFragment : BaseFragment<FragmentCardsBinding>() {
 
-    val sharedViewModel:MainViewModel by sharedViewModel()
+    val sharedViewModel:MainViewModel by activityViewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

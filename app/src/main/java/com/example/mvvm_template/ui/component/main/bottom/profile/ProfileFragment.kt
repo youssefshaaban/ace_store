@@ -1,23 +1,24 @@
 package com.example.mvvm_template.ui.component.main.bottom.profile
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.BaseFragment
+import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.databinding.ProfileFragmentBinding
-import com.example.mvvm_template.ui.base.BaseFragment
-import com.example.mvvm_template.ui.component.login.LoginActivity
-import com.example.mvvm_template.ui.component.main.MainActivity
+import com.example.mvvm_template.domain.entity.Profile
+import com.example.mvvm_template.domain.entity.User
+import com.example.mvvm_template.ui.component.login.GenerateOtpActivity
 import com.example.mvvm_template.ui.component.main.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.example.mvvm_template.utils.loadImage
+import com.example.mvvm_template.utils.observe
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
-    val sharedViewModel: MainViewModel by sharedViewModel()
+    val sharedViewModel: MainViewModel by activityViewModels()
     companion object {
         fun newInstance() = ProfileFragment()
     }
@@ -32,6 +33,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedViewModel.title.value=getString(R.string.title_profile)
+
     }
 
     override fun getLayoutId(): Int {
@@ -39,9 +41,21 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
     }
 
     override fun observeViewModel() {
-
+        observe(sharedViewModel.observProfile,::handelDataStatVerifyOTP)
     }
 
+    private fun handelDataStatVerifyOTP(dataState: DataState<Profile>) {
+        when (dataState) {
+            is DataState.Success -> {
+                getViewDataBinding().name.text=dataState.data.name
+                getViewDataBinding().imageView.loadImage(dataState.data.imagePath,R.drawable.bg_no_image)
+                getViewDataBinding().phone.text=dataState.data.mobileNumber
+            }
+            is DataState.Error -> {
+               handleFaluir(dataState.error)
+            }
+        }
+    }
     private fun showMustSignInPopUp(content: String) {
 //        Builder(getBaseActivity())
 //            .setTitle(resources.getString(R.string.login))
@@ -57,7 +71,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
     }
 
     private fun openSignIn() {
-        LoginActivity.getIntent(getViewDataBinding().root.context)
+        GenerateOtpActivity.getIntent(getViewDataBinding().root.context)
     }
 
 

@@ -24,7 +24,9 @@
         android:textColor="@color/txt_color1"
         style="@style/TextBoldFont"
         android:textSize="@dimen/text_size16"
-        android:text="@string/title1"
+        android:gravity="center"
+        android:padding="@dimen/dimen10"
+        android:layout_margin="@dimen/dimen10"
         android:id="@+id/title"
         android:layout_height="wrap_content"/>
 

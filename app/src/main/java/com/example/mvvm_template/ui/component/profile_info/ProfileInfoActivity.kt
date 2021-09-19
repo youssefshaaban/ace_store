@@ -3,8 +3,9 @@ package com.example.mvvm_template.ui.component.profile_info
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.databinding.ActivityProfileInfoBinding
-import com.example.mvvm_template.ui.base.BaseActivity
+
 
 
 class ProfileInfoActivity : BaseActivity<ActivityProfileInfoBinding>() {
@@ -19,7 +20,4 @@ class ProfileInfoActivity : BaseActivity<ActivityProfileInfoBinding>() {
         return R.layout.activity_profile_info
     }
 
-    override fun observeViewModel() {
-
-    }
 }

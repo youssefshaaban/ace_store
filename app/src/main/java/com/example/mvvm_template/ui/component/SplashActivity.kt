@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.example.mvvm_template.R
-import com.example.mvvm_template.data.pojo.LoginResponse
+import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.ui.component.on_boarding.OnBoardingActivity
 import com.example.mvvm_template.utils.SavePrefs
@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Handler(Looper.getMainLooper()).postDelayed({
-            val user = SavePrefs(this, LoginResponse::class.java).load()
+            val user = SavePrefs(this, User::class.java).load()
             if (user == null) {
                 startActivityWithFade(OnBoardingActivity.getIntent(this))
                 finishAffinity()

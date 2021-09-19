@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="baseViewModel"
-            type="com.example.mvvm_template.ui.base.BaseViewModel" />
-        <import type="com.example.mvvm_template.utils.DataStatus"/>
-        <import type="android.view.View"/>
-    </data>
 
     <LinearLayout
         android:id="@+id/content_general"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="@{baseViewModel.dataLoadingEvent ==  DataStatus.INSTANCE.SHOW_DATA ? View.GONE : View.VISIBLE}"
+
    >
 
         <LinearLayout
@@ -30,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:visibility="@{baseViewModel.dataLoadingEvent ==  DataStatus.INSTANCE.NO_DATA ? View.VISIBLE : View.GONE}"
+
                 android:orientation="vertical"
                 tools:ignore="UseCompoundDrawables">
 
@@ -59,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="@{baseViewModel.dataLoadingEvent ==  DataStatus.INSTANCE.NO_INTERNET ? View.VISIBLE : View.GONE}"
+
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView

@@ -7,6 +7,8 @@ interface AppNavigator {
 }
 
 enum class Screen{
-    MAP,
-    RESTAURANT
+    GENERATE_OTP,
+    VERIFY_CODE,
+    COMPLETE_REGISTRATION,
+    HOME
 }

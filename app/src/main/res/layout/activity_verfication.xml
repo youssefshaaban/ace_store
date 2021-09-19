@@ -4,66 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/back_color_page1"
-        >
+        android:background="@color/back_color_page1">
+
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/back"
             style="@style/TextRegularFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
             android:padding="@dimen/_5sdp"
             android:src="@drawable/ic_back"
-            android:id="@+id/back"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="@dimen/_20sdp"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:id="@+id/txt_login"
             style="@style/TextBoldFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_60sdp"
             android:text="@string/verfiy"
             android:textColor="@color/white"
-            android:id="@+id/txt_login"
             android:textSize="@dimen/text_size18"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_login"
             android:layout_marginTop="@dimen/_20sdp"
-            android:orientation="vertical"
             android:background="@drawable/back_top_raduis_white"
-            >
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_login">
 
             <TextView
+                style="@style/TextRegularFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
-                style="@style/TextRegularFont"
-                android:textColor="@color/txt_color2"
-                android:text="@string/plz_number_verify"
                 android:padding="@dimen/_10sdp"
-                />
+                android:text="@string/plz_number_verify"
+                android:textColor="@color/txt_color2" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layoutDirection="ltr"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen16"
                 android:gravity="center"
-                android:orientation="horizontal"
-                >
+                android:layoutDirection="ltr"
+                android:orientation="horizontal">
 
                 <FrameLayout
                     android:layout_width="@dimen/dimen45"
@@ -73,9 +71,8 @@
                     android:paddingStart="@dimen/dimen10"
                     android:paddingTop="@dimen/dimen10"
                     android:paddingEnd="@dimen/dimen10"
-                    android:paddingBottom="@dimen/dimen13"
-                    tools:targetApi="lollipop"
-                    >
+                    android:paddingBottom="@dimen/dimen10"
+                    tools:targetApi="lollipop">
 
                     <com.example.mvvm_template.ui.widget.MaskedEditText
                         android:id="@+id/et_first_key"
@@ -89,11 +86,11 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="1"
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size16"
-                        app:mask="9"
-                        />
+                        app:mask="9" />
 
                 </FrameLayout>
 
@@ -105,27 +102,26 @@
                     android:paddingStart="@dimen/dimen10"
                     android:paddingTop="@dimen/dimen10"
                     android:paddingEnd="@dimen/dimen10"
-                    android:paddingBottom="@dimen/dimen13"
-                    tools:targetApi="lollipop"
-                    >
+                    android:paddingBottom="@dimen/dimen10"
+                    tools:targetApi="lollipop">
 
                     <com.example.mvvm_template.ui.widget.MaskedEditText
                         android:id="@+id/et_second_key"
                         style="@style/TextRegularFontDigit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:background="@color/transparent"
                         android:gravity="center"
                         android:hint="_"
+                        android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="1"
-
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size16"
-                        app:mask="9"
-                        />
+                        app:mask="9" />
 
                 </FrameLayout>
 
@@ -137,9 +133,8 @@
                     android:paddingStart="@dimen/dimen10"
                     android:paddingTop="@dimen/dimen10"
                     android:paddingEnd="@dimen/dimen10"
-                    android:paddingBottom="@dimen/dimen13"
-                    tools:targetApi="lollipop"
-                    >
+                    android:paddingBottom="@dimen/dimen10"
+                    tools:targetApi="lollipop">
 
                     <com.example.mvvm_template.ui.widget.MaskedEditText
                         android:id="@+id/et_third_key"
@@ -153,12 +148,11 @@
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLength="1"
-
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size16"
-                        app:mask="9"
-                        />
+                        app:mask="9" />
 
                 </FrameLayout>
 
@@ -170,9 +164,8 @@
                     android:paddingStart="@dimen/dimen10"
                     android:paddingTop="@dimen/dimen10"
                     android:paddingEnd="@dimen/dimen10"
-                    android:paddingBottom="@dimen/dimen13"
-                    tools:targetApi="lollipop"
-                    >
+                    android:paddingBottom="@dimen/dimen10"
+                    tools:targetApi="lollipop">
 
                     <com.example.mvvm_template.ui.widget.MaskedEditText
                         android:id="@+id/et_forth_key"
@@ -185,12 +178,11 @@
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLength="1"
-
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size16"
-                        app:mask="9"
-                        />
+                        app:mask="9" />
 
                 </FrameLayout>
 
@@ -201,11 +193,10 @@
                     android:background="@drawable/bg_white_round_with_light_stroke"
                     android:paddingStart="@dimen/dimen10"
                     android:paddingTop="@dimen/dimen10"
-                    android:visibility="gone"
+
                     android:paddingEnd="@dimen/dimen10"
-                    android:paddingBottom="@dimen/dimen13"
-                    tools:targetApi="lollipop"
-                    >
+                    android:paddingBottom="@dimen/dimen10"
+                    tools:targetApi="lollipop">
 
                     <com.example.mvvm_template.ui.widget.MaskedEditText
                         android:id="@+id/et_fifth_key"
@@ -218,11 +209,42 @@
                         android:imeOptions="actionDone"
                         android:inputType="phone"
                         android:maxLength="1"
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/text_size16"
-                        app:mask="9"
-                        />
+                        app:mask="9" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="@dimen/dimen45"
+                    android:layout_height="@dimen/dimen45"
+                    android:layout_margin="@dimen/dimen3"
+                    android:background="@drawable/bg_white_round_with_light_stroke"
+                    android:paddingStart="@dimen/dimen10"
+                    android:paddingTop="@dimen/dimen10"
+                    android:singleLine="true"
+                    android:paddingEnd="@dimen/dimen10"
+                    android:paddingBottom="@dimen/dimen10"
+                    tools:targetApi="lollipop">
+
+                    <com.example.mvvm_template.ui.widget.MaskedEditText
+                        android:id="@+id/et_sex_key"
+                        style="@style/TextMediumFont"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center"
+                        android:hint="_"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:maxLength="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/text_size16"
+                        app:mask="9" />
 
                 </FrameLayout>
 
@@ -230,35 +252,35 @@
             </LinearLayout>
 
 
-
             <TextView
-                android:layout_width="match_parent"
-                android:text="@string/nothing_comming"
                 style="@style/TextMediumFont"
-                android:gravity="center"
-                android:padding="@dimen/_5sdp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:text="@string/resend"
-                style="@style/TextMediumFont"
-                android:gravity="center"
-                android:padding="@dimen/_5sdp"
-                android:textColor="@color/color_txt_new_account"
-                android:layout_height="wrap_content"/>
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/nothing_comming"
+                android:textColor="@color/black" />
+
+            <TextView
+                style="@style/TextMediumFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/resend"
+                android:textColor="@color/color_txt_new_account" />
+
+            <Button
                 android:id="@+id/send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/back_raduis_white"
                 android:backgroundTint="@color/colorAccent"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:text="@string/send"
                 android:fontFamily="@font/tajawal_medium"
-                android:layout_marginStart="@dimen/_10sdp"
-                />
+                android:text="@string/send" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

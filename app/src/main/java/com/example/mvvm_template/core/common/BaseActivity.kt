@@ -9,9 +9,12 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.example.mvvm_template.R
+import com.example.mvvm_template.domain.error.Failure
 
 import com.example.mvvm_template.ui.LoadingDialog
 import com.example.mvvm_template.utils.showLoadingDialog
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 
@@ -31,6 +34,19 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
+    }
+     fun displayError(message: String?) {
+        message?.let {
+            Snackbar.make(getViewDataBinding().root, message, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+     fun handleFaluir(error: Failure) {
+        when (error) {
+            is Failure.UnknownError -> displayError(error.message)
+            is Failure.NetworkConnection -> displayError(getString(R.string.check_your_notwrk))
+            is Failure.ServerError -> displayError(getString(R.string.something_wron))
+        }
     }
 
 

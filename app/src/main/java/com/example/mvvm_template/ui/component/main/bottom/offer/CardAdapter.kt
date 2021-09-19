@@ -5,11 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_template.R
-import com.example.mvvm_template.data.pojo.Card
 import com.example.mvvm_template.databinding.ItemLayoutCardBinding
-import com.example.mvvm_template.databinding.ItemRvLayoutBinding
-import com.example.mvvm_template.ui.component.main.pojo.ActionType
-import com.example.mvvm_template.ui.component.main.pojo.MenuItem
+import com.example.mvvm_template.domain.entity.Card
 
 class CardAdapter(val list: List<Card>?=null) :
     RecyclerView.Adapter<CardAdapter.SingleRow>() {

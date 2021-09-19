@@ -6,21 +6,23 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.databinding.ActivitySearchBinding
-import com.example.mvvm_template.ui.base.BaseActivity
+
 import com.example.mvvm_template.ui.component.card_categories.CardCategoriesFragment
 import com.example.mvvm_template.ui.component.card_categories.CardViewModel
-import com.example.mvvm_template.ui.component.main.rate_app.RateMeActivity
 import com.example.mvvm_template.utils.RxSearchObservable.getQueryTextChangeStateFlow
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
+@AndroidEntryPoint
 class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
-    val viewModel: CardViewModel by viewModel()
+    val viewModel: CardViewModel by viewModels()
     val scope = CoroutineScope(Job() + Dispatchers.Main)
     lateinit var job: Job
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,9 +72,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         return R.layout.activity_search
     }
 
-    override fun observeViewModel() {
 
-    }
 
     override fun onDestroy() {
         super.onDestroy()

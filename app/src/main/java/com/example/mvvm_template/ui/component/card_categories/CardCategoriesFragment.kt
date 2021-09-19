@@ -3,16 +3,19 @@ package com.example.mvvm_template.ui.component.card_categories
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.databinding.ActivityItemCategoriesBinding
-import com.example.mvvm_template.ui.base.BaseFragment
+
 import com.example.mvvm_template.utils.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CardCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() {
 
-    val viewModel:CardViewModel by sharedViewModel()
+    val viewModel:CardViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2,true)
