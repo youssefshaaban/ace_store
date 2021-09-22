@@ -10,6 +10,7 @@ import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.domain.entity.Profile
 import com.example.mvvm_template.domain.interactor.account.GenerateOtpUseCase
 import com.example.mvvm_template.domain.interactor.account.LoginUseCaseWithOt
+import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.domain.interactor.account.UpdateProfileUseCase
 import com.example.mvvm_template.domain.repository.AccountRepository
 import javax.inject.Inject
@@ -78,6 +79,17 @@ class AccountRepoImp @Inject constructor(private val accountApiService: AccountA
     override suspend fun logOut():DataState<Boolean> {
         val result=getResult {
             accountApiService.logOut()
+        }
+        return if (result is DataState.Success){
+            DataState.Success(result.data.result)
+        }else{
+            DataState.Error((result as DataState.Error).error)
+        }
+    }
+
+    override suspend fun updateFireBaseToken(updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase):DataState<Boolean> {
+        val result=getResult {
+            accountApiService.updateFireBase(updateFirBaseTokenUseCase)
         }
         return if (result is DataState.Success){
             DataState.Success(result.data.result)

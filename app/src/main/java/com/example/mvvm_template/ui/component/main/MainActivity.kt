@@ -14,10 +14,12 @@ import com.example.mvvm_template.App
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.core.common.DataState
+import com.example.mvvm_template.core.common.getDeviceId
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityMainBinding
 import com.example.mvvm_template.domain.entity.Profile
+import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.domain.entity.User
 
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
@@ -107,6 +109,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         getViewDataBinding().contentLayout.contentMain.cart.setOnClickListener { openCart() }
         getViewDataBinding().contentLayout.contentMain.search.setOnClickListener { openSearch() }
         observeViewModels()
+        //viewModel.updateFirebaseToken(UpdateFirBaseTokenUseCase.RequestUpdateFirbase(getDeviceId(context = this),token = ))
         checkUser()
     }
 

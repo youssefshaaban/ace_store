@@ -13,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
 
 class UpdateProfileUseCase @Inject constructor(private val accountRepository: AccountRepository, private val ioDispatcher: CoroutineContext):
     UseCase<UpdateProfileUseCase.UpdateRequestProfile,DataState<Profile> > {
-    override fun execute(param: UpdateRequestProfile?): Flow<DataState<Profile>> {
+    override fun execute(param: UpdateRequestProfile): Flow<DataState<Profile>> {
         return flow {
             emit(accountRepository.updateProfile(param!!))
         }.flowOn(ioDispatcher)
