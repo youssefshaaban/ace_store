@@ -5,15 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
+import com.example.mvvm_template.data.local.AppPrefrances
 import com.example.mvvm_template.databinding.ActivityOnBoardingBinding
 import com.example.mvvm_template.ui.component.login.GenerateOtpActivity
 import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.utils.makeStatusBarTransparent
 import com.example.mvvm_template.utils.startActivityWithFade
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class OnBoardingActivity : BaseActivity<ActivityOnBoardingBinding>() {
+
+    @Inject
+    lateinit var appPrefrances: AppPrefrances
 
     lateinit var binding: ActivityOnBoardingBinding
     val list:List<ModelBoarding> by lazy {
@@ -37,11 +44,13 @@ class OnBoardingActivity : BaseActivity<ActivityOnBoardingBinding>() {
     }
 
     private fun goToHome() {
+        appPrefrances.setSkipIntro(true)
         startActivityWithFade(MainActivity.getIntent(this))
         finishAffinity()
     }
 
     private fun goToLogin() {
+        appPrefrances.setSkipIntro(true)
         startActivityWithFade(GenerateOtpActivity.getIntent(this))
         finishAffinity()
     }

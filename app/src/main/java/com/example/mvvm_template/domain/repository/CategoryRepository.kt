@@ -9,16 +9,8 @@ import com.example.mvvm_template.domain.interactor.account.LoginUseCaseWithOt
 import com.example.mvvm_template.domain.interactor.account.UpdateProfileUseCase
 import retrofit2.http.*
 
-interface AccountRepository {
-    suspend fun generateOtp(requestOTP: GenerateOtpUseCase.RequestOTP): DataState<Boolean>
+interface CategoryRepository {
+    suspend fun generateOtp(@Body requestOTP: GenerateOtpUseCase.RequestOTP): DataState<Boolean>
 
 
-    suspend fun login(registerRequest: LoginUseCaseWithOt.RequestLogin): DataState<User>
-
-
-    suspend fun getProfile(): DataState<Profile>
-
-    suspend fun updateProfile(requestProfile: UpdateProfileUseCase.UpdateRequestProfile): DataState<Profile>
-
-    suspend fun logOut(): DataState<Boolean>
 }

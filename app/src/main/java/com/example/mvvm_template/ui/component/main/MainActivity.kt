@@ -18,6 +18,7 @@ import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityMainBinding
 import com.example.mvvm_template.domain.entity.Profile
+import com.example.mvvm_template.domain.entity.User
 
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
@@ -25,10 +26,7 @@ import com.example.mvvm_template.ui.component.main.pojo.MenuItem
 import com.example.mvvm_template.ui.component.main.rate_app.RateMeFragment
 import com.example.mvvm_template.ui.component.main.web_view.WebViewActivity
 import com.example.mvvm_template.ui.component.search.SearchActivity
-import com.example.mvvm_template.utils.configRecycle
-import com.example.mvvm_template.utils.loadImage
-import com.example.mvvm_template.utils.observe
-import com.example.mvvm_template.utils.startActivityWithFade
+import com.example.mvvm_template.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -80,6 +78,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             is DataState.Loading->showLoading()
             is DataState.Success -> {
                 hideLoading()
+                SavePrefs(this,User::class.java).clear()
                 navigator.navigateTo(Screen.GENERATE_OTP,null)
                 finish()
             }
