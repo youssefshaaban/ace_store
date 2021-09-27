@@ -55,6 +55,7 @@ dependencies {
     kapt Libs.INSTANCE.permissionsDispatcherProcessor
     implementation Libs.INSTANCE.timber
     implementation Libs.INSTANCE.hiltAndroid
+
     kapt Libs.INSTANCE.hiltAndroidCompiler
     testImplementation TestLibs.INSTANCE.junit
     androidTestImplementation TestLibs.INSTANCE.junitExt
@@ -64,6 +65,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.wanjian:expandable-recyclerview:0.0.1'
     implementation Libs.INSTANCE.glide
     debugImplementation Libs.INSTANCE.chuckerteamDebug
     releaseImplementation Libs.INSTANCE.chuckerteamRelease

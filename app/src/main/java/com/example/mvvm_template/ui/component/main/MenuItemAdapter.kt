@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_template.R
-import com.example.mvvm_template.databinding.ItemRvLayoutBinding
+import com.example.mvvm_template.databinding.ItemRvMenuLayoutBinding
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
 import com.example.mvvm_template.ui.component.main.pojo.MenuItem
 
@@ -16,7 +16,7 @@ class MenuItemAdapter(val list: List<MenuItem>, val clickItem:(ActionType)->Unit
         return SingleRow(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_rv_layout,
+                R.layout.item_rv_menu_layout,
                 parent,
                 false
             )
@@ -32,7 +32,7 @@ class MenuItemAdapter(val list: List<MenuItem>, val clickItem:(ActionType)->Unit
         p0.bind(p1)
     }
 
-    inner class SingleRow(var binding: ItemRvLayoutBinding) :
+    inner class SingleRow(var binding: ItemRvMenuLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pos: Int) {

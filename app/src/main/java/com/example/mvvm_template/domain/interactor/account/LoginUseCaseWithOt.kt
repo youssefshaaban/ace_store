@@ -17,16 +17,9 @@ class LoginUseCaseWithOt @Inject constructor(
     private val ioDispatcher: CoroutineContext
 ) : UseCase<LoginUseCaseWithOt.RequestLogin, DataState<User>> {
     override fun execute(param: RequestLogin): Flow<DataState<User>> {
-        val validate=validate(param!!)
-        return if (validate!=null){
-            flow {
-                emit(DataState.Validation(validate))
-            }
-        }else{
-            flow {
-                emit(accountRepository.login(param))
-            }.flowOn(ioDispatcher)
-        }
+        return flow {
+            emit(accountRepository.login(param))
+        }.flowOn(ioDispatcher)
     }
 
 
@@ -38,15 +31,6 @@ class LoginUseCaseWithOt @Inject constructor(
         val userName: String?
     )
 
-    fun validate(requestLogin: RequestLogin):ValidationPhone?{
-        return if (requestLogin.userName.isNullOrEmpty()){
-            ValidationPhone.EMPTY_PHONE
-        }else if (RegexUtils.isValidPhoneNumber("966",requestLogin.userName)){
-            ValidationPhone.INVALID_PHONE
-        }else if (requestLogin.otp.isNullOrEmpty()){
-            ValidationPhone.EMPTY_OTP
-        }else null
-    }
 
 
 }

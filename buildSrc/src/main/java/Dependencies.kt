@@ -1,4 +1,5 @@
 object Versions {
+    val expandable_recycle="1.3"
     val CIRCLE_IMAGR="3.1.0"
     val KOTLIN = "1.3.72"
     val COMPILE_SDK = 28
@@ -106,6 +107,7 @@ object Libs {
     @JvmStatic val LOADING = "com.github.ybq:Android-SpinKit:${Versions.SPIN_KIT}"
     val circleImageView="de.hdodenhof:circleimageview:${Versions.CIRCLE_IMAGR}"
     val rxBinding="com.jakewharton.rxbinding2:rxbinding:${Versions.rxbinding}"
+    val exbandable_recyclview="com.thoughtbot:expandablerecyclerview:${Versions.expandable_recycle}"
 }
 
 object TestLibs {

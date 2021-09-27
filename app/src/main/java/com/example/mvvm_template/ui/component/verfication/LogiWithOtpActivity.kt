@@ -46,6 +46,7 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
 
     private fun setupObserve() {
         observe(viewModel.generateSuccess, ::handelDataStatVerifyOTP)
+        observe(viewModel.observeValidation,::handleFalidation)
     }
 
     private fun handelDataStatVerifyOTP(dataState: DataState<User>) {
@@ -59,10 +60,7 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
                 hideLoading()
                 handleFaluir(dataState.error)
             }
-            is DataState.Validation<*> -> {
-                hideLoading()
-                handleFalidation(dataState.enumValidate)
-            }
+
         }
     }
 

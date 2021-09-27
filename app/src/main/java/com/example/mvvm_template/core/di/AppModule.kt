@@ -5,6 +5,7 @@ import com.example.mvvm_template.App
 import com.example.mvvm_template.data.ServiceGenerator
 import com.example.mvvm_template.data.remote_service.api.AccountApiService
 import com.example.mvvm_template.data.remote_service.api.ApiFiles
+import com.example.mvvm_template.data.remote_service.api.CategoryApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +26,11 @@ class AppModule {
     @Provides
     fun createFileUpload(servisGenerator: ServiceGenerator): ApiFiles =
         servisGenerator.createService(ApiFiles::class.java)
+
+    @Singleton
+    @Provides
+    fun createCategoryApi(servisGenerator: ServiceGenerator): CategoryApi =
+        servisGenerator.createService(CategoryApi::class.java)
 
     @Provides
     @Singleton

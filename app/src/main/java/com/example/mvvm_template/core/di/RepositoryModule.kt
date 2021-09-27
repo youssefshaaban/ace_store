@@ -4,7 +4,9 @@ import com.example.mvvm_template.data.local.AppPrefrances
 import com.example.mvvm_template.data.local.AppPrefrancesImp
 import com.example.mvvm_template.data.repositery.AccountRepoImp
 import com.example.mvvm_template.data.repositery.FileUploadImp
+import com.example.mvvm_template.data.repositery.RepoCategoryImp
 import com.example.mvvm_template.domain.repository.AccountRepository
+import com.example.mvvm_template.domain.repository.CategoryRepository
 import com.example.mvvm_template.domain.repository.FileUploadRepo
 import dagger.Binds
 import dagger.Module
@@ -20,7 +22,10 @@ abstract class RepositoryModule {
     abstract fun binAccountRepo(accountRepoImp: AccountRepoImp):AccountRepository
 
     @Binds
-    abstract fun binAccountRepo(fileUploadRepo: FileUploadRepo):FileUploadImp
-    abstract fun binAccountRepo(accountRepoImp: AccountRepoImp): AccountRepository
+    abstract fun binFileRepo(fileUploadRepo: FileUploadImp):FileUploadRepo
+
+    @Binds
+    abstract fun binCategoryRepo(categoryRepository: RepoCategoryImp):CategoryRepository
+
 
 }

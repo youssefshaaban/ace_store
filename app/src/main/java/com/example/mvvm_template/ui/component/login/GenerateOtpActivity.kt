@@ -41,6 +41,7 @@ class GenerateOtpActivity : BaseActivity<ActivityLoginBinding>() {
 
     private fun setupObserve() {
         observe(viewModel.generateSuccess, ::handelDataStatGenerate)
+        observe(viewModel.observeValidation,::handleFalidation)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -63,10 +64,6 @@ class GenerateOtpActivity : BaseActivity<ActivityLoginBinding>() {
             is DataState.Error -> {
                 hideLoading()
                 handleFaluir(dataState.error)
-            }
-            is DataState.Validation<*> -> {
-                hideLoading()
-                handleFalidation(dataState.enumValidate)
             }
         }
     }

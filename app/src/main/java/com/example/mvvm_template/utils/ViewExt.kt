@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.core.widget.TextViewCompat
 
 import androidx.fragment.app.Fragment
@@ -340,4 +341,40 @@ fun RecyclerView.configStaggeredGridRecycle(spanCount: Int, isVertical: Boolean)
         animator .supportsChangeAnimations = false
         animator.setChangeDuration(0)
     }
+}
+
+fun RecyclerView.addEndlessScroll(loadMore: () -> Unit) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            if (recyclerView.layoutManager is LinearLayoutManager){
+                val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
+                adapter?.itemCount?.let { itemCount ->
+                    if ( linearLayoutManager.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                        loadMore()
+                    }
+                }
+            }else if (recyclerView.layoutManager is GridLayoutManager){
+                val linearLayoutManager=recyclerView.layoutManager as GridLayoutManager
+                adapter?.itemCount?.let { itemCount ->
+                    if ( linearLayoutManager.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                        loadMore()
+                    }
+                }
+            }
+
+
+        }
+    })
+}
+
+fun NestedScrollView.addEndlessScroll(loadMore: () -> Unit) {
+    setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
+        if (v.getChildAt(v.childCount - 1) != null) {
+            if (scrollY >= v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
+                loadMore()
+            }
+        }
+    })
 }

@@ -16,15 +16,9 @@ import kotlin.coroutines.CoroutineContext
 class GenerateOtpUseCase @Inject constructor(private val accountRepository: AccountRepository, private val ioDispatcher: CoroutineContext):
     UseCase<GenerateOtpUseCase.RequestOTP,DataState<Boolean> > {
     override fun execute(param: RequestOTP): Flow<DataState<Boolean>> {
-        if (validate(param!!)!=null){
-            return flow {
-                emit(DataState.Validation(validate(param)!!))
-            }
-        }else{
-            return flow {
-                emit(accountRepository.generateOtp(param))
-            }.flowOn(ioDispatcher)
-        }
+        return flow {
+            emit(accountRepository.generateOtp(param))
+        }.flowOn(ioDispatcher)
     }
 
     data class RequestOTP(
@@ -32,13 +26,5 @@ class GenerateOtpUseCase @Inject constructor(private val accountRepository: Acco
         val mobileNumber: String
     )
 
-    fun validate(requestOTP: RequestOTP):ValidationPhone?{
-        return if (requestOTP.mobileNumber.isEmpty()){
-            ValidationPhone.EMPTY_PHONE
-        }else if (RegexUtils.isValidPhoneNumber("966",requestOTP.mobileNumber)){
-            ValidationPhone.INVALID_PHONE
-        }
-        else null
-    }
 
 }
