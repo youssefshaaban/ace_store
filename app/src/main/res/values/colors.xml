@@ -20,4 +20,5 @@
   <color name="color_txt_new_account" >#4f008c</color>
   <color name="transparent">#00000000</color>
     <color name="red">#F51504</color>
+    <color name="gray">#919191</color>
 </resources>

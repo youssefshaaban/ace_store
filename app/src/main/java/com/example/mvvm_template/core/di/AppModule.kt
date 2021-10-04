@@ -6,6 +6,7 @@ import com.example.mvvm_template.data.ServiceGenerator
 import com.example.mvvm_template.data.remote_service.api.AccountApiService
 import com.example.mvvm_template.data.remote_service.api.ApiFiles
 import com.example.mvvm_template.data.remote_service.api.CategoryApi
+import com.example.mvvm_template.data.remote_service.api.ProductsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +32,11 @@ class AppModule {
     @Provides
     fun createCategoryApi(servisGenerator: ServiceGenerator): CategoryApi =
         servisGenerator.createService(CategoryApi::class.java)
+
+    @Singleton
+    @Provides
+    fun createProductsApi(servisGenerator: ServiceGenerator): ProductsApi =
+        servisGenerator.createService(ProductsApi::class.java)
 
     @Provides
     @Singleton

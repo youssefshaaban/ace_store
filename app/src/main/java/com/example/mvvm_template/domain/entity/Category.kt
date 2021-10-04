@@ -2,9 +2,9 @@ package com.example.mvvm_template.domain.entity
 
 data class Category(
     val children: List<String>? = null,
-    val description: String,
-    val id: Int,
-    val imagePath: String,
-    val name: String
+    val description: String?=null,
+    val id: Int?=null,
+    val imagePath: String?=null,
+    val name: String?=null
 )
 

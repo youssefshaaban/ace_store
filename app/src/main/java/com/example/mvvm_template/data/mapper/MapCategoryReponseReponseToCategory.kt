@@ -12,7 +12,7 @@ class MapCategoryReponseReponseToCategory:BaseMapper<CategoryResponse,Category> 
     override fun map(t: CategoryResponse): Category {
         return Category(
             name = t.name,
-            children = t.children,
+            children = emptyList(),
             id =  t.id,
             description = t.description,
             imagePath = t.imagePath,

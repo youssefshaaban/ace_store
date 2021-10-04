@@ -15,7 +15,7 @@ class CardAdapter(val list: List<Card>?=null) :
         return SingleRow(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_layout_card,
+                R.layout.item_layout_product,
                 parent,
                 false
             )

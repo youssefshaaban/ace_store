@@ -11,8 +11,8 @@ import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.databinding.ActivitySearchBinding
 
-import com.example.mvvm_template.ui.component.card_categories.CardCategoriesFragment
-import com.example.mvvm_template.ui.component.card_categories.CardViewModel
+import com.example.mvvm_template.ui.component.card_categories.ProductCategoriesFragment
+import com.example.mvvm_template.ui.component.card_categories.ProductsViewModel
 import com.example.mvvm_template.utils.RxSearchObservable.getQueryTextChangeStateFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.*
 @AndroidEntryPoint
 class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
-    val viewModel: CardViewModel by viewModels()
+    val viewModel: ProductsViewModel by viewModels()
     val scope = CoroutineScope(Job() + Dispatchers.Main)
     lateinit var job: Job
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +30,11 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         observeSearch()
         getViewDataBinding().back.setOnClickListener { onBackPressed() }
 
-       supportFragmentManager.beginTransaction().replace(R.id.content,CardCategoriesFragment().apply {
+       supportFragmentManager.beginTransaction().replace(R.id.content,ProductCategoriesFragment().apply {
            arguments=Bundle().apply {
                putBoolean("isSearch",true)
            }
-       },CardCategoriesFragment::class.java.name).commit()
+       },ProductCategoriesFragment::class.java.name).commit()
 
     }
 

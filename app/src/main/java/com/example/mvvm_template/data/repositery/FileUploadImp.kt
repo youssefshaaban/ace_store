@@ -5,10 +5,12 @@ import com.example.mvvm_template.data.remote_service.BaseDataSource
 import com.example.mvvm_template.data.remote_service.api.ApiFiles
 import com.example.mvvm_template.domain.repository.FileUploadRepo
 import com.example.mvvm_template.utils.FileUtils2
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MediaType
+
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+
 
 class FileUploadImp(private val apiFiles: ApiFiles):FileUploadRepo,BaseDataSource() {
     override suspend fun uploadFile(list: List<File>) : DataState<List<String>> {
@@ -23,10 +25,11 @@ class FileUploadImp(private val apiFiles: ApiFiles):FileUploadRepo,BaseDataSourc
         fileType: String
     ): MultipartBody.Part {
         // create RequestBody instance from file
-        val requestFile = RequestBody.create(
-            fileType.toMediaTypeOrNull(),
-            file
-        )
+//        val requestFile = RequestBody.create(
+//            fileType,
+//            file
+//        )
+        val requestFile = RequestBody.create(MediaType.parse(fileType),file);
         // MultipartBody.Part is used to send also the actual file name
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData(partName, file.name, requestFile)

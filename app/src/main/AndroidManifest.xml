@@ -18,7 +18,7 @@
         <activity android:name=".ui.component.reorder.ReorderActivity" />
         <activity android:name=".ui.component.main.rate_app.RateMeFragment" />
         <activity
-            android:name=".ui.component.card_categories.CardCategoriesActivity"
+            android:name=".ui.component.card_categories.ProductCategoriesActivity"
             android:exported="true" />
         <activity
             android:name=".ui.component.search.SearchActivity"
@@ -32,7 +32,7 @@
             android:name=".ui.component.profile_info.ProfileInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.component.item_detail.ItemDetailActivity"
+            android:name=".ui.component.product_detail.ProductDetailActivity"
             android:exported="true" />
         <activity android:name=".ui.component.main.MainActivity"
             android:launchMode="singleTask"

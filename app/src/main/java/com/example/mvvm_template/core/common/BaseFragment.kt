@@ -32,6 +32,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
         }
     }
 
+
     fun handleFaluir(error: Failure) {
         when (error) {
             is Failure.UnknownError -> mActivity?.displayError(error.message)
@@ -83,6 +84,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding.lifecycleOwner = this
         mViewDataBinding.executePendingBindings()
+        observeViewModel()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

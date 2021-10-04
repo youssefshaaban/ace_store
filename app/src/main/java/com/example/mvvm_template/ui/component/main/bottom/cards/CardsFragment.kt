@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.core.common.DataState
+import com.example.mvvm_template.core.navigation.AppNavigator
+import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.FragmentCardsBinding
 import com.example.mvvm_template.domain.entity.Card
 
@@ -17,13 +19,18 @@ import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.configRecycle
 import com.example.mvvm_template.utils.loadImage
 import com.example.mvvm_template.utils.observe
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CardsFragment : BaseFragment<FragmentCardsBinding>() {
 
     val sharedViewModel:MainViewModel by activityViewModels()
     val viewModel:CardsViewModel by viewModels()
+    var cardsAdapter: CardsAdapter?=null
+    @Inject
+    lateinit var appNavigator:AppNavigator
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
@@ -48,9 +55,13 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>() {
             is DataState.Loading-> showLoading()
             is DataState.Success -> {
                 hideLoading()
-                getViewDataBinding().content.emptyRecycle.adapter=CardsAdapter(dataState.data){
-
+                cardsAdapter=CardsAdapter(dataState.data){
+                    appNavigator.navigateTo(Screen.PRODUCT_BY_CATEGORY,Bundle().apply {
+                        putInt("cat_id",it.id!!)
+                    })
                 }
+                getViewDataBinding().content.emptyRecycle.adapter=cardsAdapter
+                cardsAdapter?.collapseAllGroup()
             }
             is DataState.Error -> {
                 hideLoading()

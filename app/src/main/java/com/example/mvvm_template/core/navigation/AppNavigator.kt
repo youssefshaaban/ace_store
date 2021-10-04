@@ -10,5 +10,7 @@ enum class Screen{
     GENERATE_OTP,
     VERIFY_CODE,
     COMPLETE_REGISTRATION,
-    HOME
+    HOME,
+    PRODUCT_BY_CATEGORY,
+    PRODUCT_DETAIL
 }

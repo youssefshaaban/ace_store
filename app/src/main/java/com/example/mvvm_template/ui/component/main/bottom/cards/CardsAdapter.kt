@@ -13,28 +13,39 @@ import com.example.mvvm_template.domain.entity.Card
 import com.example.mvvm_template.utils.loadImage
 import com.wanjian.view.ExpandableAdapter
 
-class CardsAdapter(val list: List<Card>, val clickItem:(Category)->Unit) :
-    ExpandableAdapter<CardsAdapter.SingleRowGroup,CardsAdapter.SingleRowChild>() {
-
+class CardsAdapter(
+    val list: List<Card>, val clickItem: (
+        Category
+    ) -> Unit
+) :
+    ExpandableAdapter<CardsAdapter.SingleRowGroup, CardsAdapter.SingleRowChild>() {
 
 
     inner class SingleRowGroup(var binding: ItemCardCardsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
-            val item= list[pos]
-            binding.icon.loadImage(item.iconPath,R.drawable.bg_no_image)
-            binding.title.text=item.name
+            val item = list[pos]
+            binding.icon.loadImage(item.iconPath, R.drawable.bg_no_image)
+            binding.title.text = item.name
+            binding.root.setOnClickListener {
+                if (isExpanded(pos)) {
+                    collapseGroup(pos)
+                    notifyItemChanged(pos)
+                } else {
+                    expandGroup(pos)
+                    notifyItemChanged(pos)
+                }
+            }
         }
     }
 
 
-
-
     inner class SingleRowChild(var binding: ItemChildLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(groupIndex:Int,pos: Int) {
-            val str= list[groupIndex].children!![pos]
-            binding.name.text=str
+        fun bind(groupIndex: Int, pos: Int) {
+            val str = list[groupIndex].children!![pos]
+            binding.name.text = str.name
+            binding.root.setOnClickListener { clickItem(str) }
         }
     }
 
@@ -74,7 +85,7 @@ class CardsAdapter(val list: List<Card>, val clickItem:(Category)->Unit) :
     }
 
     override fun onBindChildViewHolder(p0: SingleRowChild?, p1: Int, p2: Int) {
-        p0?.bind(p1,p2)
+        p0?.bind(p1, p2)
     }
 
 

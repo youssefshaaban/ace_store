@@ -5,9 +5,11 @@ import com.example.mvvm_template.data.local.AppPrefrancesImp
 import com.example.mvvm_template.data.repositery.AccountRepoImp
 import com.example.mvvm_template.data.repositery.FileUploadImp
 import com.example.mvvm_template.data.repositery.RepoCategoryImp
+import com.example.mvvm_template.data.repositery.RepoProductImp
 import com.example.mvvm_template.domain.repository.AccountRepository
 import com.example.mvvm_template.domain.repository.CategoryRepository
 import com.example.mvvm_template.domain.repository.FileUploadRepo
+import com.example.mvvm_template.domain.repository.ProductRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,6 +28,9 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun binCategoryRepo(categoryRepository: RepoCategoryImp):CategoryRepository
+
+    @Binds
+    abstract fun binProductRepo(categoryRepository: RepoProductImp):ProductRepository
 
 
 }
