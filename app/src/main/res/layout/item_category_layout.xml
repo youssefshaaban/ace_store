@@ -19,7 +19,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="@dimen/_110sdp"
+            android:layout_width="@dimen/_80sdp"
             android:src="@drawable/ic_demo_cat"
             android:scaleType="fitXY"
             android:id="@+id/image"

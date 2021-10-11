@@ -57,14 +57,14 @@
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/color_txt_new_account" />
 
-                    <FrameLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/old_price_container"
-                        android:layout_width="47dp"
-                        android:layout_height="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/dimen3"
-                        android:padding="@dimen/_5sdp"
-
                         >
 
                         <TextView
@@ -72,22 +72,32 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             android:includeFontPadding="false"
                             android:maxLines="1"
+                            android:layout_gravity="center"
                             android:singleLine="true"
                             android:textAlignment="viewStart"
                             android:textColor="@color/txt_color2"
                             android:textSize="@dimen/text_size13"
-                            tools:text="200 SAR" />
+                            tools:text="200 ddddddddddSAR"
+                            android:gravity="start" />
 
                         <View
-                            android:layout_width="@dimen/dimen40"
+                            android:layout_width="0dp"
                             android:layout_height="@dimen/dimen1"
                             android:layout_gravity="center"
                             android:alpha="0.8"
+                            app:layout_constraintTop_toTopOf="@id/tv_old_price"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_old_price"
+                            app:layout_constraintStart_toStartOf="@id/tv_old_price"
+                            app:layout_constraintEnd_toEndOf="@id/tv_old_price"
                             android:background="@color/txt_color2" />
 
-                    </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 

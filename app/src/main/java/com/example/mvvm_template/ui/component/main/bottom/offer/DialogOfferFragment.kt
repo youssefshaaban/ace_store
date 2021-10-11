@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.databinding.DialogOfferFragmentBinding
+import com.example.mvvm_template.ui.component.card_categories.ProductCategoryAdapter
 
 import com.example.mvvm_template.utils.configGridRecycle
 
@@ -22,7 +23,9 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
-        getViewDataBinding().content.emptyRecycle.adapter=CardAdapter()
+        getViewDataBinding().content.emptyRecycle.adapter=ProductCategoryAdapter{
+            
+        }
     }
 
     override fun getLayoutId(): Int {

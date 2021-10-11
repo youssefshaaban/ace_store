@@ -51,7 +51,7 @@ data class Review(
 fun Currency.toCurrencyModel(): com.example.mvvm_template.domain.entity.Currency {
     return com.example.mvvm_template.domain.entity.Currency(
         conversionRate = this.conversionRate,
-        this.id, this.name
+        this.id, this.symbol
     )
 }
 

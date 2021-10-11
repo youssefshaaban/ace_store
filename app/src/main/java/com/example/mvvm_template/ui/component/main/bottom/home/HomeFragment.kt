@@ -8,6 +8,8 @@ import androidx.fragment.app.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.core.common.DataState
+import com.example.mvvm_template.core.navigation.AppNavigator
+import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.FragmentHomeBinding
 import com.example.mvvm_template.domain.entity.Category
 
@@ -15,6 +17,7 @@ import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.*
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -22,12 +25,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
     var pagNumber: Int = 1
     var stopLoadMore: Boolean = false
+    @Inject
+    lateinit var appNavigator: AppNavigator
     private val categoryCardAdapter by lazy {
         CategoryCardAdapter(::handleClickCategory)
     }
 
     private fun handleClickCategory(category: Category) {
-
+        appNavigator.navigateTo(Screen.PRODUCT_BY_CATEGORY,Bundle().apply {
+            putInt("cat_id",category.id!!)
+            putString("title",category.name)
+        })
     }
 
     override fun onAttach(context: Context) {

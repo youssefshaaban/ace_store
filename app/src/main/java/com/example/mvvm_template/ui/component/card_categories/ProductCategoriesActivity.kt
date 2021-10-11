@@ -6,11 +6,14 @@ import android.os.Bundle
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.databinding.ActivityCardCategoriesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductCategoriesActivity : BaseActivity<ActivityCardCategoriesBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getViewDataBinding().appBar.back.setOnClickListener { onBackPressed() }
+        getViewDataBinding().appBar.title.text=intent.extras?.getString("title")
         supportFragmentManager.beginTransaction().replace(R.id.content,ProductCategoriesFragment().apply {
             arguments=Bundle().apply {
                 putBoolean("isSearch",false)

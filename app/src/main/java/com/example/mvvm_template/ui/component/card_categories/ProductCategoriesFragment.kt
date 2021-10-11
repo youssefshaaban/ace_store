@@ -42,8 +42,9 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
+        actionGrid()
         getViewDataBinding().content.emptyRecycle.setEmptyView(getViewDataBinding().content.contentEmptyView)
+        getViewDataBinding().content.emptyRecycle.adapter = productCategoryAdapter
         onClickListner()
         if (arguments?.getBoolean(
                 "isSearch",
@@ -71,17 +72,26 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
 
     private fun onClickListner() {
         getViewDataBinding().list.setOnClickListener {
-            getViewDataBinding().list.setColorFilter(R.color.colorAccent)
-            getViewDataBinding().grid.setColorFilter(Color.parseColor("#bcbcbc"))
-            getViewDataBinding().content.emptyRecycle.configRecycle(true)
+            actionList()
         }
         getViewDataBinding().grid.setOnClickListener {
-            getViewDataBinding().grid.setColorFilter(R.color.colorAccent)
-            getViewDataBinding().list.setColorFilter(Color.parseColor("#bcbcbc"))
-            getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
+            actionGrid()
         }
     }
 
+
+    private fun actionGrid() {
+        getViewDataBinding().grid.setColorFilter(R.color.colorAccent)
+        getViewDataBinding().list.setColorFilter(Color.parseColor("#bcbcbc"))
+        getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
+    }
+
+
+    private fun actionList() {
+        getViewDataBinding().list.setColorFilter(R.color.colorAccent)
+        getViewDataBinding().grid.setColorFilter(Color.parseColor("#bcbcbc"))
+        getViewDataBinding().content.emptyRecycle.configRecycle(true)
+    }
 
     private fun handleDateStatCategory(dataState: DataState<List<Product>>) {
         when (dataState) {
