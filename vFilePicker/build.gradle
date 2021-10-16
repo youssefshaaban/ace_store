@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+
+android {
+  compileSdkVersion 30
+  defaultConfig {
+    minSdkVersion  Android.INSTANCE.minSDK
+    targetSdkVersion Android.INSTANCE.targetSDK
+    versionCode 1
+    versionName "1.0"
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  // Support
+  implementation Libs.INSTANCE.material
+//  implementation "androidx.legacy:legacy-support-v4:$support_version"
+  implementation Libs.INSTANCE.appCompat
+  // UI
+
+}
