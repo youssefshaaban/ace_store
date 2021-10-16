@@ -1,17 +1,17 @@
 package com.example.mvvm_template.core.di
 
 import android.content.Context
+import android.provider.Settings
 import com.example.mvvm_template.App
 import com.example.mvvm_template.data.ServiceGenerator
-import com.example.mvvm_template.data.remote_service.api.AccountApiService
-import com.example.mvvm_template.data.remote_service.api.ApiFiles
-import com.example.mvvm_template.data.remote_service.api.CategoryApi
-import com.example.mvvm_template.data.remote_service.api.ProductsApi
+import com.example.mvvm_template.data.remote_service.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Named
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
@@ -35,12 +35,27 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun createCartApi(servisGenerator: ServiceGenerator): CartApi =
+        servisGenerator.createService(CartApi::class.java)
+
+    @Singleton
+    @Provides
     fun createProductsApi(servisGenerator: ServiceGenerator): ProductsApi =
         servisGenerator.createService(ProductsApi::class.java)
 
     @Provides
     @Singleton
-    fun createServiceGenerator() = ServiceGenerator()
+    fun createServiceGenerator(@Named("deviceId")deviceId:String) = ServiceGenerator(deviceId)
+
+    @Provides
+    @Singleton
+    @Named("deviceId")
+    fun getDeviceId(@ApplicationContext context: Context): String {
+        return Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
+    }
 
     @Provides
     fun provideCoroutineContext(): CoroutineContext {

@@ -71,11 +71,20 @@
     <string name="hintCopoun">كوبون الخصم</string>
     <string name="check_your_notwrk">Connection is Failed check your network</string>
     <string name="something_wron">Something went wrong</string>
-    <string name="invalid_phone">"رقم التليفون غير صحيح "</string>
+    <string name="invalid_phone">"رقم التليفون غير صحيح </string>
     <string name="phone_is_required">"لابد من إدخال رقم الجوال "</string>
     <string name="otp_invalid">رقم التحقق لابد من لإدخاله</string>
     <string name="invalide_enter_name">لابد من إدخال البريد الإلكترونى بطريقه صحيحة</string>
     <string name="must_enter_code">لابد من أدخال كود التحقق</string>
     <string name="logout">تسجيل خروج</string>
+    <string name="txt_price">سعر الطلب</string>
+    <string name="txt_discount">الخصم</string>
+    <string name="txt_tax">"القيمة المضافه "</string>
+    <string name="txt_total">الاجمالى</string>
+    <string name="order">إكتمال الطلب</string>
+    <string name="title_cart">"السلة "</string>
+    <string name="currencyKSA">ريال</string>
+    <string name="ok">Ok</string>
+    <string name="must_login">" من فضلك يرجى تسجيل الدخول "</string>
 
 </resources>

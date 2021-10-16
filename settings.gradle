@@ -1,2 +1,3 @@
 include ':app'
+include ':vFilePicker'
 rootProject.name = "MVVM_Template"

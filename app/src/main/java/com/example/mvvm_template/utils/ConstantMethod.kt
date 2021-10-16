@@ -1,8 +1,10 @@
 package com.example.mvvm_template.utils
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.provider.Settings
 import android.util.TypedValue
 
 object ConstantMethod {
@@ -50,6 +52,13 @@ object ConstantMethod {
             dbToPx(round)
         )
         return gd
+    }
+
+    fun getDeviceId(context: Context): String? {
+        return Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
     }
 
     fun formatNumber(phone: String): String {

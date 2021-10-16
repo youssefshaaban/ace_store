@@ -10,6 +10,7 @@ import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityItemCategoriesBinding
+import com.example.mvvm_template.domain.entity.Cart
 import com.example.mvvm_template.domain.entity.Category
 import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.ui.component.main.bottom.home.CategoryCardAdapter
@@ -31,7 +32,11 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
     @Inject
     lateinit var appNavigator: AppNavigator
     private val productCategoryAdapter by lazy {
-        ProductCategoryAdapter(::handleClickProduct)
+        ProductCategoryAdapter(::handleClickProduct,::handleAddToCart)
+    }
+
+    private fun handleAddToCart(product: Product) {
+        viewModel.addToCart(product.id)
     }
 
     private fun handleClickProduct(product: Product) {
@@ -116,11 +121,26 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
 
     override fun observeViewModel() {
         observe(viewModel.productsLiveData, ::handleDateStatCategory)
+        observe(viewModel.addCartLiveData,::handleStateAddToCart)
         observe(viewModel.searchQueryLiveData) {
             // perform search
             search = it
             pagNumber = 1
             viewModel.getProductsSearch(search, pagNumber)
+        }
+    }
+
+    private fun handleStateAddToCart(dataState: DataState<Cart>) {
+        when (dataState) {
+            is DataState.Loading -> showLoading()
+            is DataState.Success -> {
+                hideLoading()
+                getViewDataBinding().grid.showToast("success",1000)
+            }
+            is DataState.Error -> {
+                hideLoading()
+                handleFaluir(dataState.error)
+            }
         }
     }
 }

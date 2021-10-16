@@ -5,6 +5,7 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.example.mvvm_template.App
 import com.example.mvvm_template.core.common.BASE_URL
+import com.example.mvvm_template.utils.ConstantMethod
 import com.example.mvvm_template.utils.LogUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,6 +15,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Named
+import javax.inject.Singleton
 
 private const val timeoutRead = 30   //In seconds
 private const val contentType = "Content-Type"
@@ -23,8 +27,7 @@ private const val contentTypeValue = "application/json"
 private const val timeoutConnect = 30   //In seconds
 private const val academyId = "AcademyId"
 private const val academyIdValue = "1"
-
-class ServiceGenerator() {
+class ServiceGenerator (private val device:String) {
     private val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
     private val retrofit: Retrofit
 
@@ -57,7 +60,9 @@ class ServiceGenerator() {
         App.getUser()?.let {
             requestBuilder.addHeader(authrization,"Bearer ${it.token}")
         }
-        requestBuilder.addHeader(academyId, academyIdValue)
+        requestBuilder.addHeader("DeviceId",device)
+        requestBuilder.addHeader("DeviceType","Android")
+        requestBuilder.addHeader("LanguageId","1")
         val request = requestBuilder.build()
         chain.proceed(request)
     }

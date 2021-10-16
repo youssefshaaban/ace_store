@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.mvvm_template.ui.component.card_categories.ProductCategoriesActivity
+import com.example.mvvm_template.ui.component.cart.CartActivity
 import com.example.mvvm_template.ui.component.login.GenerateOtpActivity
 import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.ui.component.product_detail.ProductDetailActivity
@@ -20,6 +21,7 @@ class AppNavigatorImpl @Inject constructor(val fragmentActivity: FragmentActivit
             Screen.COMPLETE_REGISTRATION->ContinueCompleteActivity.getIntent(fragmentActivity.applicationContext)
             Screen.PRODUCT_BY_CATEGORY->ProductCategoriesActivity.getIntent(fragmentActivity.applicationContext)
             Screen.PRODUCT_DETAIL-> Intent(fragmentActivity.applicationContext,ProductDetailActivity::class.java)
+            Screen.CART-> Intent(fragmentActivity.applicationContext,CartActivity::class.java)
         }
         bundle?.let {
             intent.putExtras(bundle)

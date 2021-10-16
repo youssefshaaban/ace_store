@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_margin="@dimen/_7sdp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/image"
+                android:layout_margin="@dimen/_5sdp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    style="@style/TextRegularFont"
+                    android:textSize="@dimen/text_size15"
+                    android:padding="@dimen/_5sdp"
+                    android:id="@+id/name"
+                    tools:text="630 شدة ببجي"
+                    android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        style="@style/TextRegularFontDigit"
+                        android:textSize="@dimen/text_size14"
+                        android:id="@+id/price"
+                        tools:text="37.45 SAR"
+                        android:textColor="@color/color_txt_new_account"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/old_price_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/dimen3"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_old_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:layout_gravity="center"
+                            android:singleLine="true"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/txt_color2"
+                            android:textSize="@dimen/text_size13"
+                            tools:text="200 ddddddddddSAR"
+                            android:gravity="start" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dimen1"
+                            android:layout_gravity="center"
+                            android:alpha="0.8"
+                            app:layout_constraintTop_toTopOf="@id/tv_old_price"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_old_price"
+                            app:layout_constraintStart_toStartOf="@id/tv_old_price"
+                            app:layout_constraintEnd_toEndOf="@id/tv_old_price"
+                            android:background="@color/txt_color2" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@color/txt_color2"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_3sdp"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#EAEAEA"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/_5sdp"
+                    android:id="@+id/plus"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/_5sdp"
+                    android:id="@+id/value"
+                    />
+                <TextView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/_5sdp"
+                    android:id="@+id/minus"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/_5sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/delete"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/colorPrimary"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+</layout>

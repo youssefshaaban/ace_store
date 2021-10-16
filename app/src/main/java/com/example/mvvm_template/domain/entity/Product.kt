@@ -4,15 +4,17 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Product (
-    val currency: Currency?=null,
-    val descriptionShort: String?=null,
+data class Product(
+    val currency: Currency? = null,
+    val descriptionShort: String? = null,
     val id: Int,
-    val imagePath: String?=null,
-    val metaDescription: String?=null,
-    val name: String?=null,
-    val price: Int?=null,
-    val priceAfterDiscount: Int?=null,
-    val images:List<String>?=null,
-    val reviews:List<Review>?=null
-):Parcelable
+    val imagePath: String? = null,
+    val metaDescription: String? = null,
+    val name: String? = null,
+    var quantity: Int = 1,
+    val price: Int? = null,
+    val priceAfterDiscount: Int? = null,
+    val images: List<String>? = null,
+    val reviews: List<Review>? = null,
+    var IsAtCsrt:Boolean=false
+) : Parcelable

@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvm_template.core.common.DataState
+import com.example.mvvm_template.domain.dto.RequestAddCart
 import com.example.mvvm_template.domain.dto.RequestGetProductDto
+import com.example.mvvm_template.domain.entity.Cart
 import com.example.mvvm_template.domain.entity.Product
+import com.example.mvvm_template.domain.interactor.cart.AddCartUseCase
 import com.example.mvvm_template.domain.interactor.product.GetProductsUseCase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,13 +18,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductsViewModel @Inject constructor(val getProductsUseCase: GetProductsUseCase) :
+class ProductsViewModel @Inject constructor(
+    private val getProductsUseCase: GetProductsUseCase,
+    val addCartUseCase: AddCartUseCase
+                                            ) :
     ViewModel() {
     private val searchQueryPrivateLive = MutableLiveData<String>()
     val searchQueryLiveData: LiveData<String> get() = searchQueryPrivateLive
 
     private val _productsPrivateLive = MutableLiveData<DataState<List<Product>>>()
     val productsLiveData: LiveData<DataState<List<Product>>> get() = _productsPrivateLive
+
+    private val _addToCartPrivateLive = MutableLiveData<DataState<Cart>>()
+    val addCartLiveData: LiveData<DataState<Cart>> get() = _addToCartPrivateLive
 
     fun setSarchText(query: String) {
         searchQueryPrivateLive.value = query
@@ -50,6 +59,17 @@ class ProductsViewModel @Inject constructor(val getProductsUseCase: GetProductsU
                 )
             ).collect {
                 _productsPrivateLive.value =it
+            }
+        }
+    }
+
+    fun addToCart(productId:Int){
+        viewModelScope.launch {
+            _addToCartPrivateLive.value = DataState.Loading
+            addCartUseCase.execute(
+                RequestAddCart(productId,1)
+            ).collect {
+                _addToCartPrivateLive.value =it
             }
         }
     }

@@ -100,6 +100,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         getViewDataBinding().contentLayout.contentMain.drawerIcon.setOnClickListener {
             getViewDataBinding().drawerLayout.openDrawer(GravityCompat.START)
         }
+
         getViewDataBinding().contentLayout.contentMain.offer.setOnClickListener {
             DialogOfferFragment.newInstance().show(
                 supportFragmentManager,
@@ -145,7 +146,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun openCart() {
-
+        navigator.navigateTo(Screen.CART,null)
     }
 
     private fun handleActionType(actionType: ActionType) {

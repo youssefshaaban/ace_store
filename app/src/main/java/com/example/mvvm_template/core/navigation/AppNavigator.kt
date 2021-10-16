@@ -12,5 +12,6 @@ enum class Screen{
     COMPLETE_REGISTRATION,
     HOME,
     PRODUCT_BY_CATEGORY,
-    PRODUCT_DETAIL
+    PRODUCT_DETAIL,
+    CART
 }

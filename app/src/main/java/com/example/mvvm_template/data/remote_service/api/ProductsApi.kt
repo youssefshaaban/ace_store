@@ -14,8 +14,8 @@ import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface ProductsApi {
-    @GET("Products/{id}")
-    suspend fun getProductById(@Path("id")id:Int): Response<BaseReponse<ProductByIdResponse>>
+    @GET("Products")
+    suspend fun getProductById(@Query("Id")id:Int): Response<BaseReponse<ProductByIdResponse>>
     @GET("Products/Paged")
     suspend fun getProductsPage(@QueryMap map:Map<String,String>): Response<BaseReponseArrayPagination<ProductResponse>>
 }
