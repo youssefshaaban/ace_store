@@ -18,15 +18,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
-    private val logOutUseCase: LogOutUseCase,
     private val updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase
 ) : ViewModel() {
 
     val title = MutableLiveData<String>()
     private val profileDataLiveDate = MutableLiveData<DataState<Profile>>()
     val observProfile: LiveData<DataState<Profile>> get() = profileDataLiveDate
-    private val successDataLiveDate = MutableLiveData<DataState<Boolean>>()
-    val observeSuccess: LiveData<DataState<Boolean>> get() = successDataLiveDate
     fun getProfile() {
         viewModelScope.launch {
             getProfileUseCase.execute(Unit).collect {
@@ -35,13 +32,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun logOut() {
-        viewModelScope.launch {
-            logOutUseCase.execute(Unit).collect {
-                successDataLiveDate.value=it
-            }
-        }
-    }
 
     fun updateFirebaseToken(param:UpdateFirBaseTokenUseCase.RequestUpdateFirbase){
         viewModelScope.launch {

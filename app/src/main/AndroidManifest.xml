@@ -4,6 +4,8 @@
     package="com.example.mvvm_template">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -31,7 +33,7 @@
             android:name=".ui.component.setting.SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.component.profile_info.ProfileInfoActivity"
+            android:name="com.example.mvvm_template.ui.component.main.bottom.profile.profile_info.ProfileInfoActivity"
             android:exported="true" />
         <activity
             android:name=".ui.component.product_detail.ProductDetailActivity"
@@ -39,10 +41,10 @@
         <activity
             android:name=".ui.component.main.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.component.signup.ContinueCompleteActivity" />
-        <activity android:name=".ui.component.verfication.LogiWithOtpActivity" />
+        <activity android:name="com.example.mvvm_template.ui.component.auth.signup.ContinueCompleteActivity" />
+        <activity android:name="com.example.mvvm_template.ui.component.auth.verfication.LogiWithOtpActivity" />
         <activity
-            android:name=".ui.component.login.GenerateOtpActivity"
+            android:name="com.example.mvvm_template.ui.component.auth.login.GenerateOtpActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.component.SplashActivity">
             <intent-filter>

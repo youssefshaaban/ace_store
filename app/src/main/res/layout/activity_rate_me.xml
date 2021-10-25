@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/back_color_page"
-        tools:context=".ui.component.profile_info.ProfileInfoActivity">
+        tools:context=".ui.component.main.bottom.profile.profile_info.ProfileInfoActivity">
 
         <include layout="@layout/app_bar_layout"
             android:id="@+id/app_bar"

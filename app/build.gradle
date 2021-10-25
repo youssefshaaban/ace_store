@@ -52,6 +52,7 @@ dependencies {
     implementation Libs.INSTANCE.retrofit
     implementation Libs.INSTANCE.gson
     implementation Libs.INSTANCE.gsonConverter
+    implementation project(path: ':vFilePicker')
     kapt Libs.INSTANCE.permissionsDispatcherProcessor
     implementation Libs.INSTANCE.timber
     implementation Libs.INSTANCE.hiltAndroid

@@ -29,5 +29,8 @@ abstract class RepositoryModule {
     @Binds
     abstract fun binCartRepo(cartRepositoryImp: CartRepositoryImp):ICartRepository
 
+    @Binds
+    abstract fun binLookupRepo(cartRepositoryImp: LookupRepositeryImp):LookupRepository
+
 
 }

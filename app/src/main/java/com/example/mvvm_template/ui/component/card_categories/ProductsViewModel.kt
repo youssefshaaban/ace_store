@@ -9,67 +9,82 @@ import com.example.mvvm_template.domain.dto.RequestAddCart
 import com.example.mvvm_template.domain.dto.RequestGetProductDto
 import com.example.mvvm_template.domain.entity.Cart
 import com.example.mvvm_template.domain.entity.Product
+import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.domain.interactor.cart.AddCartUseCase
 import com.example.mvvm_template.domain.interactor.product.GetProductsUseCase
+import com.example.mvvm_template.utils.FIRST_PAGE
+import com.example.mvvm_template.utils.SingleLiveEvent
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.text.FieldPosition
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
     val addCartUseCase: AddCartUseCase
-                                            ) :
+) :
     ViewModel() {
-    private val searchQueryPrivateLive = MutableLiveData<String>()
+    private val searchQueryPrivateLive = SingleLiveEvent<String>()
     val searchQueryLiveData: LiveData<String> get() = searchQueryPrivateLive
 
-    private val _productsPrivateLive = MutableLiveData<DataState<List<Product>>>()
-    val productsLiveData: LiveData<DataState<List<Product>>> get() = _productsPrivateLive
-
-    private val _addToCartPrivateLive = MutableLiveData<DataState<Cart>>()
-    val addCartLiveData: LiveData<DataState<Cart>> get() = _addToCartPrivateLive
-
+    //    private val _productsPrivateLive = MutableLiveData<DataState<List<Product>>>()
+//    val productsLiveData: LiveData<DataState<List<Product>>> get() = _productsPrivateLive
+    private val _productsPrivateLive = MutableLiveData<ArrayList<Product>>()
+    val productsLiveData: LiveData<ArrayList<Product>> get() = _productsPrivateLive
+    private val _notifyPositionCart = SingleLiveEvent<Int>()
+    val notifyPositionCartLiveDate get() = _notifyPositionCart
+    private val _errorFaliureCalling = SingleLiveEvent<Failure>()
+    val errorFaliureCallingLiveDate = _errorFaliureCalling
+    private val _loadingVisiblilty = MutableLiveData(false)
+    val loadinVisibilityObserve get() = _loadingVisiblilty
+    var stopLoadingMore = false
     fun setSarchText(query: String) {
         searchQueryPrivateLive.value = query
     }
 
-    fun getProductsWithCatId(cat_id: Int?, pageIndex: Int) {
+    fun getProducts(cat_id: Int?=null, searchText: String? = null, pageIndex: Int) {
         viewModelScope.launch {
-            _productsPrivateLive.value = DataState.Loading
+            _loadingVisiblilty.value = true
             getProductsUseCase.execute(
                 RequestGetProductDto(
                     PageIndex = pageIndex,
-                    CategoryId = cat_id?.toString()
+                    CategoryId = cat_id?.toString(), SearchText = searchText
                 )
             ).collect {
-                _productsPrivateLive.value =it
-            }
-        }
-    }
-    fun getProductsSearch(search:String?=null, pageIndex: Int) {
-        viewModelScope.launch {
-            _productsPrivateLive.value = DataState.Loading
-            getProductsUseCase.execute(
-                RequestGetProductDto(
-                    PageIndex = pageIndex,
-                    SearchText = search
-                )
-            ).collect {
-                _productsPrivateLive.value =it
+                _loadingVisiblilty.value = false
+                if (it is DataState.Success) {
+                    if (it.data.size < 20) {
+                        stopLoadingMore = true
+                    }
+                    if (pageIndex == FIRST_PAGE)
+                        _productsPrivateLive.value = ArrayList(it.data)
+                    else {
+                        _productsPrivateLive.value?.addAll(it.data)
+                        _productsPrivateLive.value = _productsPrivateLive.value
+                    }
+                } else if (it is DataState.Error) {
+                    _errorFaliureCalling.value = it.error
+                }
             }
         }
     }
 
-    fun addToCart(productId:Int){
+    fun addToCart(productId: Int, position: Int, isAddCart: Boolean) {
+        _loadingVisiblilty.value = true
         viewModelScope.launch {
-            _addToCartPrivateLive.value = DataState.Loading
             addCartUseCase.execute(
-                RequestAddCart(productId,1)
+                RequestAddCart(productId, if (isAddCart) 1 else 0)
             ).collect {
-                _addToCartPrivateLive.value =it
+                _loadingVisiblilty.value = false
+                if (it is DataState.Success) {
+                    _productsPrivateLive.value?.get(position)?.isAtCart=isAddCart
+                    _notifyPositionCart.value = position
+                } else if (it is DataState.Error) {
+                    _errorFaliureCalling.value = it.error
+                }
             }
         }
     }

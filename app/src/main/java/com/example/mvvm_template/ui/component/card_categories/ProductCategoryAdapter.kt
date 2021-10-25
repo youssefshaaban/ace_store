@@ -12,7 +12,7 @@ import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.utils.loadImage
 
 class ProductCategoryAdapter(val clickItem:(Product)->Unit,
-                             val clickAddCart:(Product)->Unit
+                             val clickAddCart:(Product,Int)->Unit
                              ) :
     ListAdapter<Product,ProductCategoryAdapter.SingleRow>(CategoryDiffCallBack()) {
 
@@ -42,8 +42,15 @@ class ProductCategoryAdapter(val clickItem:(Product)->Unit,
             binding.root.setOnClickListener {
                 clickItem(item)
             }
+            if (item.isAtCart){
+                binding.addCart.setColorFilter(binding.addCart.context.resources.getColor(R.color.white))
+                binding.contentCart.background=binding.addCart.context.resources.getDrawable(R.drawable.back_strok_solid_color_accent)
+            }else{
+                binding.addCart.setColorFilter(binding.addCart.context.resources.getColor(R.color.colorAccent))
+                binding.contentCart.background=binding.addCart.context.resources.getDrawable(R.drawable.back_strok_color_accent)
+            }
             binding.addCart.setOnClickListener {
-                clickAddCart(item)
+                clickAddCart(item,pos)
             }
         }
     }

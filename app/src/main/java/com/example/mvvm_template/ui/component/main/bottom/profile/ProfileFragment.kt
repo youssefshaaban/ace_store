@@ -12,8 +12,6 @@ import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ProfileFragmentBinding
 import com.example.mvvm_template.domain.entity.Profile
-import com.example.mvvm_template.domain.entity.User
-import com.example.mvvm_template.ui.component.login.GenerateOtpActivity
 import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.loadImage
 import com.example.mvvm_template.utils.observe
@@ -23,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
-    val sharedViewModel: MainViewModel by activityViewModels()
+    private val sharedViewModel: MainViewModel by activityViewModels()
     @Inject
     lateinit var navigator: AppNavigator
     companion object {
@@ -40,11 +38,23 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedViewModel.title.value=getString(R.string.title_profile)
+
+        handleClickOfItem()
+    }
+
+    private fun handleClickOfItem() {
         getViewDataBinding().contentInfoAccount.setOnClickListener {
             if (App.getUser()==null){
                 showMustSignInPopUp()
             }else{
-
+                navigator.navigateTo(Screen.PROFILE_SCREEN,null)
+            }
+        }
+        getViewDataBinding().contentAccountSetting.setOnClickListener {
+            if (App.getUser()==null){
+                showMustSignInPopUp()
+            }else{
+                navigator.navigateTo(Screen.ACCOUNT_SETTING,null)
             }
         }
     }
@@ -98,7 +108,8 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding>() {
     }
 
     private fun openSignIn() {
-        navigator.navigateTo(Screen.VERIFY_CODE,null)
+        navigator.navigateTo(Screen.GENERATE_OTP,null)
+        activity?.finishAffinity()
     }
 
 

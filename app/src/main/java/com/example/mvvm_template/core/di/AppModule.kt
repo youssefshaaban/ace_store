@@ -3,6 +3,7 @@ package com.example.mvvm_template.core.di
 import android.content.Context
 import android.provider.Settings
 import com.example.mvvm_template.App
+import com.example.mvvm_template.core.common.BASE_URL
 import com.example.mvvm_template.data.ServiceGenerator
 import com.example.mvvm_template.data.remote_service.api.*
 import dagger.Module
@@ -11,6 +12,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
@@ -25,8 +28,18 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun createLookupApi(servisGenerator: ServiceGenerator): LookupApi =
+        servisGenerator.createService(LookupApi::class.java)
+
+    @Singleton
+    @Provides
     fun createFileUpload(servisGenerator: ServiceGenerator): ApiFiles =
-        servisGenerator.createService(ApiFiles::class.java)
+        Retrofit.Builder().baseUrl(BASE_URL.replace("api/",""))
+            .client(servisGenerator.okHttpBuilder.build())
+
+            .addConverterFactory(GsonConverterFactory.create())
+
+            .build().create(ApiFiles::class.java)
 
     @Singleton
     @Provides

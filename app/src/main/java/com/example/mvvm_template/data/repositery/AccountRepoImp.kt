@@ -66,7 +66,7 @@ class AccountRepoImp @Inject constructor(private val accountApiService: AccountA
 
     override suspend fun updateProfile(requestProfile: UpdateProfileUseCase.UpdateRequestProfile): DataState<Profile> {
         val result=getResult {
-            accountApiService.updateProfile(requestProfile.token,requestProfile)
+            accountApiService.updateProfile(requestProfile)
         }
         return if (result is DataState.Success){
             DataState.Success(mapProfileReponseToProfile.map(result.data.result))

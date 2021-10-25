@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_template.R
 import com.example.mvvm_template.domain.entity.Category
 import com.example.mvvm_template.databinding.ItemSlideLayoutBinding
+import com.example.mvvm_template.utils.loadImage
 
 class SliderAdapter(val list: List<Category>?=null, val clickItem:(Category)->Unit) :
     RecyclerView.Adapter<SliderAdapter.SingleRow>() {
@@ -35,8 +36,7 @@ class SliderAdapter(val list: List<Category>?=null, val clickItem:(Category)->Un
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pos: Int) {
-
-
+            binding.image.loadImage("https://picsum.photos/200/300",R.drawable.bg_no_image)
 
         }
 

@@ -86,5 +86,12 @@
     <string name="currencyKSA">ريال</string>
     <string name="ok">Ok</string>
     <string name="must_login">" من فضلك يرجى تسجيل الدخول "</string>
+    <string name="first_name">الإسم الأول</string>
+    <string name="txt_gallery">Gallery</string>
+    <string name="txt_camera">Camera</string>
+    <string name="txt_yes">نعم</string>
+    <string name="txt_no">ليس الأن</string>
+    <string name="message_logout">هل تريد الخروج من الحساب ؟</string>
+    <string name="loginOrCreate">تسجيل دخول او إنشاء حساب</string>
 
 </resources>

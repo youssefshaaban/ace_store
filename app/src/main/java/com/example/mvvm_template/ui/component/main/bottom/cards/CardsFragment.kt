@@ -29,6 +29,8 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>() {
     val sharedViewModel:MainViewModel by activityViewModels()
     val viewModel:CardsViewModel by viewModels()
     var cardsAdapter: CardsAdapter?=null
+    private var hasInitializedRootView = false
+
     @Inject
     lateinit var appNavigator:AppNavigator
     override fun onAttach(context: Context) {
@@ -38,7 +40,10 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().content.emptyRecycle.configRecycle(true)
         sharedViewModel.title.value=getString(R.string.title_cards)
-        viewModel.getCards()
+        if (!hasInitializedRootView) {
+            viewModel.getCards()
+            hasInitializedRootView = true
+        }
     }
 
 

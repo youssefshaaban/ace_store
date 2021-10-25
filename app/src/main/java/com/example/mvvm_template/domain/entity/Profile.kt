@@ -4,6 +4,9 @@ data class Profile(
     val email: String?=null,
     val id: String?=null,
     val imagePath: String?=null,
+    val imageName: String?=null,
     val mobileNumber: String?=null,
-    val name: String?=null
+    val name: String?=null,
+    val firstName: String?=null,
+    val secondName: String?=null,
 )

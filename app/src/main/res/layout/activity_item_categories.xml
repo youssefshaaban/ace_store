@@ -29,19 +29,20 @@
             android:layout_width="wrap_content"
             android:id="@+id/grid"
             android:src="@drawable/ic_grid"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_7sdp"
+
             android:layout_height="wrap_content"/>
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/list"
             android:src="@drawable/ic_list"
-            android:padding="@dimen/_10sdp"
-            android:layout_height="match_parent"/>
+            android:padding="@dimen/_7sdp"
+            android:layout_height="wrap_content"/>
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/sort"
             android:src="@drawable/ic_sort"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_7sdp"
             android:layout_height="wrap_content"/>
 
 

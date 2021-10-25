@@ -10,9 +10,10 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import javax.inject.Inject
 
 
-class FileUploadImp(private val apiFiles: ApiFiles):FileUploadRepo,BaseDataSource() {
+class FileUploadImp @Inject constructor(private val apiFiles: ApiFiles):FileUploadRepo,BaseDataSource() {
     override suspend fun uploadFile(list: List<File>) : DataState<List<String>> {
        return getResult {
             apiFiles.uploadFiles(getParts(list))

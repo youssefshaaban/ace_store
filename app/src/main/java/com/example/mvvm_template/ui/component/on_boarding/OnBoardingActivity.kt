@@ -7,7 +7,7 @@ import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.data.local.AppPrefrances
 import com.example.mvvm_template.databinding.ActivityOnBoardingBinding
-import com.example.mvvm_template.ui.component.login.GenerateOtpActivity
+import com.example.mvvm_template.ui.component.auth.login.GenerateOtpActivity
 import com.example.mvvm_template.ui.component.main.MainActivity
 import com.example.mvvm_template.utils.makeStatusBarTransparent
 import com.example.mvvm_template.utils.startActivityWithFade

@@ -1,4 +1,4 @@
-package com.example.mvvm_template.ui.component.verfication
+package com.example.mvvm_template.ui.component.auth.verfication
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,12 +14,9 @@ import com.example.mvvm_template.databinding.ActivityVerficationBinding
 import com.example.mvvm_template.domain.entity.AccountStatus
 import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.domain.entity.ValidationPhone
-import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.utils.SavePrefs
-import com.example.mvvm_template.utils.getPhoneWithoutZero
 import com.example.mvvm_template.utils.hideKeyboard
 import com.example.mvvm_template.utils.observe
-import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
@@ -70,12 +67,14 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
                 // go to home
                 navigator.navigateTo(Screen.HOME, null)
                 SavePrefs(this, User::class.java).save(data)
+                finishAffinity()
             }
             AccountStatus.PendingCompleteRegistration.status -> {
                 // go to update profile
                 navigator.navigateTo(Screen.COMPLETE_REGISTRATION, Bundle().apply {
                     putParcelable("user", data)
                 })
+                finish()
             }
             AccountStatus.PendingConfirmMobile.status -> {
 //                navigator.navigateTo(Screen.COMPLETE_REGISTRATION, Bundle().apply {

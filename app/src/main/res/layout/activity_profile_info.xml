@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back_color_page"
-    tools:context=".ui.component.profile_info.ProfileInfoActivity">
+    tools:context=".ui.component.main.bottom.profile.profile_info.ProfileInfoActivity">
 
     <include layout="@layout/app_bar_layout"
         android:id="@+id/app_bar"
@@ -54,7 +54,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/userName"
+            android:text="@string/first_name"
             style="@style/TextMediumFont"
             android:layout_height="wrap_content"/>
 
@@ -71,6 +71,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameContent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:padding="@dimen/_5sdp"
+        android:id="@+id/secondNameContent"
+        android:background="@drawable/back_raduis_white"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/hint_second_name"
+            style="@style/TextMediumFont"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:id="@+id/secondName"
+            style="@style/TextRegularFont"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondNameContent"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:padding="@dimen/_5sdp"

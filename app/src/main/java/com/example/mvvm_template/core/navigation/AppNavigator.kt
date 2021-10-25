@@ -13,5 +13,7 @@ enum class Screen{
     HOME,
     PRODUCT_BY_CATEGORY,
     PRODUCT_DETAIL,
-    CART
+    CART,
+    PROFILE_SCREEN,
+    ACCOUNT_SETTING
 }

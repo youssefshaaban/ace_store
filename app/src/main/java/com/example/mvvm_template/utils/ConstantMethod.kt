@@ -68,4 +68,7 @@ object ConstantMethod {
             phone
         }
     }
+
+
 }
+const val FIRST_PAGE=1

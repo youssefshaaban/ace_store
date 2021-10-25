@@ -28,7 +28,7 @@ private const val timeoutConnect = 30   //In seconds
 private const val academyId = "AcademyId"
 private const val academyIdValue = "1"
 class ServiceGenerator (private val device:String) {
-    private val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
+    val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
     private val retrofit: Retrofit
 
     // Create the Collector
@@ -95,5 +95,7 @@ class ServiceGenerator (private val device:String) {
     fun <S> createService(serviceClass: Class<S>): S {
         return retrofit.create(serviceClass)
     }
+
+
 
 }

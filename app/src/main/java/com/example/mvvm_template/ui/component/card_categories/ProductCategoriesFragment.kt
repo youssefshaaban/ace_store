@@ -6,14 +6,10 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
-import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityItemCategoriesBinding
-import com.example.mvvm_template.domain.entity.Cart
-import com.example.mvvm_template.domain.entity.Category
 import com.example.mvvm_template.domain.entity.Product
-import com.example.mvvm_template.ui.component.main.bottom.home.CategoryCardAdapter
 
 import com.example.mvvm_template.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +17,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() {
-    var pagNumber: Int = 1
-    var stopLoadMore: Boolean = false
+    var pagNumber: Int = FIRST_PAGE
     val viewModel: ProductsViewModel by activityViewModels()
     val cat_id: Int? by lazy {
         arguments?.getInt("cat_id")
@@ -35,13 +30,14 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
         ProductCategoryAdapter(::handleClickProduct,::handleAddToCart)
     }
 
-    private fun handleAddToCart(product: Product) {
-        viewModel.addToCart(product.id)
+    private fun handleAddToCart(product: Product,position:Int) {
+        viewModel.addToCart(product.id,position,!product.isAtCart)
     }
 
     private fun handleClickProduct(product: Product) {
         appNavigator.navigateTo(Screen.PRODUCT_DETAIL, Bundle().apply {
             putInt("ID", product.id)
+            putBoolean("isAddCart",product.isAtCart)
         })
     }
 
@@ -50,28 +46,25 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
         actionGrid()
         getViewDataBinding().content.emptyRecycle.setEmptyView(getViewDataBinding().content.contentEmptyView)
         getViewDataBinding().content.emptyRecycle.adapter = productCategoryAdapter
+        getViewDataBinding().lastOrder.toGone()
         onClickListner()
         if (arguments?.getBoolean(
                 "isSearch",
                 false
             ) == null || requireArguments().getBoolean("isSearch", false)
         ) {
-            getViewDataBinding().lastOrder.toGone()
+            //getViewDataBinding().lastOrder.toGone()
         } else {
-            getViewDataBinding().lastOrder.toVisible()
-            viewModel.getProductsWithCatId(cat_id, pagNumber)
+           // getViewDataBinding().lastOrder.toVisible()
+            viewModel.getProducts(cat_id, pageIndex = pagNumber)
         }
         getViewDataBinding().content.emptyRecycle.addEndlessScroll(::handleLoadMore)
     }
 
     private fun handleLoadMore() {
-        if (!stopLoadMore) {
+        if (!viewModel.stopLoadingMore) {
             pagNumber += 1
-            if (cat_id != null) {
-                viewModel.getProductsWithCatId(cat_id, pagNumber)
-            } else {
-                viewModel.getProductsSearch(search, pagNumber)
-            }
+            viewModel.getProducts(cat_id = cat_id,searchText = search, pagNumber)
         }
     }
 
@@ -86,33 +79,20 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
 
 
     private fun actionGrid() {
-        getViewDataBinding().grid.setColorFilter(R.color.colorAccent)
+        getViewDataBinding().grid.setColorFilter(resources.getColor(R.color.colorAccent))
         getViewDataBinding().list.setColorFilter(Color.parseColor("#bcbcbc"))
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
     }
 
 
     private fun actionList() {
-        getViewDataBinding().list.setColorFilter(R.color.colorAccent)
+        getViewDataBinding().list.setColorFilter(resources.getColor(R.color.colorAccent))
         getViewDataBinding().grid.setColorFilter(Color.parseColor("#bcbcbc"))
         getViewDataBinding().content.emptyRecycle.configRecycle(true)
     }
 
-    private fun handleDateStatCategory(dataState: DataState<List<Product>>) {
-        when (dataState) {
-            is DataState.Loading -> showLoading()
-            is DataState.Success -> {
-                hideLoading()
-                if (dataState.data.size < 20) {
-                    stopLoadMore = true
-                }
-                productCategoryAdapter.submitList(productCategoryAdapter.currentList + dataState.data)
-            }
-            is DataState.Error -> {
-                hideLoading()
-                handleFaluir(dataState.error)
-            }
-        }
+    private fun handleDateStatCategory(products: List<Product>) {
+        productCategoryAdapter.submitList(productCategoryAdapter.currentList + products)
     }
 
     override fun getLayoutId(): Int {
@@ -121,26 +101,32 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
 
     override fun observeViewModel() {
         observe(viewModel.productsLiveData, ::handleDateStatCategory)
-        observe(viewModel.addCartLiveData,::handleStateAddToCart)
+        observe(viewModel.loadinVisibilityObserve){
+            if (it){
+                showLoading()
+            }else{
+                hideLoading()
+            }
+        }
+        observe(viewModel.notifyPositionCartLiveDate,::handlDataChangeCart)
         observe(viewModel.searchQueryLiveData) {
             // perform search
             search = it
-            pagNumber = 1
-            viewModel.getProductsSearch(search, pagNumber)
+            pagNumber = FIRST_PAGE
+            viewModel.getProducts(searchText = search,pageIndex= pagNumber)
+        }
+        observe(viewModel.errorFaliureCallingLiveDate){
+            faluir->
+            faluir?.let {
+                handleFaluir(it)
+            }
         }
     }
 
-    private fun handleStateAddToCart(dataState: DataState<Cart>) {
-        when (dataState) {
-            is DataState.Loading -> showLoading()
-            is DataState.Success -> {
-                hideLoading()
-                getViewDataBinding().grid.showToast("success",1000)
-            }
-            is DataState.Error -> {
-                hideLoading()
-                handleFaluir(dataState.error)
-            }
+    private fun handlDataChangeCart(position: Int?) {
+        position?.let {
+            getViewDataBinding().content.emptyRecycle.adapter?.notifyItemChanged(position)
         }
     }
+
 }

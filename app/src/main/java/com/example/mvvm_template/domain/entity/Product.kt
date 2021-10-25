@@ -12,9 +12,10 @@ data class Product(
     val metaDescription: String? = null,
     val name: String? = null,
     var quantity: Int = 1,
-    val price: Int? = null,
-    val priceAfterDiscount: Int? = null,
+    val price: Double? = null,
+    val priceAfterDiscount: Double? = null,
     val images: List<String>? = null,
     val reviews: List<Review>? = null,
-    var IsAtCsrt:Boolean=false
+    var isAtCart:Boolean=false,
+
 ) : Parcelable

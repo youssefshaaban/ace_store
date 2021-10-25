@@ -7,23 +7,46 @@ import androidx.lifecycle.viewModelScope
 import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.domain.entity.Card
 import com.example.mvvm_template.domain.entity.Category
+import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.domain.interactor.category.GetCartegoryPaginationUseCase
+import com.example.mvvm_template.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val getCartegoryPaginationUseCase: GetCartegoryPaginationUseCase): ViewModel() {
-
-    private val categoryDataLiveDate = MutableLiveData<DataState<List<Category>>>()
-    val observeCategoryLiveDate: LiveData<DataState<List<Category>>> get() = categoryDataLiveDate
-
-    fun getCategories(pageNumber:Int){
+class HomeViewModel @Inject constructor(private val getCartegoryPaginationUseCase: GetCartegoryPaginationUseCase) :
+    ViewModel() {
+    val loadingVisibility = MutableLiveData(false)
+    val catogeries = MutableLiveData(arrayListOf<Category>())
+    val error = SingleLiveEvent<Failure>()
+    val stopLoadingMore = MutableLiveData(false)
+    fun getCategories(pageNumber: Int) {
         viewModelScope.launch {
-            categoryDataLiveDate.value=DataState.Loading
-            getCartegoryPaginationUseCase.execute(GetCartegoryPaginationUseCase.ParamPageCategory(pagNumber = pageNumber,subCategories = true)).collect {
-                categoryDataLiveDate.value=it
+            //categoryDataLiveDate.value=DataState.Loading
+            loadingVisibility.value = true
+            getCartegoryPaginationUseCase.execute(
+                GetCartegoryPaginationUseCase.ParamPageCategory(
+                    pagNumber = pageNumber,
+                    subCategories = true
+                )
+            ).collect {
+                if (it is DataState.Success) {
+                    if (it.data.size < 20) {
+                        stopLoadingMore.value = true
+                    }
+                    if (pageNumber == 1)
+                        catogeries.value = ArrayList(it.data)
+                    else {
+                        catogeries.value?.addAll(it.data)
+                        catogeries.value = catogeries.value
+                    }
+                    loadingVisibility.value = false
+                } else if (it is DataState.Error) {
+                    error.value = it.error
+                    loadingVisibility.value = false
+                }
             }
         }
     }

@@ -9,9 +9,10 @@ data class ProductByIdResponse(
     val images: List<Image>,
     val metaDescription: String,
     val name: String,
-    val price: Int,
-    val priceAfterDiscount: Int,
-    val rate: Rate?=null
+    val price: Double,
+    val priceAfterDiscount: Double,
+    val rate: Rate?=null,
+    var isAtCart:Boolean=false,
 )
 
 data class Currency(
@@ -66,12 +67,13 @@ fun ProductByIdResponse.toProductModel(): com.example.mvvm_template.domain.entit
     return com.example.mvvm_template.domain.entity.Product(
         currency.toCurrencyModel(),
         descriptionShort,
-        id,
-        imagePath,
-        metaDescription,
-        name,
-        price,
-        priceAfterDiscount,
+        id = id,
+        imagePath = imagePath,
+        metaDescription=metaDescription,
+        name = name,
+        price = price,
+        isAtCart = isAtCart,
+        priceAfterDiscount = priceAfterDiscount,
         images = images.map { im -> im.imagePath }
         ,reviews = this.rate?.reviews?.map { re->re.toReviewModel() }
     )

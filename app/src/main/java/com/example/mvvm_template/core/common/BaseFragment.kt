@@ -18,6 +18,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
     private var mActivity: BaseActivity<*>? = null
 
     private lateinit var mViewDataBinding: T
+    private var mRootView: View? = null
     /**
      * @return layout resource id
      */
@@ -34,11 +35,12 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
 
 
     fun handleFaluir(error: Failure) {
-        when (error) {
-            is Failure.UnknownError -> mActivity?.displayError(error.message)
-            is Failure.NetworkConnection -> mActivity?.displayError(getString(R.string.check_your_notwrk))
-            is Failure.ServerError -> mActivity?.displayError(getString(R.string.something_wron))
-        }
+//        when (error) {
+//            is Failure.UnknownError -> mActivity?.displayError(error.message)
+//            is Failure.NetworkConnection -> mActivity?.displayError(getString(R.string.check_your_notwrk))
+//            is Failure.ServerError -> mActivity?.displayError(getString(R.string.something_wron))
+//        }
+        mActivity?.handleFaluir(error)
     }
 
 
@@ -50,11 +52,17 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        return mViewDataBinding.root
+        if (mRootView==null){
+            initBinding(inflater,container)
+        }
+
+        return mRootView
     }
 
-
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        mRootView=mViewDataBinding.root
+    }
 
 
     open fun hideLoading() {

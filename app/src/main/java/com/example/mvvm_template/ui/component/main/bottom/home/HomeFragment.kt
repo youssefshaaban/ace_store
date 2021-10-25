@@ -24,7 +24,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val sharedViewModel: MainViewModel by activityViewModels()
     private val viewModel: HomeViewModel by viewModels()
     var pagNumber: Int = 1
-    var stopLoadMore: Boolean = false
+    private var hasInitializedRootView = false
+
     @Inject
     lateinit var appNavigator: AppNavigator
     private val categoryCardAdapter by lazy {
@@ -32,9 +33,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun handleClickCategory(category: Category) {
-        appNavigator.navigateTo(Screen.PRODUCT_BY_CATEGORY,Bundle().apply {
-            putInt("cat_id",category.id!!)
-            putString("title",category.name)
+        appNavigator.navigateTo(Screen.PRODUCT_BY_CATEGORY, Bundle().apply {
+            putInt("cat_id", category.id!!)
+            putString("title", category.name)
         })
     }
 
@@ -49,16 +50,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         getViewDataBinding().rvCategory.adapter = categoryCardAdapter
         getViewDataBinding().rvCategory.addEndlessScroll(::handleLoadMore)
         getViewDataBinding().pager.adapter = SliderAdapter() {}
-        viewModel.getCategories(pagNumber)
         TabLayoutMediator(
             getViewDataBinding().tabLayoutDots,
             getViewDataBinding().pager,
             { _, _ -> }).attach()
         sharedViewModel.title.value = getString(R.string.title_home)
+        if (!hasInitializedRootView) {
+            viewModel.getCategories(pagNumber)
+            hasInitializedRootView = true
+        }
     }
 
     private fun handleLoadMore() {
-        if (!stopLoadMore) {
+        if (!viewModel.stopLoadingMore.value!!) {
             pagNumber += 1
             viewModel.getCategories(pagNumber)
         }
@@ -69,23 +73,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun observeViewModel() {
-        observe(viewModel.observeCategoryLiveDate, ::handleDateStatCategory)
-    }
-
-    private fun handleDateStatCategory(dataState: DataState<List<Category>>) {
-        when (dataState) {
-            is DataState.Loading -> showLoading()
-            is DataState.Success -> {
+        observe(viewModel.loadingVisibility){
+            if (it){
+                showLoading()
+            }else{
                 hideLoading()
-                if (dataState.data.size < 20) {
-                    stopLoadMore = true
-                }
-                categoryCardAdapter.submitList(categoryCardAdapter.currentList + dataState.data)
             }
-            is DataState.Error -> {
-                hideLoading()
-                handleFaluir(dataState.error)
-            }
+        }
+        observe(viewModel.error){
+            handleFaluir(it)
+        }
+        observe(viewModel.catogeries){
+            categoryCardAdapter.submitList(it)
         }
     }
 

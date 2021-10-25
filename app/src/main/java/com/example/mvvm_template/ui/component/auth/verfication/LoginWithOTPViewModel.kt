@@ -1,4 +1,4 @@
-package com.example.mvvm_template.ui.component.verfication
+package com.example.mvvm_template.ui.component.auth.verfication
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

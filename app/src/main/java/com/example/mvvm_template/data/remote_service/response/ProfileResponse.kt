@@ -7,7 +7,10 @@ import kotlinx.android.parcel.Parcelize
 data class ProfileResponse(
     val email: String,
     val id: String,
-    val imagePath: String,
+    val imagePath: String?=null,
+    val imageName: String?=null,
     val mobileNumber: String,
-    val name: String
+    val name: String,
+    val firstName:String?=null,
+    val lastName:String?=null
 ):Parcelable

@@ -21,6 +21,7 @@ import com.example.mvvm_template.databinding.ActivityMainBinding
 import com.example.mvvm_template.domain.entity.Profile
 import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.domain.entity.User
+import com.example.mvvm_template.ui.component.auth.logout.LogoutDialog
 
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
@@ -37,13 +38,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    val viewModel:MainViewModel by viewModels()
+    val viewModel: MainViewModel by viewModels()
     val list: List<MenuItem> by lazy {
         getListMenu()
     }
+
     @Inject
     lateinit var navigator: AppNavigator
-    private fun getListMenu():List<MenuItem> {
+    private fun getListMenu(): List<MenuItem> {
         return arrayListOf(
             MenuItem(getString(R.string.menu_status), R.drawable.ic_status_icon, ActionType.Status),
             MenuItem(getString(R.string.menu_support), R.drawable.ic_support, ActionType.Support),
@@ -66,30 +68,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun handelDataStatVerifyOTP(dataState: DataState<Profile>) {
         when (dataState) {
             is DataState.Success -> {
-                getViewDataBinding().navView.name.text=dataState.data.name
-                getViewDataBinding().navView.imageView.loadImage(dataState.data.imagePath,R.drawable.bg_no_image)
-                getViewDataBinding().navView.phone.text=dataState.data.mobileNumber
+                getViewDataBinding().navView.name.text = dataState.data.name
+                getViewDataBinding().navView.imageView.loadImage(
+                    dataState.data.imagePath,
+                    R.drawable.bg_no_image
+                )
+                getViewDataBinding().navView.phone.text = dataState.data.mobileNumber
             }
             is DataState.Error -> {
                 handleFaluir(dataState.error)
             }
         }
     }
-    private fun handelDataStateLogOut(dataState: DataState<Boolean>) {
-        when (dataState) {
-            is DataState.Loading->showLoading()
-            is DataState.Success -> {
-                hideLoading()
-                SavePrefs(this,User::class.java).clear()
-                navigator.navigateTo(Screen.GENERATE_OTP,null)
-                finish()
-            }
-            is DataState.Error -> {
-                hideLoading()
-                handleFaluir(dataState.error)
-            }
-        }
-    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -115,30 +108,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun checkUser() {
-        if (App.getUser()!=null){
+        if (App.getUser() != null) {
             viewModel.getProfile()
-            getViewDataBinding().txt.text=getString(R.string.logout)
-        }else{
-            getViewDataBinding().txt.text=getString(R.string.login)
+            getViewDataBinding().txt.text = getString(R.string.logout)
+        } else {
+            getViewDataBinding().txt.text = getString(R.string.login)
         }
         getViewDataBinding().txt.setOnClickListener { perforClickActionLogin() }
     }
 
-    private fun perforClickActionLogin(){
-        if (App.getUser()!=null){
-            viewModel.logOut()
-        }else{
-           navigator.navigateTo(Screen.GENERATE_OTP,null)
-           finish()
+    private fun perforClickActionLogin() {
+        if (App.getUser() != null) {
+            val fragment =
+                LogoutDialog()
+            fragment.show(supportFragmentManager, LogoutDialog::class.java.name)
+        } else {
+            navigator.navigateTo(Screen.GENERATE_OTP, null)
+            finish()
         }
     }
 
     private fun observeViewModels() {
-        viewModel.title.observe(this){
+        viewModel.title.observe(this) {
             getViewDataBinding().contentLayout.contentMain.title.text = it
         }
-        observe(viewModel.observProfile,::handelDataStatVerifyOTP)
-        observe(viewModel.observeSuccess,::handelDataStateLogOut)
+        observe(viewModel.observProfile, ::handelDataStatVerifyOTP)
     }
 
     private fun openSearch() {
@@ -146,7 +140,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun openCart() {
-        navigator.navigateTo(Screen.CART,null)
+        navigator.navigateTo(Screen.CART, null)
     }
 
     private fun handleActionType(actionType: ActionType) {
@@ -165,7 +159,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     WebViewActivity.getIntent(this).putExtra(
                         "title",
                         getString(R.string.menu_replacment)
-                    ).putExtra("url","")
+                    ).putExtra("url", "")
                 )
             }
             ActionType.Rate -> {

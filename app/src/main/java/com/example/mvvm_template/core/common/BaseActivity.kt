@@ -1,6 +1,7 @@
 package com.example.mvvm_template.core.common
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.Window
@@ -10,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.mvvm_template.R
+import com.example.mvvm_template.data.remote_service.response.LoginResponse
+import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.domain.error.Failure
 
 import com.example.mvvm_template.ui.LoadingDialog
+import com.example.mvvm_template.ui.component.auth.login.GenerateOtpActivity
+import com.example.mvvm_template.utils.SavePrefs
 import com.example.mvvm_template.utils.showLoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
@@ -35,17 +40,26 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
     }
-     fun displayError(message: String?) {
+
+    fun displayError(message: String?) {
         message?.let {
             Snackbar.make(getViewDataBinding().root, message, Snackbar.LENGTH_SHORT).show()
         }
     }
 
-     fun handleFaluir(error: Failure) {
+    fun handleFaluir(error: Failure) {
         when (error) {
             is Failure.UnknownError -> displayError(error.message)
             is Failure.NetworkConnection -> displayError(getString(R.string.check_your_notwrk))
             is Failure.ServerError -> displayError(getString(R.string.something_wron))
+            is Failure.UnAuthorize -> {
+                SavePrefs(this,User::class.java).clear()
+                startActivity(
+                    Intent(this, GenerateOtpActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+                finish()
+            }
         }
     }
 

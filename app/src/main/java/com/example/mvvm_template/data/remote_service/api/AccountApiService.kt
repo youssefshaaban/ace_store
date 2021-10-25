@@ -23,7 +23,7 @@ interface AccountApiService {
 
     @PUT("Account/Profile")
 
-    suspend fun updateProfile(@Header("Authorization") token:String,@Body requestProfile: UpdateProfileUseCase.UpdateRequestProfile): Response<BaseReponse<ProfileResponse>>
+    suspend fun updateProfile(@Body requestProfile: UpdateProfileUseCase.UpdateRequestProfile): Response<BaseReponse<ProfileResponse>>
 
 
     @DELETE("Account/Logout")
