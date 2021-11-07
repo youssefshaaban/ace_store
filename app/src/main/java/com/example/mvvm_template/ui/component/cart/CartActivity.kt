@@ -22,7 +22,9 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
         super.onCreate(savedInstanceState)
         getViewDataBinding().appBar.back.setOnClickListener { onBackPressed() }
         getViewDataBinding().appBar.title.setText(getString(R.string.title_cart))
-        getViewDataBinding().rvProduct.configRecycle(true)
+        getViewDataBinding().contentEmpty.emptyRecycle.configRecycle(true)
+        getViewDataBinding().contentEmpty.emptyRecycle.setEmptyView(getViewDataBinding().contentEmpty.contentEmptyView)
+        getViewDataBinding().contentEmpty.txt.text=resources.getString(R.string.there_is_no_product)
         viewModel.getCart()
         setupObservable()
     }
@@ -46,7 +48,7 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
     }
 
     private fun setData(data: Cart) {
-        getViewDataBinding().rvProduct.adapter=CartAdapter(data.products,::handleClickAddCart)
+        getViewDataBinding().contentEmpty.emptyRecycle.adapter=CartAdapter(data.products,::handleClickAddCart)
         if (data.code!=null){
             getViewDataBinding().subTotalContent.toVisible()
             getViewDataBinding().discountContent.toVisible()

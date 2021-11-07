@@ -63,6 +63,7 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>() {
                 cardsAdapter=CardsAdapter(dataState.data){
                     appNavigator.navigateTo(Screen.PRODUCT_BY_CATEGORY,Bundle().apply {
                         putInt("cat_id",it.id!!)
+                        putString("title",it.name)
                     })
                 }
                 getViewDataBinding().content.emptyRecycle.adapter=cardsAdapter

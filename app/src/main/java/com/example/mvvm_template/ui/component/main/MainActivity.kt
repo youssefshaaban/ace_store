@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mvvm_template.App
@@ -31,6 +33,7 @@ import com.example.mvvm_template.ui.component.main.web_view.WebViewActivity
 import com.example.mvvm_template.ui.component.search.SearchActivity
 import com.example.mvvm_template.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ms_square.etsyblur.BlurSupport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import javax.inject.Inject
@@ -88,6 +91,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
+        BlurSupport.addTo(getViewDataBinding().drawerLayout)
         getViewDataBinding().rvItems.configRecycle(true)
         getViewDataBinding().rvItems.adapter = MenuItemAdapter(list, ::handleActionType)
         getViewDataBinding().contentLayout.contentMain.drawerIcon.setOnClickListener {
@@ -100,6 +104,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 DialogOfferFragment::class.java.name
             )
         }
+
         getViewDataBinding().contentLayout.contentMain.cart.setOnClickListener { openCart() }
         getViewDataBinding().contentLayout.contentMain.search.setOnClickListener { openSearch() }
         observeViewModels()

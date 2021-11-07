@@ -13,7 +13,7 @@ import com.example.mvvm_template.utils.loadImage
 
 class ProductCategoryAdapter(val clickItem:(Product)->Unit,
                              val clickAddCart:(Product,Int)->Unit
-                             ) :
+                             ):
     ListAdapter<Product,ProductCategoryAdapter.SingleRow>(CategoryDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRow {

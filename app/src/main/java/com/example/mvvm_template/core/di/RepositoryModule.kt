@@ -14,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class RepositoryModule {
+
     @Binds
     abstract fun binAccountRepo(accountRepoImp: AccountRepoImp):AccountRepository
 
@@ -31,6 +32,5 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun binLookupRepo(cartRepositoryImp: LookupRepositeryImp):LookupRepository
-
 
 }

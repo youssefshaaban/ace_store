@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.utils.SavePrefs
 import dagger.hilt.android.HiltAndroidApp
+import java.lang.StringBuilder
 
 
 @HiltAndroidApp
@@ -19,3 +20,4 @@ class App : Application() {
         fun getUser(): User? = SavePrefs(context, User::class.java).load()
     }
 }
+

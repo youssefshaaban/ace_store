@@ -62,7 +62,7 @@ class ServiceGenerator (private val device:String) {
         }
         requestBuilder.addHeader("DeviceId",device)
         requestBuilder.addHeader("DeviceType","Android")
-        requestBuilder.addHeader("LanguageId","1")
+        requestBuilder.addHeader("LanguageId","2")
         val request = requestBuilder.build()
         chain.proceed(request)
     }

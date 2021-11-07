@@ -6,9 +6,13 @@ import com.example.mvvm_template.data.remote_service.api.ApiFiles
 import com.example.mvvm_template.domain.repository.FileUploadRepo
 import com.example.mvvm_template.utils.FileUtils2
 import okhttp3.MediaType
-
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+
+
 import java.io.File
 import javax.inject.Inject
 
@@ -30,10 +34,10 @@ class FileUploadImp @Inject constructor(private val apiFiles: ApiFiles):FileUplo
 //            fileType,
 //            file
 //        )
-        val requestFile = RequestBody.create(MediaType.parse(fileType),file);
+       val request= file.asRequestBody(fileType.toMediaTypeOrNull())
         // MultipartBody.Part is used to send also the actual file name
         // MultipartBody.Part is used to send also the actual file name
-        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+        return MultipartBody.Part.createFormData(partName, file.name,request)
     }
 
     fun getParts(list: List<File>):ArrayList<MultipartBody.Part>{

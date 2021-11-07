@@ -3,8 +3,8 @@ object Versions {
     val CIRCLE_IMAGR="3.1.0"
     val KOTLIN = "1.3.72"
     val COMPILE_SDK = 28
-    val MIN_SDK_VERSION = 16
-    val TARGET_SDK_VERSION = 28
+    val MIN_SDK_VERSION = 21
+    val TARGET_SDK_VERSION = 31
     val VERSION_CODE = 1
     val VERSION_NAME = "1.0"
     val RXJAVA_VERSION = "2.2.13"
@@ -28,7 +28,7 @@ object Versions {
     val FRAGMENT_KTX = "1.2.5"
     val RX_RETROFIT_ADAPTER = "2.6.1"
     val RETROFIT_VERSION = "2.7.1"
-    val OKHTTP_LOGGING_INTERCEPTOR_VERSION = "3.12.1"
+    val OKHTTP_LOGGING_INTERCEPTOR_VERSION = "4.9.0"
     val GSON_CONVERTER = "2.6.1"
     val ESPRESSO = "3.1.0"
     val GOOGLE_MAP = "17.0.0"
@@ -94,6 +94,8 @@ object Libs {
     val rxAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.RX_RETROFIT_ADAPTER}"
     val loggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP_LOGGING_INTERCEPTOR_VERSION}"
+    val okhttp3 =
+        "com.squareup.okhttp3:okhttp:${Versions.OKHTTP_LOGGING_INTERCEPTOR_VERSION}"
     val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.GSON_CONVERTER}"
     val googleMap = "com.google.android.gms:play-services-maps:${Versions.GOOGLE_MAP}"
     val locationServices = "com.google.android.gms:play-services-location:${Versions.LOCATION_SERVICES}"
@@ -107,6 +109,7 @@ object Libs {
     @JvmStatic val LOADING = "com.github.ybq:Android-SpinKit:${Versions.SPIN_KIT}"
     val circleImageView="de.hdodenhof:circleimageview:${Versions.CIRCLE_IMAGR}"
     val rxBinding="com.jakewharton.rxbinding2:rxbinding:${Versions.rxbinding}"
+    val blurry="com.ms-square:etsyblur:0.2.1"
     val exbandable_recyclview="com.thoughtbot:expandablerecyclerview:${Versions.expandable_recycle}"
 }
 

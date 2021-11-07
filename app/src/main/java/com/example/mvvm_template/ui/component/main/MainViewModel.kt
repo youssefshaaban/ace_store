@@ -11,6 +11,7 @@ import com.example.mvvm_template.domain.interactor.account.LogOutUseCase
 import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class MainViewModel @Inject constructor(
     private val profileDataLiveDate = MutableLiveData<DataState<Profile>>()
     val observProfile: LiveData<DataState<Profile>> get() = profileDataLiveDate
     fun getProfile() {
-        viewModelScope.launch {
+        viewModelScope.launch() {
             getProfileUseCase.execute(Unit).collect {
                 profileDataLiveDate.value = it
             }

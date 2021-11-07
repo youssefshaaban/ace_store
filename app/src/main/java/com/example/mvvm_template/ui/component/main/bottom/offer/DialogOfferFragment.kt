@@ -23,9 +23,7 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
-        getViewDataBinding().content.emptyRecycle.adapter=ProductCategoryAdapter({}){
-            
-        }
+        getViewDataBinding().content.emptyRecycle.adapter=ProductCategoryAdapter(clickItem = {},clickAddCart = {product, i ->  })
     }
 
     override fun getLayoutId(): Int {

@@ -93,5 +93,6 @@
     <string name="txt_no">ليس الأن</string>
     <string name="message_logout">هل تريد الخروج من الحساب ؟</string>
     <string name="loginOrCreate">تسجيل دخول او إنشاء حساب</string>
+    <string name="there_is_no_product">لايوجد منتجات فى السلة</string>
 
 </resources>

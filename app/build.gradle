@@ -8,7 +8,7 @@ plugins {
 
 
 android {
-    compileSdk 30
+    compileSdk 31
     defaultConfig {
         applicationId Android.INSTANCE.applicationId
         minSdkVersion Android.INSTANCE.minSDK
@@ -16,21 +16,38 @@ android {
         versionCode Android.INSTANCE.versionCode
         versionName Android.INSTANCE.versionName
         multiDexEnabled true
+        renderscriptSupportModeEnabled true
     }
+    def localProperties=new Properties()
+    localProperties.load(new FileInputStream("local.properties"))
+
     buildTypes {
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "SDK_TOKEN_URL", "\"https://paymentservices.payfort.com/FortAPI/paymentApi\"")
+            buildConfigField("String","MERCHANT_ID",localProperties['MERCHANT_ID_TEST'])
+            buildConfigField("String","ACCESS_CODE_PAYFORT",localProperties['ACCESS_CODE_PAYFORT'])
+            buildConfigField("String","SHA_Request_Phrase",localProperties['SHA_Request_Phrase'])
+            buildConfigField("String","SHA_Response_Phrase",localProperties['SHA_Response_Phrase'])
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "SDK_TOKEN_URL", "\"https://sbpaymentservices.payfort.com/FortAPI/paymentApi\"")
+            buildConfigField("String","MERCHANT_ID",localProperties['MERCHANT_ID_TEST'])
+            buildConfigField("String","SHA_Request_Phrase",localProperties['SHA_Request_Phrase'])
+            buildConfigField("String","ACCESS_CODE_PAYFORT",localProperties['ACCESS_CODE_PAYFORT'])
+            buildConfigField("String","SHA_Response_Phrase",localProperties['SHA_Response_Phrase'])
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        checkReleaseBuilds false
     }
     kapt {
         correctErrorTypes = true
@@ -50,6 +67,8 @@ dependencies {
     implementation Libs.INSTANCE.constraintLayout
     implementation Libs.INSTANCE.permissionsDispatcher
     implementation Libs.INSTANCE.retrofit
+    implementation Libs.INSTANCE.okhttp3
+    implementation Libs.INSTANCE.loggingInterceptor
     implementation Libs.INSTANCE.gson
     implementation Libs.INSTANCE.gsonConverter
     implementation project(path: ':vFilePicker')
@@ -76,7 +95,10 @@ dependencies {
     implementation Libs.INSTANCE.circleImageView
     implementation Libs.INSTANCE.rxBinding
     implementation Libs.INSTANCE.multidex
-
+    implementation Libs.INSTANCE.blurry
+    implementation("com.amazon:fortpayment:+:release@aar"){
+        transitive = true
+    }
 
 }
 repositories {

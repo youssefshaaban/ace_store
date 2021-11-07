@@ -20,15 +20,18 @@
         <activity
             android:name=".ui.component.cart.CartActivity"
             android:exported="true" />
-        <activity android:name=".ui.component.main.web_view.WebViewActivity" />
-        <activity android:name=".ui.component.reorder.ReorderActivity" />
-        <activity android:name=".ui.component.main.rate_app.RateMeFragment" />
+        <activity android:name=".ui.component.main.web_view.WebViewActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.component.reorder.ReorderActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.component.main.rate_app.RateMeFragment"
+            android:exported="false"/>
         <activity
             android:name=".ui.component.card_categories.ProductCategoriesActivity"
             android:exported="true" />
         <activity
             android:name=".ui.component.search.SearchActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".ui.component.setting.SettingActivity"
             android:exported="true" />
@@ -40,20 +43,30 @@
             android:exported="true" />
         <activity
             android:name=".ui.component.main.MainActivity"
-            android:launchMode="singleTask" />
-        <activity android:name="com.example.mvvm_template.ui.component.auth.signup.ContinueCompleteActivity" />
-        <activity android:name="com.example.mvvm_template.ui.component.auth.verfication.LogiWithOtpActivity" />
+            android:launchMode="singleTask"
+            android:exported="false"
+            />
+        <activity android:name="com.example.mvvm_template.ui.component.auth.signup.ContinueCompleteActivity"
+            android:exported="false"
+            />
+        <activity android:name="com.example.mvvm_template.ui.component.auth.verfication.LogiWithOtpActivity"
+            android:exported="false"
+            />
         <activity
             android:name="com.example.mvvm_template.ui.component.auth.login.GenerateOtpActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".ui.component.SplashActivity">
+            android:launchMode="singleTop"
+            android:exported="false"
+            />
+        <activity android:name=".ui.component.SplashActivity"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.component.on_boarding.OnBoardingActivity" />
+        <activity android:name=".ui.component.on_boarding.OnBoardingActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

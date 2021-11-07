@@ -23,11 +23,14 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_5sdp"
                 android:layout_height="wrap_content">
-                <androidx.recyclerview.widget.RecyclerView
+
+                <include
+                    layout="@layout/empty_recycle_layout_without_refresh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rvProduct"
                     android:layout_margin="@dimen/_10sdp"
+
+                    android:id="@+id/contentEmpty"
                     />
                 <TextView
                     android:layout_width="match_parent"
