@@ -1,6 +1,7 @@
 package com.example.mvvm_template.domain.repository
 
 import com.example.mvvm_template.core.common.DataState
+import com.example.mvvm_template.domain.dto.RequestUpdateSetting
 
 import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.domain.entity.Profile
@@ -24,4 +25,5 @@ interface AccountRepository {
     suspend fun logOut(): DataState<Boolean>
 
     suspend fun updateFireBaseToken(updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase):DataState<Boolean>
+    suspend fun updateAccountSetting(updateAccountSetting:RequestUpdateSetting):DataState<Boolean>
 }

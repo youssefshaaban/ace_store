@@ -5,6 +5,7 @@ import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.data.mapper.MapProfileReponseToProfile
 import com.example.mvvm_template.data.remote_service.BaseDataSource
 import com.example.mvvm_template.data.remote_service.api.AccountApiService
+import com.example.mvvm_template.domain.dto.RequestUpdateSetting
 
 import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.domain.entity.Profile
@@ -93,6 +94,17 @@ class AccountRepoImp @Inject constructor(private val accountApiService: AccountA
         }
         return if (result is DataState.Success){
             DataState.Success(result.data.result)
+        }else{
+            DataState.Error((result as DataState.Error).error)
+        }
+    }
+
+    override suspend fun updateAccountSetting(updateAccountSetting: RequestUpdateSetting): DataState<Boolean> {
+        val result=getResult {
+            accountApiService.updateAccountSetting(updateAccountSetting)
+        }
+        return if (result is DataState.Success){
+            DataState.Success(true)
         }else{
             DataState.Error((result as DataState.Error).error)
         }

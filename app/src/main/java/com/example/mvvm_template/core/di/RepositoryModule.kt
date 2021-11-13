@@ -33,4 +33,7 @@ abstract class RepositoryModule {
     @Binds
     abstract fun binLookupRepo(cartRepositoryImp: LookupRepositeryImp):LookupRepository
 
+    @Binds
+    abstract fun binResourceRepo(resourcesImp: RepoResourcesImp):ResourcesRepo
+
 }

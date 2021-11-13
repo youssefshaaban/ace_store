@@ -164,19 +164,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     WebViewActivity.getIntent(this).putExtra(
                         "title",
                         getString(R.string.menu_replacment)
-                    ).putExtra("url", "")
+                    ).putExtra("type", 2)
                 )
             }
             ActionType.Rate -> {
-                //startActivityWithFade(RateMeFragment.getIntent(this))
+                startActivityWithFade(RateMeFragment.getIntent(this))
             }
             ActionType.Info -> {
-//                startActivityWithFade(
-//                    WebViewActivity.getIntent(this).putExtra(
-//                        "title",
-//                        getString(R.string.menu_about)
-//                    ).putExtra("url","")
-//                )
+                startActivityWithFade(
+                    WebViewActivity.getIntent(this).putExtra(
+                        "title",
+                        getString(R.string.menu_replacment)
+                    ).putExtra("type", 1)
+                )
             }
             ActionType.Status -> {
 

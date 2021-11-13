@@ -6,28 +6,59 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
+import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.databinding.ActivityWebViewBinding
+import com.example.mvvm_template.domain.entity.Resource
+import com.example.mvvm_template.utils.observe
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WebViewActivity : BaseActivity<ActivityWebViewBinding>() {
-    val type:Int by lazy {
-        intent.getIntExtra("type_load",1)
+    private val resourcesDataViewModel: ResourcesDataViewModel by viewModels()
+    val type: Int by lazy {
+        intent.getIntExtra("type", 1)
     }
-    val data:String? by lazy {
-        intent.getStringExtra("data")
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getViewDataBinding().appBar.back.setOnClickListener { onBackPressed() }
-        getViewDataBinding().appBar.title.text=intent.getStringExtra("title")
-        getViewDataBinding().webView.webViewClient=MyBrowser()
-        if (type==1){
-            getViewDataBinding().webView.loadUrl(data!!)
-        }else{
-            getViewDataBinding().webView.loadData(data!! ,"text/html", "UTF-8")
-        }
+        getViewDataBinding().appBar.title.text = intent.getStringExtra("title")
+        getViewDataBinding().webView.webViewClient = MyBrowser()
+        resourcesDataViewModel.getResources(type)
+//        if (type==1){
+//            getViewDataBinding().webView.loadUrl(data!!)
+//        }else{
+//            getViewDataBinding().webView.loadData(data!! ,"text/html", "UTF-8")
+//        }
 
+        setUpObservable()
+    }
+
+    private fun setUpObservable() {
+        observe(resourcesDataViewModel.getResourcesObserveSuccess, ::handleResourceGet)
+    }
+
+    private fun handleResourceGet(dataState: DataState<Resource>) {
+        when (dataState) {
+            is DataState.Loading -> showLoading()
+            is DataState.Success -> {
+                handleLoadDataSource(dataState.data)
+            }
+            is DataState.Error -> {
+                handleFaluir(dataState.error)
+            }
+        }
+    }
+
+    private fun handleLoadDataSource(data: Resource) {
+        if (data.valueType == 2) {
+            getViewDataBinding().webView.loadData(data.value, "text/html", "UTF-8")
+        } else {
+            getViewDataBinding().webView.loadUrl(data.value)
+        }
     }
 
     private class MyBrowser : WebViewClient() {
@@ -36,13 +67,14 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>() {
             return true
         }
     }
+
     override fun getLayoutId(): Int {
         return R.layout.activity_web_view
     }
 
 
-    companion object{
-        fun getIntent(context: Context):Intent= Intent(context, WebViewActivity::class.java)
+    companion object {
+        fun getIntent(context: Context): Intent = Intent(context, WebViewActivity::class.java)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

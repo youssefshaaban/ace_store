@@ -4,6 +4,6 @@ import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.domain.entity.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface GetResourceUseCase {
+interface IGetResourceUseCase {
     suspend fun getResource():Flow<DataState<Resource>>
 }

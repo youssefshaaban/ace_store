@@ -4,7 +4,7 @@ object Versions {
     val KOTLIN = "1.3.72"
     val COMPILE_SDK = 28
     val MIN_SDK_VERSION = 21
-    val TARGET_SDK_VERSION = 31
+    val TARGET_SDK_VERSION = 33
     val VERSION_CODE = 1
     val VERSION_NAME = "1.0"
     val RXJAVA_VERSION = "2.2.13"

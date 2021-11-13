@@ -4,6 +4,7 @@ import com.example.mvvm_template.data.remote_service.response.BaseReponse
 import com.example.mvvm_template.data.remote_service.response.LoginResponse
 import com.example.mvvm_template.data.remote_service.response.ProfileResponse
 import com.example.mvvm_template.data.remote_service.response.ReponseOTP
+import com.example.mvvm_template.domain.dto.RequestUpdateSetting
 import com.example.mvvm_template.domain.interactor.account.GenerateOtpUseCase
 import com.example.mvvm_template.domain.interactor.account.LoginUseCaseWithOt
 import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
@@ -30,7 +31,11 @@ interface AccountApiService {
     suspend fun logOut(): Response<BaseReponse<Boolean>>
 
     @PUT("Account/FirebaseToken/Update")
-    suspend fun updateFireBase(updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase): Response<BaseReponse<Boolean>>
+    suspend fun updateFireBase(@Body updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase): Response<BaseReponse<Boolean>>
+
+    @PUT("Account/UpdateSetting")
+    suspend fun updateAccountSetting(@Body requestUpdateSetting: RequestUpdateSetting): Response<BaseReponse<RequestUpdateSetting>>
+
 
 
 }

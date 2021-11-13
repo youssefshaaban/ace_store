@@ -53,6 +53,11 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun createResourceApi(servisGenerator: ServiceGenerator): ResourcesApi =
+        servisGenerator.createService(ResourcesApi::class.java)
+
+    @Singleton
+    @Provides
     fun createProductsApi(servisGenerator: ServiceGenerator): ProductsApi =
         servisGenerator.createService(ProductsApi::class.java)
 
