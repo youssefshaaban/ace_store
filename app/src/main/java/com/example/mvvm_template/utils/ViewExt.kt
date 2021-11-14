@@ -348,23 +348,21 @@ fun RecyclerView.addEndlessScroll(loadMore: () -> Unit) {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
-            if (recyclerView.layoutManager is LinearLayoutManager){
-                val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
-                adapter?.itemCount?.let { itemCount ->
-                    if ( linearLayoutManager.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
-                        loadMore()
-                    }
-                }
-            }else if (recyclerView.layoutManager is GridLayoutManager){
+            if (recyclerView.layoutManager is GridLayoutManager){
                 val linearLayoutManager=recyclerView.layoutManager as GridLayoutManager
                 adapter?.itemCount?.let { itemCount ->
                     if ( linearLayoutManager.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
                         loadMore()
                     }
                 }
+            }else if (recyclerView.layoutManager is LinearLayoutManager){
+                val linearLayoutManager=recyclerView.layoutManager as LinearLayoutManager
+                adapter?.itemCount?.let { itemCount ->
+                    if ( linearLayoutManager.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                        loadMore()
+                    }
+                }
             }
-
-
         }
     })
 }
