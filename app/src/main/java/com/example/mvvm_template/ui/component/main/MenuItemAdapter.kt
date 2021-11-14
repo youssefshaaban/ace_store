@@ -39,7 +39,7 @@ class MenuItemAdapter(val list: List<MenuItem>, val clickItem:(ActionType)->Unit
             val item = list[pos]
             binding.title.text = item.name
             binding.icon.setImageResource(item.id)
-
+            binding.root.setOnClickListener { clickItem(item.actionType)  }
         }
 
 

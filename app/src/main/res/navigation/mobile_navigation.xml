@@ -28,7 +28,7 @@
         tools:layout="@layout/profile_fragment" />
     <dialog
         android:id="@+id/rateMeFragment"
-        android:name="com.example.mvvm_template.ui.component.main.rate_app.RateMeFragment"
+        android:name="com.example.mvvm_template.ui.component.main.rate_app.RateMeActivity"
         android:label="@string/rateMe"
         tools:layout="@layout/activity_rate_me"
         />

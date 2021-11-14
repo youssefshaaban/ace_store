@@ -48,6 +48,7 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>() {
                 handleLoadDataSource(dataState.data)
             }
             is DataState.Error -> {
+                hideLoading()
                 handleFaluir(dataState.error)
             }
         }
@@ -61,10 +62,15 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>() {
         }
     }
 
-    private class MyBrowser : WebViewClient() {
+    private inner class MyBrowser : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             view.loadUrl(url)
             return true
+        }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+            hideLoading()
         }
     }
 

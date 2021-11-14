@@ -6,5 +6,5 @@ data class Cart(
     val discountValue: Int?=null,
     val subTotal: Int?=null,
     val total: Int?=null,
-    val products: List<Product>
+    val products: List<Product>?=null
 )

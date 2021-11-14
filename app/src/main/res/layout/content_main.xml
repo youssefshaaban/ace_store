@@ -44,12 +44,28 @@
             android:id="@+id/search"
             android:tint="@color/white"
             android:layout_height="wrap_content"/>
-        <ImageView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_cart"
-            android:padding="@dimen/_5sdp"
-            android:id="@+id/cart"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="@color/white"
+                android:id="@+id/number"
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@id/cart"
+                android:background="@drawable/circle_red_count"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_cart"
+                android:padding="@dimen/_5sdp"
+                android:id="@+id/cart"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

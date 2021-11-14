@@ -8,12 +8,11 @@ import com.example.mvvm_template.data.remote_service.api.CategoryApi
 import com.example.mvvm_template.data.remote_service.api.ProductsApi
 import com.example.mvvm_template.data.remote_service.api.ResourcesApi
 import com.example.mvvm_template.data.remote_service.response.product.toProductModel
+import com.example.mvvm_template.data.remote_service.response.toHomeData
 import com.example.mvvm_template.data.remote_service.response.toResource
+import com.example.mvvm_template.data.remote_service.response.toSlider
 import com.example.mvvm_template.domain.dto.RequestGetProductDto
-import com.example.mvvm_template.domain.entity.Card
-import com.example.mvvm_template.domain.entity.Category
-import com.example.mvvm_template.domain.entity.Product
-import com.example.mvvm_template.domain.entity.Resource
+import com.example.mvvm_template.domain.entity.*
 import com.example.mvvm_template.domain.repository.CategoryRepository
 import com.example.mvvm_template.domain.repository.ProductRepository
 import com.example.mvvm_template.domain.repository.ResourcesRepo
@@ -55,6 +54,20 @@ class RepoResourcesImp @Inject constructor(private val resourcesApi: ResourcesAp
         return when (result) {
             is DataState.Success -> {
                 DataState.Success(result.data.result.map { re->re.toResource() })
+            }
+            else -> {
+                DataState.Error((result as DataState.Error).error)
+            }
+        }
+    }
+
+    override suspend fun getSlider(): DataState<HomeData> {
+        val result=getResult {
+            resourcesApi.getSlider()
+        }
+        return when (result) {
+            is DataState.Success -> {
+                DataState.Success(result.data.toHomeData())
             }
             else -> {
                 DataState.Error((result as DataState.Error).error)

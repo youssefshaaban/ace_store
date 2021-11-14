@@ -96,6 +96,7 @@ dependencies {
     implementation Libs.INSTANCE.rxBinding
     implementation Libs.INSTANCE.multidex
     implementation Libs.INSTANCE.blurry
+    implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
     implementation("com.amazon:fortpayment:+:release@aar"){
         transitive = true
     }

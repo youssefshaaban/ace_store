@@ -12,7 +12,7 @@ class UseCaseFactory @Inject constructor(
     fun createUseCaseResource(value: Int): IGetResourceUseCase {
         return when (value) {
             ResourceUseCaseType.ABOUT.value -> GetAboutUseCase(resourcesRepo, ioDispatcher)
-            ResourceUseCaseType.REFUND_POLICY.value -> GetAboutUseCase(
+            ResourceUseCaseType.REFUND_POLICY.value -> GetRefundPolicyUseCase(
                 resourcesRepo,
                 ioDispatcher
             )

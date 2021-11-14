@@ -5,30 +5,25 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mvvm_template.App
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
 import com.example.mvvm_template.core.common.DataState
-import com.example.mvvm_template.core.common.getDeviceId
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityMainBinding
 import com.example.mvvm_template.domain.entity.Profile
-import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
-import com.example.mvvm_template.domain.entity.User
 import com.example.mvvm_template.ui.component.auth.logout.LogoutDialog
 
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
 import com.example.mvvm_template.ui.component.main.pojo.MenuItem
-import com.example.mvvm_template.ui.component.main.rate_app.RateMeFragment
+import com.example.mvvm_template.ui.component.main.rate_app.RateMeActivity
 import com.example.mvvm_template.ui.component.main.web_view.WebViewActivity
 import com.example.mvvm_template.ui.component.search.SearchActivity
 import com.example.mvvm_template.utils.*
@@ -138,6 +133,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             getViewDataBinding().contentLayout.contentMain.title.text = it
         }
         observe(viewModel.observProfile, ::handelDataStatVerifyOTP)
+        observe(viewModel.carCount){
+            if(it!=0){
+                getViewDataBinding().contentLayout.contentMain.number.toVisible()
+                getViewDataBinding().contentLayout.contentMain.number.text=it.toString()
+            }else{
+                getViewDataBinding().contentLayout.contentMain.number.toGone()
+            }
+        }
     }
 
     private fun openSearch() {
@@ -168,13 +171,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 )
             }
             ActionType.Rate -> {
-                startActivityWithFade(RateMeFragment.getIntent(this))
+                startActivityWithFade(RateMeActivity.getIntent(this))
             }
             ActionType.Info -> {
                 startActivityWithFade(
                     WebViewActivity.getIntent(this).putExtra(
                         "title",
-                        getString(R.string.menu_replacment)
+                        getString(R.string.menu_about)
                     ).putExtra("type", 1)
                 )
             }
@@ -201,6 +204,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
             }
         }
+        if (getViewDataBinding().drawerLayout.isDrawerOpen(GravityCompat.START))
+            getViewDataBinding().drawerLayout.closeDrawer(GravityCompat.START)
     }
 
     override fun getLayoutId(): Int {

@@ -25,6 +25,7 @@ class MainViewModel @Inject constructor(
     val title = MutableLiveData<String>()
     private val profileDataLiveDate = MutableLiveData<DataState<Profile>>()
     val observProfile: LiveData<DataState<Profile>> get() = profileDataLiveDate
+    val carCount=MutableLiveData<Int>()
     fun getProfile() {
         viewModelScope.launch() {
             getProfileUseCase.execute(Unit).collect {

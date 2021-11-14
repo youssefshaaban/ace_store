@@ -12,6 +12,8 @@ import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.FragmentHomeBinding
 import com.example.mvvm_template.domain.entity.Category
+import com.example.mvvm_template.domain.entity.HomeData
+import com.example.mvvm_template.domain.entity.Slider
 
 import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.*
@@ -49,14 +51,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         getViewDataBinding().rvCategory.configGridRecycle(2, true)
         getViewDataBinding().rvCategory.adapter = categoryCardAdapter
         getViewDataBinding().rvCategory.addEndlessScroll(::handleLoadMore)
-        getViewDataBinding().pager.adapter = SliderAdapter() {}
-        TabLayoutMediator(
-            getViewDataBinding().tabLayoutDots,
-            getViewDataBinding().pager,
-            { _, _ -> }).attach()
         sharedViewModel.title.value = getString(R.string.title_home)
         if (!hasInitializedRootView) {
-            viewModel.getCategories(pagNumber)
+            viewModel.getHome()
             hasInitializedRootView = true
         }
     }
@@ -86,6 +83,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observe(viewModel.catogeries){
             categoryCardAdapter.submitList(it)
         }
+        observe(viewModel.sliderLiveDate,::handleResourceSlider)
+    }
+
+    private fun handleResourceSlider(dataState: DataState<HomeData>?) {
+        when(dataState){
+            is DataState.Loading->getViewDataBinding().progressSlider.toVisible()
+            is DataState.Error->{
+                getViewDataBinding().progressSlider.toGone()
+                handleFaluir(dataState.error)
+            }
+            is DataState.Success->{
+                getViewDataBinding().pager.adapter = SliderAdapter(dataState.data.sliders) {}
+                sharedViewModel.carCount.value=dataState.data.cartCount
+                TabLayoutMediator(
+                    getViewDataBinding().tabLayoutDots,
+                    getViewDataBinding().pager,
+                    { _, _ -> }).attach()
+                getViewDataBinding().progressSlider.toGone()
+            }
+        }
+
     }
 
     override fun showLoading() {

@@ -48,7 +48,7 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
     }
 
     private fun setData(data: Cart) {
-        getViewDataBinding().contentEmpty.emptyRecycle.adapter=CartAdapter(data.products,::handleClickAddCart)
+        getViewDataBinding().contentEmpty.emptyRecycle.adapter=CartAdapter(data.products!!,::handleClickAddCart)
         if (data.code!=null){
             getViewDataBinding().subTotalContent.toVisible()
             getViewDataBinding().discountContent.toVisible()

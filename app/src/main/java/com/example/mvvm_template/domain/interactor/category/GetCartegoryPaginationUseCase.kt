@@ -1,5 +1,6 @@
 package com.example.mvvm_template.domain.interactor.category
 
+import android.util.Log
 import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.domain.entity.Card
 import com.example.mvvm_template.domain.entity.Category
@@ -15,6 +16,7 @@ class GetCartegoryPaginationUseCase @Inject constructor(private val categoryRepo
     override fun execute(param: ParamPageCategory): Flow<DataState<List<Category>>> {
         return flow {
             emit(categoryRepository.getCategories(param.pagNumber,param.subCategories))
+            Log.d("testThreadCategory",Thread.currentThread().name)
         }.flowOn(ioDispatcher)
     }
 

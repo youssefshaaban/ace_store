@@ -7,11 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
-import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.databinding.ActivityRateMeBinding
 
 
-class RateMeFragment : BaseActivity<ActivityRateMeBinding>() {
+class RateMeActivity : BaseActivity<ActivityRateMeBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getViewDataBinding().appBar.title.text=getString(R.string.menu_rate)
@@ -38,6 +37,6 @@ class RateMeFragment : BaseActivity<ActivityRateMeBinding>() {
     }
 
     companion object{
-        fun getIntent(context: Context):Intent= Intent(context,RateMeFragment::class.java)
+        fun getIntent(context: Context):Intent= Intent(context,RateMeActivity::class.java)
     }
 }
