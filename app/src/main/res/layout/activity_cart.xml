@@ -166,6 +166,7 @@
                 android:textColor="@color/white"
                 android:text="@string/order"
                 android:gravity="center"
+                android:id="@+id/pay"
                 style="@style/TextMediumFont"
                 android:id="@+id/order"
                 android:background="@color/colorAccent"

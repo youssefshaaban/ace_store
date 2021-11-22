@@ -36,4 +36,6 @@ abstract class RepositoryModule {
     @Binds
     abstract fun binResourceRepo(resourcesImp: RepoResourcesImp):ResourcesRepo
 
+    @Binds
+    abstract fun bindPaymentRepo(paymentRepoImp:PaymentRepoImp):PaymentRepo
 }

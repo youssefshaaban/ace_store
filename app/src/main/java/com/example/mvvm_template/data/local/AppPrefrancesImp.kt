@@ -16,7 +16,18 @@ class AppPrefrancesImp @Inject constructor(context: Context) : AppPrefrances {
         editor.apply()
     }
 
+
     override fun isSkipIntro(): Boolean {
         return sharedPref.getBoolean(INTRO_KEY,false)
+    }
+
+    override fun getLang(): String {
+        return sharedPref.getString("lang","ar")!!
+    }
+
+    override fun setLang(str: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("lang",str)
+        editor.apply()
     }
 }

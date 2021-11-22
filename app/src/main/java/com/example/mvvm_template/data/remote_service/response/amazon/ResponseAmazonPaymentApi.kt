@@ -1,3 +1,4 @@
+import com.example.mvvm_template.domain.entity.AmazonSdk
 import java.io.Serializable
 
 data class ResponseAmazonPaymentApi(
@@ -15,3 +16,5 @@ data class ResponseAmazonPaymentApi(
     val customer_ip :String ?= null
 
 ): Serializable
+
+fun ResponseAmazonPaymentApi.toAmazonSdk():AmazonSdk =AmazonSdk(this.signature,this.access_code,this.merchant_identifier,this.sdk_token)
