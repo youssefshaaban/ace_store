@@ -21,6 +21,7 @@ import com.example.mvvm_template.utils.loadImage
 import com.example.mvvm_template.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @AndroidEntryPoint

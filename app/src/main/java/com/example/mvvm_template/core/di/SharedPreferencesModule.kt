@@ -9,9 +9,10 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 abstract class SharedPreferencesModule {
     @Binds
+    @Singleton
     abstract fun bindAppprefrances(appPrefrancesImp: AppPrefrancesImp): AppPrefrances
 }

@@ -1,10 +1,12 @@
 package com.example.mvvm_template.ui.component.custom_dialogs.paymentType
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
 import androidx.fragment.app.FragmentManager
@@ -21,6 +23,11 @@ import com.example.mvvm_template.domain.entity.WALLET_PAYMENT_METHOD_TYPE
 import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
 import com.example.mvvm_template.ui.component.payment.PaymentActivity
 import com.example.mvvm_template.utils.*
+import com.payfort.fortpaymentsdk.FortSdk
+import com.payfort.fortpaymentsdk.callbacks.FortCallBackManager
+import com.payfort.fortpaymentsdk.callbacks.FortCallback
+import com.payfort.fortpaymentsdk.callbacks.FortInterfaces
+import com.payfort.fortpaymentsdk.domain.model.FortRequest
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -33,7 +40,7 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
 
     @Inject
     lateinit var appNavigator: AppNavigator
-
+    lateinit var fortCallback: FortCallBackManager
     val filter: IntArray? by lazy {
         arguments?.getIntArray("filterMethod")
     }
@@ -56,6 +63,7 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
         viewModel.getPaymentMethod()
         getViewDataBinding().type = type
         getViewDataBinding().cancel.setOnClickListener { dismiss() }
+        fortCallback = FortCallback()
         getViewDataBinding().contentWallet.setOnClickListener {
             placeOrderByWallet(it.tag as? PaymentMethod)
         }
@@ -103,7 +111,7 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
         val size = Point()
         val display = window!!.windowManager.defaultDisplay
         display.getSize(size)
-     //   val height = (resources.displayMetrics.heightPixels * 0.4).toInt()
+        //   val height = (resources.displayMetrics.heightPixels * 0.4).toInt()
         window.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
@@ -164,6 +172,11 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
                 viewModel.placeOrder(payment.id!!)
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        fortCallback.onActivityResult(requestCode, resultCode, data);
     }
 
     private fun handleResultData(list: List<PaymentMethod>?) {

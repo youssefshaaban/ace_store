@@ -40,7 +40,6 @@ import com.example.mvvm_template.ui.component.search.SearchActivity
 import com.example.mvvm_template.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ms_square.etsyblur.BlurSupport
-import company.tap.gosellapi.internal.api.constants.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import javax.inject.Inject
@@ -111,9 +110,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
     }
 
-    private fun handelDataStatVerifyOTP(dataState: DataState<Profile>) {
+    private fun handelDataForProfile(dataState: DataState<Profile>) {
         when (dataState) {
             is DataState.Success -> {
+                SavePrefs(this,Profile::class.java).save(dataState.data)
                 getViewDataBinding().navView.name.text = dataState.data.name
                 getViewDataBinding().navView.imageView.loadImage(
                     dataState.data.imagePath,
@@ -215,7 +215,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         viewModel.title.observe(this) {
             getViewDataBinding().contentLayout.contentMain.title.text = it
         }
-        observe(viewModel.observProfile, ::handelDataStatVerifyOTP)
+        observe(viewModel.observProfile, ::handelDataForProfile)
         observe(viewModel.rateOrderData, ::handleRateOrderResult)
         observe(viewModel.carCount) {
             if (it != 0) {
