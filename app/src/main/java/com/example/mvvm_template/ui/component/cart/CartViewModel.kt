@@ -1,5 +1,6 @@
 package com.example.mvvm_template.ui.component.cart
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,10 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.domain.dto.RequestAddCart
 import com.example.mvvm_template.domain.entity.Cart
+import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.domain.interactor.cart.AddCartUseCase
 import com.example.mvvm_template.domain.interactor.cart.GetCartUseCase
+import com.example.mvvm_template.domain.interactor.payment.PaymentInitUseCase
+import com.payfort.fortpaymentsdk.domain.model.FortRequest
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,29 +23,47 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val addCartUseCase: AddCartUseCase,
-    private val getCartUseCase: GetCartUseCase
-                                            ) :
+    private val getCartUseCase: GetCartUseCase,
+    private val paymentInitUseCase: PaymentInitUseCase
+) :
     ViewModel() {
 
     private val _cartPrivateLive = MutableLiveData<DataState<Cart>>()
     val cartLiveData: LiveData<DataState<Cart>> get() = _cartPrivateLive
+    private val _failurePrivateLive = MutableLiveData<Failure>()
+    val faluireLiveData: LiveData<Failure> get() = _failurePrivateLive
 
+    private val _forRequestPrivateLive = MutableLiveData<FortRequest>()
+    val fortRequestLiveData: LiveData<FortRequest> get() = _forRequestPrivateLive
 
-    fun addToCart(productId:Int,quantity:Int){
+    fun addToCart(productId: Int, quantity: Int) {
         viewModelScope.launch {
             _cartPrivateLive.value = DataState.Loading
             addCartUseCase.execute(
-                RequestAddCart(productId,quantity)
+                RequestAddCart(productId, quantity)
             ).collect {
-                _cartPrivateLive.value =it
+                _cartPrivateLive.value = it
             }
         }
     }
-    fun getCart(){
+
+    fun getCart() {
         viewModelScope.launch {
             _cartPrivateLive.value = DataState.Loading
             getCartUseCase.execute(Unit).collect {
-                _cartPrivateLive.value =it
+                _cartPrivateLive.value = it
+            }
+        }
+    }
+
+    fun getForRequest() {
+        viewModelScope.launch {
+            paymentInitUseCase.getFortRequest(100.0, "SAR").catch { exception ->
+                if (exception is PaymentInitUseCase.SDKTokenException) {
+                    _failurePrivateLive.value=exception.error
+                }
+            }.collect {
+                _forRequestPrivateLive.value=it
             }
         }
     }

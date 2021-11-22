@@ -31,27 +31,27 @@ class CategoryCardAdapter(val clickItem: (Category) -> Unit) :
 
     override fun onBindViewHolder(p0: SingleRow, p1: Int) {
         p0.bind(p1)
-        setAnimation(p0.itemView,p1)
+        //setAnimation(p0.itemView,p1)
     }
 
 
-    // start animation
-    private fun setAnimation(viewToAnimate: View, position: Int) {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition) {
-            val animation = AnimationUtils.loadAnimation(
-                viewToAnimate.context, R.anim.translate
-            )
-            viewToAnimate.startAnimation(animation)
-            lastPosition = position
-        }
-    }
+//    // start animation
+//    private fun setAnimation(viewToAnimate: View, position: Int) {
+//        // If the bound view wasn't previously displayed on screen, it's animated
+//        if (position > lastPosition) {
+//            val animation = AnimationUtils.loadAnimation(
+//                viewToAnimate.context, R.anim.translate
+//            )
+//            viewToAnimate.startAnimation(animation)
+//            lastPosition = position
+//        }
+//    }
 
-    override fun onViewDetachedFromWindow(holder: SingleRow) {
-        super.onViewDetachedFromWindow(holder)
-        holder.clearAnimation()
-
-    }
+//    override fun onViewDetachedFromWindow(holder: SingleRow) {
+//        super.onViewDetachedFromWindow(holder)
+//      //  holder.clearAnimation()
+//
+//    }
 
     inner class SingleRow(var binding: ItemCategoryLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -72,10 +72,9 @@ class CategoryCardAdapter(val clickItem: (Category) -> Unit) :
 
     private class CategoryDiffCallBack : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean =
-            oldItem.id == newItem.id
-
+            oldItem.hashCode().toLong() == newItem.hashCode().toLong()
         override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean =
-            oldItem.id == newItem.id
+            oldItem == newItem
     }
 
 }

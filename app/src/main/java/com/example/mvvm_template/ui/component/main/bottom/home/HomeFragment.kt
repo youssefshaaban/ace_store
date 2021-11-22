@@ -13,7 +13,6 @@ import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.FragmentHomeBinding
 import com.example.mvvm_template.domain.entity.Category
 import com.example.mvvm_template.domain.entity.HomeData
-import com.example.mvvm_template.domain.entity.Slider
 
 import com.example.mvvm_template.ui.component.main.MainViewModel
 import com.example.mvvm_template.utils.*
@@ -59,7 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun handleLoadMore() {
-        if (!viewModel.stopLoadingMore.value!!) {
+        if (!viewModel.isLoading() && !viewModel.isLastPage) {
             pagNumber += 1
             viewModel.getCategories(pagNumber)
         }
@@ -70,32 +69,36 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun observeViewModel() {
-        observe(viewModel.loadingVisibility){
-            if (it){
+        observe(viewModel.loadingVisibility) {
+            if (it) {
                 showLoading()
-            }else{
+            } else {
                 hideLoading()
             }
         }
-        observe(viewModel.error){
+        observe(viewModel.error) {
             handleFaluir(it)
         }
-        observe(viewModel.catogeries){
-            categoryCardAdapter.submitList(it)
+        observe(viewModel.catogeriesMuliveDate) {
+            if (categoryCardAdapter.currentList.isNullOrEmpty())
+                categoryCardAdapter.submitList(it)
+            else
+                categoryCardAdapter.submitList(categoryCardAdapter.currentList + it)
+
         }
-        observe(viewModel.sliderLiveDate,::handleResourceSlider)
+        observe(viewModel.sliderLiveDate, ::handleResourceSlider)
     }
 
     private fun handleResourceSlider(dataState: DataState<HomeData>?) {
-        when(dataState){
-            is DataState.Loading->getViewDataBinding().progressSlider.toVisible()
-            is DataState.Error->{
+        when (dataState) {
+            is DataState.Loading -> getViewDataBinding().progressSlider.toVisible()
+            is DataState.Error -> {
                 getViewDataBinding().progressSlider.toGone()
                 handleFaluir(dataState.error)
             }
-            is DataState.Success->{
+            is DataState.Success -> {
                 getViewDataBinding().pager.adapter = SliderAdapter(dataState.data.sliders) {}
-                sharedViewModel.carCount.value=dataState.data.cartCount
+                sharedViewModel.carCount.value = dataState.data.cartCount
                 TabLayoutMediator(
                     getViewDataBinding().tabLayoutDots,
                     getViewDataBinding().pager,
@@ -107,7 +110,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun showLoading() {
-        getViewDataBinding().progress.toVisible()
+       getViewDataBinding().progress.toVisible()
     }
 
     override fun hideLoading() {
