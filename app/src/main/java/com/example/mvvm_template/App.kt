@@ -10,6 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
+import kotlin.random.Random
 
 
 @HiltAndroidApp
@@ -20,7 +21,10 @@ class App : Application() {
     }
 
     companion object {
+
         lateinit var context: Context
+
         fun getUser(): User? = SavePrefs(context, User::class.java).load()
     }
 }
+

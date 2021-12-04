@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mvvm_template.App
@@ -37,6 +38,7 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     val viewModel: MainViewModel by viewModels()
+    lateinit var navController: NavController
     val list: List<MenuItem> by lazy {
         getListMenu()
     }
@@ -84,8 +86,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
+        getViewDataBinding().contentLayout.contentMain.navView.setOnNavigationItemSelectedListener(::handleSectionItem)
         BlurSupport.addTo(getViewDataBinding().drawerLayout)
         getViewDataBinding().rvItems.configRecycle(true)
         getViewDataBinding().rvItems.adapter = MenuItemAdapter(list, ::handleActionType)
@@ -105,6 +108,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         observeViewModels()
         //viewModel.updateFirebaseToken(UpdateFirBaseTokenUseCase.RequestUpdateFirbase(getDeviceId(context = this),token = ))
         checkUser()
+    }
+
+    private fun handleSectionItem(menuItem: android.view.MenuItem): Boolean {
+        return if (menuItem.itemId==navController.currentDestination?.id){
+            true
+        }else{
+            navController.navigate(menuItem.itemId)
+            true
+        }
     }
 
     private fun checkUser() {

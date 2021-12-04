@@ -2,6 +2,7 @@ package com.example.mvvm_template.ui.component.main.bottom.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -27,6 +28,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     var pagNumber: Int = 1
     private var hasInitializedRootView = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e("HomeFragment","HomeFragment")
+    }
     @Inject
     lateinit var appNavigator: AppNavigator
     private val categoryCardAdapter by lazy {
