@@ -15,11 +15,6 @@ import com.example.mvvm_template.utils.observe
 import com.example.mvvm_template.utils.toGone
 import com.example.mvvm_template.utils.toVisible
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
-
 @AndroidEntryPoint
 class CartActivity : BaseActivity<ActivityCartBinding>() {
   private val viewModel: CartViewModel by viewModels()
