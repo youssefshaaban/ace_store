@@ -5,17 +5,17 @@ import com.example.mvvm_template.domain.entity.Cart
 data class Result(
     val code: String,
     val discountName: String,
-    val discountValue: Int,
-    val discountValueTaxExcl: Int,
-    val discountValueTaxIncl: Int,
+    val discountValue: Double,
+    val discountValueTaxExcl: Double,
+    val discountValueTaxIncl: Double,
     val products: List<Product>,
-    val subTotal: Int,
-    val subTotalAfterDiscount: Int,
-    val subTotalAfterDiscountTaxExcl: Int,
-    val subTotalAfterDiscountTaxIncl: Int,
-    val subTotalTaxExcl: Int,
-    val subTotalTaxIncl: Int,
-    val total: Int
+    val subTotal: Double,
+    val subTotalAfterDiscount: Double,
+    val subTotalAfterDiscountTaxExcl: Double,
+    val subTotalAfterDiscountTaxIncl: Double,
+    val subTotalTaxExcl: Double,
+    val subTotalTaxIncl: Double,
+    val total: Double
 )
 
 

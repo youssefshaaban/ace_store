@@ -1,7 +1,5 @@
 package com.example.mvvm_template.domain.dto
 
-import com.example.mvvm_template.BuildConfig
-import com.payfort.fortpaymentsdk.FortSdk
 import java.io.Serializable
 
 data class RequestPaymentApi(
