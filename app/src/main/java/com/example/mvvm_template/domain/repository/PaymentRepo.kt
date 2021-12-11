@@ -6,6 +6,5 @@ import com.example.mvvm_template.domain.dto.RequestPaymentApi
 import com.example.mvvm_template.domain.entity.AmazonSdk
 
 interface PaymentRepo {
-    suspend fun getMerchantRef():BaseReponse<String>
-    suspend fun getSDKToken(paymentApi: RequestPaymentApi):DataState<AmazonSdk>
+
 }

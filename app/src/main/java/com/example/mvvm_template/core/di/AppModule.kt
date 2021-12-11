@@ -7,7 +7,7 @@ import com.example.mvvm_template.BuildConfig
 import com.example.mvvm_template.core.common.BASE_URL
 import com.example.mvvm_template.data.ServiceGenerator
 import com.example.mvvm_template.data.remote_service.api.*
-import com.payfort.fortpaymentsdk.FortSdk
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,14 +41,7 @@ class AppModule {
 
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(ApiFiles::class.java)
-    @Singleton
-    @Provides
-    fun createAmazon(servisGenerator: ServiceGenerator):AmazonApi{
-        return  Retrofit.Builder().baseUrl(BuildConfig.SDK_TOKEN_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(servisGenerator.okHttpBuilder.build())
-            .build().create(AmazonApi::class.java)
-    }
+
 
     @Singleton
     @Provides
@@ -84,12 +77,6 @@ class AppModule {
         )
     }
 
-    @Provides
-    @Singleton
-    @Named("deviceIdFort")
-    fun provideDevice(@ApplicationContext context: Context): String {
-        return FortSdk.getDeviceId(context)!!
-    }
     @Provides
     fun provideCoroutineContext(): CoroutineContext {
         return Dispatchers.IO

@@ -11,8 +11,6 @@ import com.example.mvvm_template.domain.entity.Cart
 import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.domain.interactor.cart.AddCartUseCase
 import com.example.mvvm_template.domain.interactor.cart.GetCartUseCase
-import com.example.mvvm_template.domain.interactor.payment.PaymentInitUseCase
-import com.payfort.fortpaymentsdk.domain.model.FortRequest
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -24,7 +22,6 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val addCartUseCase: AddCartUseCase,
     private val getCartUseCase: GetCartUseCase,
-    private val paymentInitUseCase: PaymentInitUseCase
 ) :
     ViewModel() {
 
@@ -33,8 +30,6 @@ class CartViewModel @Inject constructor(
     private val _failurePrivateLive = MutableLiveData<Failure>()
     val faluireLiveData: LiveData<Failure> get() = _failurePrivateLive
 
-    private val _forRequestPrivateLive = MutableLiveData<FortRequest>()
-    val fortRequestLiveData: LiveData<FortRequest> get() = _forRequestPrivateLive
 
     fun addToCart(productId: Int, quantity: Int) {
         viewModelScope.launch {
@@ -56,15 +51,5 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun getForRequest() {
-        viewModelScope.launch {
-            paymentInitUseCase.getFortRequest(100.0, "SAR").catch { exception ->
-                if (exception is PaymentInitUseCase.SDKTokenException) {
-                    _failurePrivateLive.value=exception.error
-                }
-            }.collect {
-                _forRequestPrivateLive.value=it
-            }
-        }
-    }
+
 }

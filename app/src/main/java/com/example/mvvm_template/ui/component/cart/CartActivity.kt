@@ -1,6 +1,7 @@
 package com.example.mvvm_template.ui.component.cart
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
@@ -8,6 +9,7 @@ import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.databinding.ActivityCartBinding
 import com.example.mvvm_template.domain.entity.Cart
 import com.example.mvvm_template.domain.entity.Profile
+import com.example.mvvm_template.utils.RSA
 import com.example.mvvm_template.utils.configRecycle
 import com.example.mvvm_template.utils.observe
 import com.example.mvvm_template.utils.toGone
@@ -21,7 +23,6 @@ import java.io.OutputStream
 @AndroidEntryPoint
 class CartActivity : BaseActivity<ActivityCartBinding>() {
   private val viewModel: CartViewModel by viewModels()
-  private val paymentOnlineViewModel:PaymentOnlineViewModel by viewModels()
   var cartData:Cart?=null
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -33,32 +34,21 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
     viewModel.getCart()
     setupObservable()
     getViewDataBinding().order.setOnClickListener {
-      paymentOnlineViewModel.encryptCard()
-      //paymentOnlineViewModel.getProfile()
+      val text="{\n" +
+        "    \"number\": 5123450000000008," +
+        "    \"exp_month\": 7," +
+        "    \"exp_year\": 2022," +
+        "    \"cvc\": 100," +
+        "    \"name\": \"test user\"}"
+      Log.e("encryptData",RSA.enccriptData(text))
     }
   }
 
 
   private fun setupObservable() {
     observe(viewModel.cartLiveData, ::handelResourceCart)
-    observe(paymentOnlineViewModel.observProfile,::handleProfile)
   }
 
-  private fun handleProfile(dataState: DataState<Profile>) {
-    when (dataState) {
-      is DataState.Loading -> showLoading()
-      is DataState.Success -> {
-        hideLoading()
-        paymentOnlineViewModel.amount=cartData?.total
-        paymentOnlineViewModel.startSDK(profile = dataState.data)
-        paymentOnlineViewModel.sdkSession.start(this)
-      }
-      is DataState.Error -> {
-        hideLoading()
-        handleFaluir(dataState.error)
-      }
-    }
-  }
 
   private fun handelResourceCart(dataState: DataState<Cart>) {
     when (dataState) {
