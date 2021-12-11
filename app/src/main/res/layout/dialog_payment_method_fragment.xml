@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/back_top_raduis_white"
+    >
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/txt_method"
+      style="@style/TextMediumFont"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      android:padding="@dimen/dimen4"
+      android:textSize="@dimen/text_size16"
+      android:text="@string/txt_payment_method"
+      />
+
+
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/cancel"
+      android:src="@drawable/ic_close"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:padding="@dimen/dimen5"
+      />
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="@style/TextRegularFont"
+      android:id="@+id/title"
+      android:text="@string/txt_title_payment_method"
+      android:textSize="@dimen/text_size14"
+      android:layout_marginTop="@dimen/dimen10"
+      app:layout_constraintTop_toBottomOf="@id/txt_method"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title"
+      style="@style/TextRegularFont"
+      android:padding="@dimen/dimen5"
+      android:id="@+id/txt_accept"
+      android:layout_marginTop="@dimen/dimen10"
+      android:text="@string/text_accept_terms_condition"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/txt_policy"
+      android:id="@+id/txt_policy"
+      style="@style/TextRegularFont"
+      android:textColor="@color/colorAccent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/txt_accept"
+      />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:id="@+id/rv_method_type"
+      app:layout_constraintTop_toBottomOf="@id/txt_policy"
+      android:layout_margin="@dimen/dimen5"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -94,5 +94,9 @@
     <string name="message_logout">هل تريد الخروج من الحساب ؟</string>
     <string name="loginOrCreate">تسجيل دخول او إنشاء حساب</string>
     <string name="there_is_no_product">لايوجد منتجات فى السلة</string>
+  <string name="txt_payment_method">وسيلة الدفع</string>
+  <string name="txt_title_payment_method">اختر وسيلة الدفع المناسبة لإتمام عملية الشراء</string>
+  <string name="text_accept_terms_condition">بالإنتقال للدفع فإنك توافق على</string>
+    <string name="txt_policy"><u>سياسة الإستخدام و سياسة الخصوصية</u></string>
 
 </resources>
