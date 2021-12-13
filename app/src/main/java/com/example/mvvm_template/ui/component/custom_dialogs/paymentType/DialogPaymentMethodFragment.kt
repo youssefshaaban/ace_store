@@ -7,24 +7,27 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.RelativeLayout
+import androidx.fragment.app.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.databinding.DialogPaymentMethodFragmentBinding
+import com.example.mvvm_template.domain.entity.PaymentMethod
 import com.example.mvvm_template.utils.configGridRecycle
+import com.example.mvvm_template.utils.observe
+import com.example.mvvm_template.utils.toGone
+import com.example.mvvm_template.utils.toVisible
 
 class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBinding>() {
 
     companion object {
         fun newInstance() = DialogPaymentMethodFragment()
     }
-    val list= listOf(PaymentMethod(MADA,R.drawable.ic_mada),PaymentMethod(VISA,R.drawable.bt_ic_visa),PaymentMethod(
-        MASTER,R.drawable.ic_master))
+
+    val viewModel: PaymentMethodViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getViewDataBinding().rvMethodType.configGridRecycle(3,true)
-        getViewDataBinding().rvMethodType.adapter=PaymentMethodAdapter(list){
-
-        }
+        getViewDataBinding().rvMethodType.configGridRecycle(3, true)
+        viewModel.getPaymentMethod()
         getViewDataBinding().cancel.setOnClickListener { dismiss() }
     }
 
@@ -72,7 +75,23 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
     }
 
     override fun observeViewModel() {
+        observe(viewModel.paymentMethodLiveDate, ::handleResultData)
+        observe(viewModel.loadingVisiblilty){
+            if (it){
+                getViewDataBinding().progress.toVisible()
+            }else{
+                getViewDataBinding().progress.toGone()
+            }
+        }
+        observe(viewModel.error,::handleFaluir)
+    }
 
+    private fun handleResultData(list: List<PaymentMethod>?) {
+        list?.let {
+            getViewDataBinding().rvMethodType.adapter = PaymentMethodAdapter(it) {
+                // go to payment
+            }
+        }
     }
 
 

@@ -10,10 +10,11 @@ import com.example.mvvm_template.R
 import com.example.mvvm_template.databinding.ItemLayoutProductBinding
 import com.example.mvvm_template.databinding.ItemLayoutProductCartBinding
 import com.example.mvvm_template.databinding.ItemMethodTypeBinding
+import com.example.mvvm_template.domain.entity.PaymentMethod
 import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.utils.loadImage
 
-class PaymentMethodAdapter(val cartProducts: List<PaymentMethod>,val clickPayment:(PaymentMethod)->Unit
+class PaymentMethodAdapter(val cartProducts: List<PaymentMethod>, val clickPayment:(PaymentMethod)->Unit
                              ) : RecyclerView.Adapter<PaymentMethodAdapter.SingleRow>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRow {
@@ -34,6 +35,7 @@ class PaymentMethodAdapter(val cartProducts: List<PaymentMethod>,val clickPaymen
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             val item=cartProducts[pos]
+            binding.image.loadImage(item.imagePath,R.drawable.bg_no_image)
             binding.content.setOnClickListener { clickPayment(item) }
         }
     }
