@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
@@ -35,9 +37,22 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getViewDataBinding().send.setOnClickListener {
-            viewModel.verifyOtp(getOtp(), mobileNumber)
+            viewModel.verifyOtp(getViewDataBinding().txtPinEntry.text.toString(), mobileNumber)
         }
-        handleWritingCode()
+        getViewDataBinding().txtPinEntry.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0.toString().length==6){
+                    viewModel.verifyOtp(getViewDataBinding().txtPinEntry.text.toString(), mobileNumber)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
         setupObserve()
     }
 
@@ -85,47 +100,47 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
     }
 
     @SuppressLint("CheckResult")
-    private fun handleWritingCode() {
-        getViewDataBinding().etFirstKey.requestFocus()
-        RxTextView.afterTextChangeEvents(getViewDataBinding().etFirstKey)
-            .subscribe { textViewAfterTextChangeEvent ->
-                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
-                    getViewDataBinding().etSecondKey.requestFocus()
-                }
-            }
-        RxTextView.afterTextChangeEvents(getViewDataBinding().etSecondKey)
-            .subscribe { textViewAfterTextChangeEvent ->
-                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
-                    getViewDataBinding().etThirdKey.requestFocus()
-                }
-            }
-        RxTextView.afterTextChangeEvents(getViewDataBinding().etThirdKey)
-            .subscribe { textViewAfterTextChangeEvent ->
-                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
-                    getViewDataBinding().etForthKey.requestFocus()
-                }
-            }
-        RxTextView.afterTextChangeEvents(getViewDataBinding().etForthKey)
-            .subscribe { textViewAfterTextChangeEvent ->
-                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
-                    getViewDataBinding().etFifthKey.requestFocus()
-                }
-            }
-        RxTextView.afterTextChangeEvents(getViewDataBinding().etFifthKey)
-            .subscribe { textViewAfterTextChangeEvent ->
-                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
-                    getViewDataBinding().etSexKey.requestFocus()
-                }
-            }
-        RxTextView.afterTextChangeEvents(getViewDataBinding().etSexKey)
-            .subscribe { textViewAfterTextChangeEvent ->
-                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
-                    getViewDataBinding().etSexKey.hideKeyboard()
-                    viewModel.verifyOtp(getOtp(), mobileNumber)
-                }
-            }
-
-    }
+//    private fun handleWritingCode() {
+//        getViewDataBinding().etFirst.requestFocus()
+//        RxTextView.afterTextChangeEvents(getViewDataBinding().etFirst)
+//            .subscribe { textViewAfterTextChangeEvent ->
+//                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
+//                    getViewDataBinding().etSecondKey.requestFocus()
+//                }
+//            }
+//        RxTextView.afterTextChangeEvents(getViewDataBinding().etSecondKey)
+//            .subscribe { textViewAfterTextChangeEvent ->
+//                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
+//                    getViewDataBinding().etThirdKey.requestFocus()
+//                }
+//            }
+//        RxTextView.afterTextChangeEvents(getViewDataBinding().etThirdKey)
+//            .subscribe { textViewAfterTextChangeEvent ->
+//                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
+//                    getViewDataBinding().etForthKey.requestFocus()
+//                }
+//            }
+//        RxTextView.afterTextChangeEvents(getViewDataBinding().etForthKey)
+//            .subscribe { textViewAfterTextChangeEvent ->
+//                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
+//                    getViewDataBinding().etFifthKey.requestFocus()
+//                }
+//            }
+//        RxTextView.afterTextChangeEvents(getViewDataBinding().etFifthKey)
+//            .subscribe { textViewAfterTextChangeEvent ->
+//                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
+//                    getViewDataBinding().etSexKey.requestFocus()
+//                }
+//            }
+//        RxTextView.afterTextChangeEvents(getViewDataBinding().etSexKey)
+//            .subscribe { textViewAfterTextChangeEvent ->
+//                if (!textViewAfterTextChangeEvent.editable().toString().isEmpty()) {
+//                    getViewDataBinding().etSexKey.hideKeyboard()
+//                    viewModel.verifyOtp(getOtp(), mobileNumber)
+//                }
+//            }
+//
+//    }
 
 
     private fun handleFalidation(enumValidate: Any?) {
@@ -136,16 +151,16 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
         }
     }
 
-    private fun getOtp(): String {
-        val stringBuilder = StringBuilder(getViewDataBinding().etFirstKey.text.toString())
-        stringBuilder.append(getViewDataBinding().etSecondKey.text.toString())
-        stringBuilder.append(getViewDataBinding().etThirdKey.text.toString())
-        stringBuilder.append(getViewDataBinding().etForthKey.text.toString())
-        stringBuilder.append(getViewDataBinding().etFifthKey.text.toString())
-        stringBuilder.append(getViewDataBinding().etSexKey.text.toString())
-
-        return stringBuilder.toString()
-    }
+//    private fun getOtp(): String {
+//        val stringBuilder = StringBuilder(getViewDataBinding().etFirst.text.toString())
+//        stringBuilder.append(getViewDataBinding().etSecondKey.text.toString())
+//        stringBuilder.append(getViewDataBinding().etThirdKey.text.toString())
+//        stringBuilder.append(getViewDataBinding().etForthKey.text.toString())
+//        stringBuilder.append(getViewDataBinding().etFifthKey.text.toString())
+//        stringBuilder.append(getViewDataBinding().etSexKey.text.toString())
+//
+//        return stringBuilder.toString()
+//    }
 
 
     companion object {

@@ -14,6 +14,6 @@ interface CartApi {
     suspend fun addCart(@Body requestAddCart: RequestAddCart): Response<BaseReponse<Result>>
 
     @GET("Carts/GetCart")
-    suspend fun getCart(): Response<BaseReponse<Result>>
+    suspend fun getCart(): Response<BaseReponse<Result?>>
 
 }

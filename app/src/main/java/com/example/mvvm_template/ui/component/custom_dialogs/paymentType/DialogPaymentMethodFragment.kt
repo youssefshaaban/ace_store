@@ -7,28 +7,61 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.RelativeLayout
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
+import com.example.mvvm_template.core.common.GO_TO_HISTORY
+import com.example.mvvm_template.core.navigation.AppNavigator
+import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.DialogPaymentMethodFragmentBinding
+import com.example.mvvm_template.domain.entity.POINTS_PAYMENT_METHOD_TYPE
 import com.example.mvvm_template.domain.entity.PaymentMethod
-import com.example.mvvm_template.utils.configGridRecycle
-import com.example.mvvm_template.utils.observe
-import com.example.mvvm_template.utils.toGone
-import com.example.mvvm_template.utils.toVisible
+import com.example.mvvm_template.domain.entity.WALLET_PAYMENT_METHOD_TYPE
+import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
+import com.example.mvvm_template.ui.component.payment.PaymentActivity
+import com.example.mvvm_template.utils.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBinding>() {
 
     companion object {
         fun newInstance() = DialogPaymentMethodFragment()
     }
 
+    @Inject
+    lateinit var appNavigator: AppNavigator
+
+    val filter: IntArray? by lazy {
+        arguments?.getIntArray("filterMethod")
+    }
+
+    val amount: Double? by lazy {
+        arguments?.getDouble("amount")
+    }
+    val currency: String? by lazy {
+        arguments?.getString("currency")
+    }
+    val type: String? by lazy {
+        arguments?.getString("type")
+    }
+
+    var clickListner: ((PaymentMethod) -> Unit)? = null
     val viewModel: PaymentMethodViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().rvMethodType.configGridRecycle(3, true)
         viewModel.getPaymentMethod()
+        getViewDataBinding().type = type
         getViewDataBinding().cancel.setOnClickListener { dismiss() }
+        getViewDataBinding().contentWallet.setOnClickListener {
+            placeOrderByWallet(it.tag as? PaymentMethod)
+        }
+        getViewDataBinding().contentPoint.setOnClickListener {
+            placeOrderByPonint(it.tag as? PaymentMethod)
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -59,15 +92,20 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
     }
 
 
+    fun showDialog(fragmentManager: FragmentManager, clickPaymentMethod: (PaymentMethod) -> Unit) {
+        clickListner = clickPaymentMethod
+        show(fragmentManager, this.tag)
+    }
+
     override fun onResume() {
         val window = dialog!!.window
         val size = Point()
         val display = window!!.windowManager.defaultDisplay
         display.getSize(size)
-        val height = (resources.displayMetrics.heightPixels * 0.6).toInt()
+     //   val height = (resources.displayMetrics.heightPixels * 0.4).toInt()
         window.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
-            height
+            WindowManager.LayoutParams.WRAP_CONTENT
         )
         window.attributes.windowAnimations = R.style.PopupAnimation
         window.setGravity(Gravity.BOTTOM)
@@ -76,20 +114,71 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
 
     override fun observeViewModel() {
         observe(viewModel.paymentMethodLiveDate, ::handleResultData)
-        observe(viewModel.loadingVisiblilty){
-            if (it){
+        observe(viewModel.loadingVisiblilty) {
+            if (it) {
                 getViewDataBinding().progress.toVisible()
-            }else{
+            } else {
                 getViewDataBinding().progress.toGone()
             }
         }
-        observe(viewModel.error,::handleFaluir)
+        observe(viewModel.error, ::handleFaluir)
+        observe(viewModel.loaderVisibilityLiveData) {
+            if (it) {
+                showLoading()
+            } else {
+                hideLoading()
+            }
+        }
+        observe(viewModel.orderIdLiveData) {
+            dismiss()
+            appNavigator.navigateTo(Screen.HOME, Bundle().apply {
+                putBoolean(GO_TO_HISTORY, true)
+            })
+        }
+    }
+
+    private fun placeOrderByWallet(payment: PaymentMethod?) {
+        payment?.let {
+            if (amount!! > payment.totalWalletAmount!!) {
+                getViewDataBinding().cancel.showToast(
+                    getString(R.string.txt_message_order_morthan_wallet_points),
+                    1000
+                )
+            } else {
+                // placeOrder
+                viewModel.placeOrder(payment.id!!)
+            }
+        }
+    }
+
+    private fun placeOrderByPonint(payment: PaymentMethod?) {
+        payment?.let {
+            if (amount!! > payment.equivalentPointsAmount!!) {
+                getViewDataBinding().cancel.showToast(
+                    getString(R.string.txt_message_order_morthan_amount_points),
+                    1000
+                )
+            } else {
+                // placeOrder
+                viewModel.placeOrder(payment.id!!)
+            }
+        }
     }
 
     private fun handleResultData(list: List<PaymentMethod>?) {
         list?.let {
-            getViewDataBinding().rvMethodType.adapter = PaymentMethodAdapter(it) {
-                // go to payment
+            val list = it.filter { t -> !(filter?.contains(t.id ?: 0) ?: false) }
+            if (PLACE_ORDER == type) {
+                val wallet = list.find { t -> t.id == 5 }
+                val point = list.find { t -> t.id == 6 }
+                getViewDataBinding().wallet = wallet
+                getViewDataBinding().point = point
+            }
+            getViewDataBinding().rvMethodType.adapter = PaymentMethodAdapter(list) { payment ->
+                clickListner?.let {
+                    it(payment)
+                    dismiss()
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ import java.security.spec.X509EncodedKeySpec
 import javax.crypto.Cipher
 
 object RSA {
-  var PUBLIC_KEY = "MIIBIDANBgkqhkiG9w0BAQEFAAOCAQ0AMIIBCAKCAQEA21z7Vcrrraiksj31If5K f7XGv6QNoHP7SRPjxxbxAnPrrI597NI683pHIaIgb0UNaOUggU6FYN+w+tBc1Mwk 1aOBsM8Ok6W0SsFxpa+Jt3VdOfF4iBw7k4sdd+EP5PfaiFdbrndRcCmV32mb87+I cuzDRxyqgl1Bx0dCPqmw0YCCWTuM+LXN60MHr56M5WO7J64AXn5YVzspZkon4Leg d9QbycUC77e/MUmhZL5QcGvXaBYWS5Lw5ROhjMYrLK15f4gWoYLtDcUTtMEEEtef EF4tus0Vx7XTrHa9vGbH9qUmH5F9HUkYOUX+UaFj7qVdfaR/VecB5xCwrt5ixV6y 3QIBEQ=="
+  var PUBLIC_KEY = "MIIBIDANBgkqhkiG9w0BAQEFAAOCAQ0AMIIBCAKCAQEA21z7Vcrrraiksj31If5Kf7XGv6QNoHP7SRPjxxbxAnPrrI597NI683pHIaIgb0UNaOUggU6FYN+w+tBc1Mwk1aOBsM8Ok6W0SsFxpa+Jt3VdOfF4iBw7k4sdd+EP5PfaiFdbrndRcCmV32mb87+IcuzDRxyqgl1Bx0dCPqmw0YCCWTuM+LXN60MHr56M5WO7J64AXn5YVzspZkon4Legd9QbycUC77e/MUmhZL5QcGvXaBYWS5Lw5ROhjMYrLK15f4gWoYLtDcUTtMEEEtefEF4tus0Vx7XTrHa9vGbH9qUmH5F9HUkYOUX+UaFj7qVdfaR/VecB5xCwrt5ixV6y3QIBEQ=="
 
   fun enccriptData(txt: String): String {
     var encoded = ""
@@ -25,6 +25,7 @@ object RSA {
     } catch (e: Exception) {
       e.printStackTrace()
     }
+    LogUtil.error("rsa",encoded)
     return encoded
   }
 }

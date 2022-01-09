@@ -9,9 +9,10 @@ import com.example.mvvm_template.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class PlaceOrderUseCse(private val orderRepository: OrderRepository, private val ioDispatcher: CoroutineContext):UseCase<RequestOrder,DataState<Int>>{
+class PlaceOrderUseCse @Inject constructor(private val orderRepository: OrderRepository, private val ioDispatcher: CoroutineContext):UseCase<RequestOrder,DataState<Int>>{
     override fun execute(param: RequestOrder): Flow<DataState<Int>> {
         return flow {
             emit(orderRepository.placeOrder(param))

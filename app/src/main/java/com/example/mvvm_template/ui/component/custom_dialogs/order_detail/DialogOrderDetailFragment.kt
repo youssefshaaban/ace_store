@@ -1,4 +1,4 @@
-package com.example.mvvm_template.ui.component.main.bottom
+package com.example.mvvm_template.ui.component.custom_dialogs.order_detail
 
 import android.app.Dialog
 import android.graphics.Color
@@ -7,28 +7,35 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.RelativeLayout
+import androidx.fragment.app.viewModels
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
-import com.example.mvvm_template.databinding.DialogOfferFragmentBinding
-import com.example.mvvm_template.databinding.DialogRateLayoutBinding
+import com.example.mvvm_template.databinding.DialogOrderDetailFragmentBinding
+import com.example.mvvm_template.databinding.DialogPaymentMethodFragmentBinding
+import com.example.mvvm_template.domain.entity.Order
 import com.example.mvvm_template.utils.configRecycle
+import com.example.mvvm_template.utils.observe
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class RateDialogFragment : BaseFragment<DialogRateLayoutBinding>() {
+@AndroidEntryPoint
+class DialogOrderDetailFragment : BaseFragment<DialogOrderDetailFragmentBinding>() {
 
     companion object {
-        fun newInstance() = RateDialogFragment()
+        fun newInstance() = DialogOrderDetailFragment()
     }
+
+    val viewModel: OrderDetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getViewDataBinding().rvProduct.configRecycle(true)
+        getViewDataBinding().rvOrders.configRecycle(true)
+        viewModel.getOrderById(arguments?.getInt("id", 0)!!)
+        getViewDataBinding().cancel.setOnClickListener { dismiss() }
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.dialog_rate_layout
+        return R.layout.dialog_order_detail_fragment
     }
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // the content
@@ -59,7 +66,7 @@ class RateDialogFragment : BaseFragment<DialogRateLayoutBinding>() {
         val size = Point()
         val display = window!!.windowManager.defaultDisplay
         display.getSize(size)
-        val height = (resources.displayMetrics.heightPixels * 0.8).toInt()
+        val height = (resources.displayMetrics.heightPixels * 0.9).toInt()
         window.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             height
@@ -70,7 +77,25 @@ class RateDialogFragment : BaseFragment<DialogRateLayoutBinding>() {
     }
 
     override fun observeViewModel() {
+        observe(viewModel.faluireLiveData, ::handleFaluir)
+        observe(viewModel.loaderVisibilityLiveData) {
+            if (it)
+                showLoading()
+            else
+                hideLoading()
+        }
+        observe(viewModel.orderDetailLiveData){
+            setData(it)
+        }
+    }
 
+    private fun setData(it: Order) {
+        it.orderDetails?.let {  getViewDataBinding().rvOrders.adapter=OrderItemDetailAdapter(it)}
+        getViewDataBinding().orderNum.text=it.id.toString()
+        getViewDataBinding().orderVat.text=it.tax.toString()
+        getViewDataBinding().orderPrice.text=it.totalPrice.toString()
+        getViewDataBinding().orderTotal.text=it.totalPriceBeforDiscount.toString()
+        getViewDataBinding().orderDiscount.text=it.discountValue.toString()
     }
 
 

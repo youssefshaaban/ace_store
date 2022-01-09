@@ -19,6 +19,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
 
     private lateinit var mViewDataBinding: T
     private var mRootView: View? = null
+
     /**
      * @return layout resource id
      */
@@ -51,9 +52,10 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (mRootView==null){
-            initBinding(inflater,container)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        if (mRootView == null) {
+            initBinding(inflater, container)
         }
 
         return mRootView
@@ -61,7 +63,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        mRootView=mViewDataBinding.root
+        mRootView = mViewDataBinding.root
     }
 
 
@@ -71,21 +73,26 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
         }
     }
 
+    open fun checkUserLogin(): Boolean {
+        if (mActivity != null) {
+            return mActivity!!.checkUserLogin()
+        }
+        return true
+    }
+
     open fun showLoading() {
         if (mActivity != null) {
             mActivity?.showLoading()
         }
     }
 
-    open fun isLoading():Boolean? {
+    open fun isLoading(): Boolean? {
         if (mActivity != null) {
             return mActivity?.isLoading()
         }
         return null
 
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,10 +103,9 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-       // mActivity?.initMessageObservable()
+        // mActivity?.initMessageObservable()
         super.onActivityCreated(savedInstanceState)
     }
-
 
 
     override fun onDetach() {
@@ -110,6 +116,7 @@ abstract class BaseFragment<T : ViewDataBinding> : DialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
     }
+
     fun getViewDataBinding(): T {
         return mViewDataBinding
     }

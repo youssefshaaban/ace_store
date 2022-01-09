@@ -3,7 +3,7 @@ package com.example.mvvm_template.core.navigation
 import android.os.Bundle
 
 interface AppNavigator {
-    fun navigateTo(screen:Screen,bundle: Bundle?)
+    fun navigateTo(screen:Screen,bundle: Bundle?=null)
 }
 
 enum class Screen{

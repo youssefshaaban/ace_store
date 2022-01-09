@@ -8,11 +8,11 @@
     tools:context=".ui.component.SplashActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:src="@drawable/ic_logo"
+        android:layout_width="@dimen/_144sdp"
+        android:src="@drawable/ic_splash_log"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/_116sdp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

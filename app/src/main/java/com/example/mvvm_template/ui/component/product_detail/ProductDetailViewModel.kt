@@ -10,6 +10,7 @@ import com.example.mvvm_template.domain.entity.Cart
 import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.domain.interactor.cart.AddCartUseCase
+import com.example.mvvm_template.domain.interactor.order.SkipRateUseCse
 import com.example.mvvm_template.domain.interactor.product.GetProductsByIdUseCase
 import com.example.mvvm_template.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,10 +44,10 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    fun addToCart(idProduct: Int?, quantity: Int?) {
+    fun addToCart(idProduct: Int?,playerId:String?=null,isAddCart: Boolean) {
         loadingVisiblilty.value = true
         viewModelScope.launch {
-            addCartUseCase.execute(RequestAddCart(productId = idProduct,quantity=quantity)).catch {
+            addCartUseCase.execute(RequestAddCart(productId = idProduct, playerId = playerId,quantity =  if (isAddCart) 1 else 0)).catch {
                 exc->
                 loadingVisiblilty.value = false
                 error.value=Failure.UnknownError("invalid Id")

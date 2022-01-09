@@ -25,5 +25,5 @@ interface AccountRepository {
     suspend fun logOut(): DataState<Boolean>
 
     suspend fun updateFireBaseToken(updateFirBaseTokenUseCase: UpdateFirBaseTokenUseCase.RequestUpdateFirbase):DataState<Boolean>
-    suspend fun updateAccountSetting(updateAccountSetting:RequestUpdateSetting):DataState<Boolean>
+    suspend fun updateAccountSetting(updateAccountSetting:RequestUpdateSetting):DataState<RequestUpdateSetting>
 }

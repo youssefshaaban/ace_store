@@ -99,12 +99,12 @@ class AccountRepoImp @Inject constructor(private val accountApiService: AccountA
         }
     }
 
-    override suspend fun updateAccountSetting(updateAccountSetting: RequestUpdateSetting): DataState<Boolean> {
+    override suspend fun updateAccountSetting(updateAccountSetting: RequestUpdateSetting): DataState<RequestUpdateSetting> {
         val result=getResult {
             accountApiService.updateAccountSetting(updateAccountSetting)
         }
         return if (result is DataState.Success){
-            DataState.Success(true)
+            DataState.Success(result.data.result)
         }else{
             DataState.Error((result as DataState.Error).error)
         }

@@ -29,13 +29,13 @@ class CartRepositoryImp @Inject constructor(private val cartApi: CartApi) : ICar
         }
     }
 
-    override suspend fun getCarts(): DataState<Cart> {
+    override suspend fun getCarts(): DataState<Cart?> {
         val result = getResult {
             cartApi.getCart()
         }
         return when (result) {
             is DataState.Success -> {
-                DataState.Success(result.data.result.toCart())
+                DataState.Success(result.data.result?.toCart())
             }
             is DataState.Error -> {
                 DataState.Error(result.error)

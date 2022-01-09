@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class Currency(
     val conversionRate: Int? = null,
     val id: Int,
+    val name:String,
     val symbol: String? = null
 ):Parcelable

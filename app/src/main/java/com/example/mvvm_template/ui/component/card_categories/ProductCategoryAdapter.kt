@@ -12,7 +12,8 @@ import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.utils.loadImage
 
 class ProductCategoryAdapter(val clickItem:(Product)->Unit,
-                             val clickAddCart:(Product,Int)->Unit
+                             val clickAddCart:(Product,Int)->Unit,
+                             val clickBuy:(Product)->Unit
                              ):
     ListAdapter<Product,ProductCategoryAdapter.SingleRow>(CategoryDiffCallBack()) {
 
@@ -39,6 +40,7 @@ class ProductCategoryAdapter(val clickItem:(Product)->Unit,
             binding.price.setText("${item.priceAfterDiscount ?: ""} ${item.currency?.symbol ?:""}")
             binding.code.text = item.metaDescription ?: ""
             binding.image.loadImage(item.imagePath,R.drawable.bg_no_image)
+            binding.buy.setOnClickListener { clickBuy(item) }
             binding.root.setOnClickListener {
                 clickItem(item)
             }

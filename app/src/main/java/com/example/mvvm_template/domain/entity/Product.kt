@@ -17,5 +17,6 @@ data class Product(
     val images: List<String>? = null,
     val reviews: List<Review>? = null,
     var isAtCart:Boolean=false,
+    var productType:Int?=null
 
 ) : Parcelable

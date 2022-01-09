@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+  <data>
+    <variable
+        name="point"
+        type="com.example.mvvm_template.domain.entity.PaymentMethod" />
+    <variable
+        name="wallet"
+        type="com.example.mvvm_template.domain.entity.PaymentMethod" />
+    <variable
+        name="type"
+        type="String" />
+    <import type="android.view.View"/>
+  </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -80,13 +92,112 @@
       />
   <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
+      android:layout_height="0dp"
+
       android:id="@+id/rv_method_type"
       app:layout_constraintTop_toBottomOf="@id/txt_policy"
       android:layout_margin="@dimen/dimen5"
+
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       />
+
+  <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:orientation="horizontal"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:id="@+id/content_wallet_points"
+      android:visibility="@{type.equals(`placeOrder`)? View.VISIBLE  : View.GONE }"
+      app:layout_constraintTop_toBottomOf="@id/rv_method_type"
+      android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        app:contentPadding="@dimen/dimen5"
+        app:cardCornerRadius="@dimen/dimen10"
+        android:id="@+id/contentWallet"
+        android:tag="@{wallet}"
+        android:layout_margin="@dimen/dimen5"
+        >
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:padding="@dimen/_5sdp"
+          android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/walletText"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/menu_wallet"
+            android:textSize="@dimen/text_size16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/walletValue"
+            android:text="@{wallet.totalWalletAmount +` `+ wallet.currency.name}"
+            android:textSize="@dimen/text_size14"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/walletText"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        app:contentPadding="@dimen/dimen5"
+        app:cardCornerRadius="@dimen/dimen10"
+        android:id="@+id/contentPoint"
+        android:tag="@{point}"
+        android:layout_margin="@dimen/dimen5"
+        >
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:id="@+id/content"
+          android:padding="@dimen/_5sdp"
+          android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/walletPoints"
+            android:gravity="center"
+            android:textSize="@dimen/text_size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/points"
+            android:text="@{point.equivalentPointsAmount +` `+ point.currency.name}"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/points"
+            android:gravity="center"
+            android:text="@{``+@string/total_points +`:`+ ` `+point.totalPoint}"
+            android:textSize="@dimen/text_size14"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_5sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_170sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp"
+            android:translationZ="@dimen/_5sdp"
+            android:id="@+id/contentLive"
+            android:background="@drawable/bg_border_solif_color"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_live"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/live"
+                android:padding="@dimen/_3sdp"
+                style="@style/TextMediumFont"
+                android:textColor="@color/white"
+                android:layout_marginStart="@dimen/_5sdp"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_championship"
+            />
+
+        <TextView
+            android:id="@+id/numberOfParticipant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:text="@string/numberOfChampions"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/pub"
+
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pub"
+            android:id="@+id/pub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pub"
+            android:id="@+id/pub1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="-5dp"
+            app:layout_constraintStart_toEndOf="@id/pub"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pub"
+            android:id="@+id/pub2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="-5dp"
+            app:layout_constraintStart_toEndOf="@id/pub1"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_group"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="-5dp"
+            app:layout_constraintStart_toEndOf="@id/pub2"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

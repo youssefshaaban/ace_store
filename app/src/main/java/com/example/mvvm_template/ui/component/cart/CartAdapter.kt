@@ -41,6 +41,9 @@ class CartAdapter(val cartProducts: List<Product>,val clickAddCart:(Int,Int)->Un
             binding.plus.setOnClickListener {
                 clickAddCart(item.id,item.quantity+1)
             }
+            binding.delete.setOnClickListener {
+                clickAddCart(item.id,0)
+            }
             binding.minus.setOnClickListener {
                 clickAddCart(item.id,item.quantity-1)
             }

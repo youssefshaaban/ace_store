@@ -6,7 +6,11 @@ import android.provider.Settings
 
 const val SPLASH_DELAY = 3000
 const val BASE_URL = "https://aceustore.apiserver.co/api/"
-
+const val GO_TO_HISTORY="goToHistory"
+const val CHARGE_BY_VISA="ChargeByVisa"
+const val BUY_PRODUCT="BuyProduct"
+const val CART_UPDATE="cart_update"
+const val CART_COUNT="cart_count"
 fun getDeviceId(context: Context): String? {
     return Settings.Secure.getString(
         context.contentResolver,

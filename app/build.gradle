@@ -54,6 +54,7 @@ android {
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
     kotlinOptions.jvmTarget = "1.8"
 
@@ -72,6 +73,9 @@ dependencies {
     implementation Libs.INSTANCE.gson
     implementation Libs.INSTANCE.gsonConverter
     implementation project(path: ':vFilePicker')
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     kapt Libs.INSTANCE.permissionsDispatcherProcessor
     implementation Libs.INSTANCE.timber
     implementation Libs.INSTANCE.hiltAndroid

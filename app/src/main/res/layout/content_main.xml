@@ -1,122 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main">
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal"
-        android:id="@+id/tool_bar"
-        android:gravity="center"
-        android:translationZ="@dimen/_5sdp"
-        android:background="@drawable/back_bottom_raduis"
-        android:layout_height="@dimen/_90sdp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:src="@drawable/ic_humborger"
-            android:padding="@dimen/_5sdp"
-            android:id="@+id/drawerIcon"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/title"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+        <LinearLayout
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:id="@+id/tool_bar"
             android:gravity="center"
-            style="@style/TextRegularFont"
-            android:textSize="@dimen/text_size18"
-            android:textColor="@color/white"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_search"
-            android:padding="@dimen/_5sdp"
-            android:id="@+id/search"
-            android:tint="@color/white"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
+            android:translationZ="@dimen/_5sdp"
+            android:background="@drawable/back_bottom_raduis"
+            android:layout_height="@dimen/_90sdp">
+
+            <ImageView
                 android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:src="@drawable/ic_humborger"
+                android:padding="@dimen/_5sdp"
+                android:id="@+id/drawerIcon"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="2"
-                android:textColor="@color/white"
-                android:id="@+id/number"
+                android:layout_weight="1"
+                android:id="@+id/title"
                 android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_alignStart="@id/cart"
-                android:background="@drawable/circle_red_count"
+                style="@style/TextRegularFont"
+                android:textSize="@dimen/text_size18"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:layout_width="wrap_content"
-                android:src="@drawable/ic_cart"
+                android:src="@drawable/ic_search"
                 android:padding="@dimen/_5sdp"
-                android:id="@+id/cart"
+                android:id="@+id/search"
+                android:tint="@color/white"
                 android:layout_height="wrap_content"/>
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:textColor="@color/white"
+                    android:id="@+id/number"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@id/cart"
+                    android:background="@drawable/circle_red_count"
+                    />
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_cart" />
+            </RelativeLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:translationZ="4dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:itemIconTint="@color/bnv_tab_item_foreground"
-        app:itemTextColor="@color/bnv_tab_item_foreground"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_menu" />
+        </LinearLayout>
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar"
-        app:navGraph="@navigation/mobile_navigation" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:translationZ="4dp"
+            android:background="?android:attr/windowBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:itemIconTint="@color/bnv_tab_item_foreground"
+            app:itemTextColor="@color/bnv_tab_item_foreground"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_menu" />
+
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/nav_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar"
+            app:navGraph="@navigation/mobile_navigation" />
 
 
-    <ImageView
-        android:id="@+id/offer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_gravity="end|bottom"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_offer"
-        android:translationZ="14dp"
-        app:elevation="4dp"
-        app:layout_anchor="@id/nav_view"
-        app:layout_constraintBottom_toBottomOf="@+id/nav_view"
-        app:layout_constraintEnd_toEndOf="@+id/nav_view"
-        app:layout_constraintStart_toStartOf="@+id/nav_view"
-        app:layout_insetEdge="bottom"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/offer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_offer"
+            android:translationZ="14dp"
+            app:elevation="4dp"
+            app:layout_anchor="@id/nav_view"
+            app:layout_constraintBottom_toBottomOf="@+id/nav_view"
+            app:layout_constraintEnd_toEndOf="@+id/nav_view"
+            app:layout_constraintStart_toStartOf="@+id/nav_view"
+            app:layout_insetEdge="bottom"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

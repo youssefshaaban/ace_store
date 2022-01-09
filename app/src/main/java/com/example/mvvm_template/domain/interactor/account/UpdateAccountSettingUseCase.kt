@@ -16,10 +16,10 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.jvm.Throws
 
 class UpdateAccountSettingUseCase @Inject constructor(private val accountRepository: AccountRepository, private val ioDispatcher: CoroutineContext):
-    UseCase<RequestUpdateSetting,DataState<Boolean> > {
+    UseCase<RequestUpdateSetting,DataState<RequestUpdateSetting> > {
 
     @Throws(NullCodeByMobileNumber::class,NullCodeByEmail::class)
-    override fun execute(param: RequestUpdateSetting): Flow<DataState<Boolean>> {
+    override fun execute(param: RequestUpdateSetting): Flow<DataState<RequestUpdateSetting>> {
         if (param.sendCardCodeByEmail==null){
             throw NullCodeByEmail()
         }else if (param.sendCardCodeByMobileNumber==null){

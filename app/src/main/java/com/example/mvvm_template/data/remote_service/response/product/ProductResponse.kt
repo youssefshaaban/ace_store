@@ -9,7 +9,8 @@ data class ProductResponse(
     val name: String,
     val price: Double,
     val priceAfterDiscount: Double,
-    var isAtCart:Boolean
+    var isAtCart:Boolean,
+    val productType:Int
 )
 
 
@@ -23,6 +24,7 @@ fun ProductResponse.toProductModel(): com.example.mvvm_template.domain.entity.Pr
         name,
         isAtCart = isAtCart,
         price = price,
+        productType=this.productType,
         priceAfterDiscount = this.priceAfterDiscount,
         images = emptyList()
     )

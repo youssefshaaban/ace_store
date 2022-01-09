@@ -102,7 +102,7 @@
                 android:background="@drawable/back_raduis_white"
                 android:backgroundTint="@color/colorAccent"
                 android:textColor="@color/white"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/_7sdp"
                 android:text="@string/buyNow"
                 android:layout_margin="@dimen/_5sdp"
                 />
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_5sdp"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/_4sdp"
                 android:id="@+id/contentCart"
                 android:background="@drawable/back_strok_color_accent"
                 android:layout_height="wrap_content">

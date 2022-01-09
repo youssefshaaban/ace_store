@@ -1,5 +1,8 @@
 package com.example.mvvm_template.data.remote_service.response.product
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class ProductByIdResponse(
     val currency: Currency,
     val description: String,
@@ -13,14 +16,16 @@ data class ProductByIdResponse(
     val priceAfterDiscount: Double,
     val rate: Rate?=null,
     var isAtCart:Boolean=false,
+    val productType:Int
 )
 
+@Parcelize
 data class Currency(
     val conversionRate: Int,
     val id: Int,
     val name: String,
     val symbol: String
-)
+):Parcelable
 
 data class Image(
     val caption: String,
@@ -52,7 +57,8 @@ data class Review(
 fun Currency.toCurrencyModel(): com.example.mvvm_template.domain.entity.Currency {
     return com.example.mvvm_template.domain.entity.Currency(
         conversionRate = this.conversionRate,
-        this.id, this.symbol
+        name=this.name,
+        id = this.id, symbol = this.symbol
     )
 }
 
@@ -73,6 +79,7 @@ fun ProductByIdResponse.toProductModel(): com.example.mvvm_template.domain.entit
         name = name,
         price = price,
         isAtCart = isAtCart,
+        productType=this.productType,
         priceAfterDiscount = priceAfterDiscount,
         images = images.map { im -> im.imagePath }
         ,reviews = this.rate?.reviews?.map { re->re.toReviewModel() }

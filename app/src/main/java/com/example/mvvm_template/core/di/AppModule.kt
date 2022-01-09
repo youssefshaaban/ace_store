@@ -3,7 +3,6 @@ package com.example.mvvm_template.core.di
 import android.content.Context
 import android.provider.Settings
 import com.example.mvvm_template.App
-import com.example.mvvm_template.BuildConfig
 import com.example.mvvm_template.core.common.BASE_URL
 import com.example.mvvm_template.data.ServiceGenerator
 import com.example.mvvm_template.data.remote_service.api.*
@@ -30,17 +29,26 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun createCustomerApi(servisGenerator: ServiceGenerator): CustomerApi =
+        servisGenerator.createService(CustomerApi::class.java)
+    @Singleton
+    @Provides
     fun createLookupApi(servisGenerator: ServiceGenerator): LookupApi =
         servisGenerator.createService(LookupApi::class.java)
 
     @Singleton
     @Provides
-    fun createFileUpload(servisGenerator: ServiceGenerator): ApiFiles =
+    fun createOrderApi(servisGenerator: ServiceGenerator): OrderApi =
+        servisGenerator.createService(OrderApi::class.java)
+
+    @Singleton
+    @Provides
+    fun createFileUpload(servisGenerator: ServiceGenerator): ApiService =
         Retrofit.Builder().baseUrl(BASE_URL.replace("api/",""))
             .client(servisGenerator.okHttpBuilder.build())
 
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(ApiFiles::class.java)
+            .build().create(ApiService::class.java)
 
 
     @Singleton

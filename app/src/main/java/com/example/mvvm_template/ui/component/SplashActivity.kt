@@ -1,5 +1,6 @@
 package com.example.mvvm_template.ui.component
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.example.mvvm_template.utils.startActivityWithFade
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     @Inject

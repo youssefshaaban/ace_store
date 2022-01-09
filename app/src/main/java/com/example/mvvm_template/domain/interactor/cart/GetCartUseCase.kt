@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class GetCartUseCase @Inject constructor(private val iCartRepository: ICartRepository,private val ioDispatcher: CoroutineContext):UseCase<Unit,DataState<Cart>> {
+class GetCartUseCase @Inject constructor(private val iCartRepository: ICartRepository,private val ioDispatcher: CoroutineContext):UseCase<Unit,DataState<Cart?>> {
 
-    override fun execute(param: Unit): Flow<DataState<Cart>> {
+    override fun execute(param: Unit): Flow<DataState<Cart?>> {
         return flow {
             emit(iCartRepository.getCarts())
         }.flowOn(ioDispatcher)

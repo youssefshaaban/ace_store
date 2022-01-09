@@ -6,7 +6,7 @@ import java.util.*
 
 
 object DateAndTimeFormateUtil {
-     val ISO_FORMATE="yyyy-MM-dd'T'HH:mm'Z'"
+     val ISO_FORMATE="yyyy-MM-dd'T'HH:mm:ss.s'Z'"
     val yyyy_MM_ddFORMATE="yyyy-MM-dd"
     val yyyy_MM_dd_HH_mm_ssFORMATE="yyyy-MM-dd HH:mm:ss"
     val time24="HH:mm:ss"

@@ -7,5 +7,5 @@ import com.example.mvvm_template.domain.entity.Product
 
 interface ICartRepository {
     suspend fun addToCart(requestAddCart: RequestAddCart):DataState<Cart>
-    suspend fun getCarts():DataState<Cart>
+    suspend fun getCarts():DataState<Cart?>
 }

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="point"
+            type="com.example.mvvm_template.domain.entity.Point" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.component.main.web_view.WebViewActivity">
+
+
+        <include layout="@layout/app_bar_layout"
+            android:id="@+id/app_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            android:layout_margin="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:contentPadding="@dimen/_5sdp"
+            android:id="@+id/contentCardPoints"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_point"
+                    android:tint="@color/colorAccent"
+                    android:padding="@dimen/_5sdp"
+                    android:id="@+id/imagePoint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size20"
+                    android:id="@+id/total"
+                    android:text="@{point.component3()+``}"
+                    app:layout_constraintTop_toBottomOf="@id/imagePoint"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/txt_total"
+                    app:layout_constraintTop_toBottomOf="@id/total"
+                    android:text="@string/total"
+                    android:textColor="@color/white"
+                    style="@style/TextMediumFont"
+                    android:textSize="@dimen/text_size18"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:id="@+id/lineSplit1"
+                    android:background="@color/white"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_total"
+                    />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/contentPoints"
+                    app:layout_constraintTop_toBottomOf="@id/lineSplit1"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/replacement_txt"
+                            style="@style/TextMediumFont"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/replacement"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            style="@style/TextMediumFont"
+                            android:padding="@dimen/_5sdp"
+                            android:textSize="@dimen/text_size14"
+                            android:id="@+id/replacmentValue"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            tools:text="fdfds"
+                            android:textColor="@color/white"
+                            android:text="@{point.component2()+` `}"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:id="@+id/no_replacement_txt"
+                            android:text="@string/no_replacement"
+                            android:textColor="@color/white"
+                            style="@style/TextMediumFont"
+                            android:gravity="center"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            app:layout_constraintTop_toBottomOf="@id/lineSplit1"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            style="@style/TextMediumFont"
+
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            tools:text="fdfds"
+                            android:textColor="@color/white"
+                            android:padding="@dimen/_5sdp"
+                            android:textSize="@dimen/text_size14"
+                            android:id="@+id/noReplacmentValue"
+                            android:layout_height="wrap_content"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:id="@+id/lineSplit2"
+                    android:background="@color/white"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/contentPoints"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lineSplit2"
+                    android:text="@string/total_points"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/_2sdp"
+                    android:id="@+id/totalPoints"
+                    style="@style/TextMediumFont"
+                    android:textSize="@dimen/text_size16"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/totalPoints"
+                    app:layout_constraintTop_toBottomOf="@id/lineSplit2"
+                    android:text="@string/total_points"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/_2sdp"
+                    android:tint="@color/colorAccent"
+                    android:src="@drawable/ic_arrow_left_normal"
+                    app:layout_constraintBottom_toBottomOf="@id/totalPoints"
+                    android:textSize="@dimen/text_size16"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/text_size15"
+            style="@style/TextBoldFont"
+            android:text="@string/morePoints"
+            android:padding="@dimen/_5sdp"
+            android:id="@+id/txt_points"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@id/contentCardPoints"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_points"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_layout_points"
+            android:id="@+id/rv_points"
+            android:layout_height="0dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,14 +2,11 @@ package com.example.mvvm_template.data.repositery
 
 import com.example.mvvm_template.core.common.DataState
 import com.example.mvvm_template.data.remote_service.BaseDataSource
-import com.example.mvvm_template.data.remote_service.api.ApiFiles
+import com.example.mvvm_template.data.remote_service.api.ApiService
 import com.example.mvvm_template.domain.repository.FileUploadRepo
 import com.example.mvvm_template.utils.FileUtils2
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.Request
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 
 
@@ -17,10 +14,10 @@ import java.io.File
 import javax.inject.Inject
 
 
-class FileUploadImp @Inject constructor(private val apiFiles: ApiFiles):FileUploadRepo,BaseDataSource() {
+class FileUploadImp @Inject constructor(private val apiService: ApiService):FileUploadRepo,BaseDataSource() {
     override suspend fun uploadFile(list: List<File>) : DataState<List<String>> {
        return getResult {
-            apiFiles.uploadFiles(getParts(list))
+            apiService.uploadFiles(getParts(list))
         }
     }
 

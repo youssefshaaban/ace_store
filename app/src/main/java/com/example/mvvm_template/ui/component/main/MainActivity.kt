@@ -1,41 +1,50 @@
 package com.example.mvvm_template.ui.component.main
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mvvm_template.App
 import com.example.mvvm_template.R
-import com.example.mvvm_template.core.common.BaseActivity
-import com.example.mvvm_template.core.common.DataState
+import com.example.mvvm_template.core.common.*
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityMainBinding
 import com.example.mvvm_template.domain.entity.Profile
+import com.example.mvvm_template.domain.entity.RateOrder
 import com.example.mvvm_template.ui.component.auth.logout.LogoutDialog
 
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
+import com.example.mvvm_template.ui.component.main.points.PointsActivity
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
 import com.example.mvvm_template.ui.component.main.pojo.MenuItem
 import com.example.mvvm_template.ui.component.main.rate_app.RateMeActivity
+import com.example.mvvm_template.ui.component.main.wallet.WalletActivity
 import com.example.mvvm_template.ui.component.main.web_view.WebViewActivity
+import com.example.mvvm_template.ui.component.rate.RateDialogFragment
 import com.example.mvvm_template.ui.component.search.SearchActivity
 import com.example.mvvm_template.utils.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ms_square.etsyblur.BlurSupport
+import company.tap.gosellapi.internal.api.constants.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+    @Inject
+    lateinit var navigator: AppNavigator
 
     val viewModel: MainViewModel by viewModels()
     lateinit var navController: NavController
@@ -43,11 +52,38 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         getListMenu()
     }
 
-    @Inject
-    lateinit var navigator: AppNavigator
+    val receiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            p1?.getIntExtra(CART_COUNT, 0)?.let {
+                if (it != 0) {
+                    getViewDataBinding().contentLayout.contentMain.number.text = "$it"
+                    getViewDataBinding().contentLayout.contentMain.number.toVisible()
+                }else{
+                    getViewDataBinding().contentLayout.contentMain.number.text = ""
+                    getViewDataBinding().contentLayout.contentMain.number.toGone()
+                }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
+    }
     private fun getListMenu(): List<MenuItem> {
         return arrayListOf(
-            MenuItem(getString(R.string.menu_status), R.drawable.ic_status_icon, ActionType.Status),
+            MenuItem(getString(R.string.menu_status), R.drawable.ic_point, ActionType.Status),
+            MenuItem(getString(R.string.menu_wallet), R.drawable.ic_wallet, ActionType.Wallet),
+            MenuItem(
+                getString(R.string.menu_championships),
+                R.drawable.ic_championships,
+                ActionType.Championships
+            ),
             MenuItem(getString(R.string.menu_support), R.drawable.ic_support, ActionType.Support),
             MenuItem(getString(R.string.menu_about), R.drawable.ic_info, ActionType.Info),
             MenuItem(
@@ -82,38 +118,49 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
-        getViewDataBinding().contentLayout.contentMain.navView.setOnNavigationItemSelectedListener(::handleSectionItem)
+        getViewDataBinding().contentLayout.contentMain.navView.setOnNavigationItemSelectedListener(
+            ::handleSectionItem
+        )
         BlurSupport.addTo(getViewDataBinding().drawerLayout)
         getViewDataBinding().rvItems.configRecycle(true)
         getViewDataBinding().rvItems.adapter = MenuItemAdapter(list, ::handleActionType)
         getViewDataBinding().contentLayout.contentMain.drawerIcon.setOnClickListener {
             getViewDataBinding().drawerLayout.openDrawer(GravityCompat.START)
         }
-
         getViewDataBinding().contentLayout.contentMain.offer.setOnClickListener {
             DialogOfferFragment.newInstance().show(
                 supportFragmentManager,
                 DialogOfferFragment::class.java.name
             )
         }
-
         getViewDataBinding().contentLayout.contentMain.cart.setOnClickListener { openCart() }
         getViewDataBinding().contentLayout.contentMain.search.setOnClickListener { openSearch() }
         observeViewModels()
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(receiver, IntentFilter(CART_UPDATE))
         //viewModel.updateFirebaseToken(UpdateFirBaseTokenUseCase.RequestUpdateFirbase(getDeviceId(context = this),token = ))
         checkUser()
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent != null && intent.getBooleanExtra(GO_TO_HISTORY, false)) {
+            navController.navigate(R.id.purchase)
+            getViewDataBinding().contentLayout.contentMain.number.text = ""
+            getViewDataBinding().contentLayout.contentMain.number.toGone()
+        }
     }
 
     private fun handleSectionItem(menuItem: android.view.MenuItem): Boolean {
-        return if (menuItem.itemId==navController.currentDestination?.id){
+        return if (menuItem.itemId == navController.currentDestination?.id) {
             true
-        }else{
+        } else {
             navController.navigate(menuItem.itemId)
             true
         }
@@ -123,6 +170,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         if (App.getUser() != null) {
             viewModel.getProfile()
             getViewDataBinding().txt.text = getString(R.string.logout)
+            viewModel.getLastUnratedOrder()
         } else {
             getViewDataBinding().txt.text = getString(R.string.login)
         }
@@ -145,12 +193,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             getViewDataBinding().contentLayout.contentMain.title.text = it
         }
         observe(viewModel.observProfile, ::handelDataStatVerifyOTP)
-        observe(viewModel.carCount){
-            if(it!=0){
+        observe(viewModel.rateOrderData, ::handleRateOrderResult)
+        observe(viewModel.carCount) {
+            if (it != 0) {
                 getViewDataBinding().contentLayout.contentMain.number.toVisible()
-                getViewDataBinding().contentLayout.contentMain.number.text=it.toString()
-            }else{
+                getViewDataBinding().contentLayout.contentMain.number.text = it.toString()
+            } else {
                 getViewDataBinding().contentLayout.contentMain.number.toGone()
+            }
+        }
+    }
+
+    private fun handleRateOrderResult(dataState: DataState<RateOrder?>) {
+        when (dataState) {
+            is DataState.Success -> {
+                if (dataState.data != null && !dataState.data.products.isNullOrEmpty()) {
+                    RateDialogFragment.newInstance(dataState.data)
+                        .show(supportFragmentManager, RateDialogFragment::class.java.name)
+                }
             }
         }
     }
@@ -175,12 +235,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             ActionType.FAQQuestion -> {
             }
             ActionType.Replacement -> {
-                startActivityWithFade(
-                    WebViewActivity.getIntent(this).putExtra(
-                        "title",
-                        getString(R.string.menu_replacment)
-                    ).putExtra("type", 2)
-                )
+                if (checkUserLogin()) {
+                    startActivityWithFade(
+                        WebViewActivity.getIntent(this).putExtra(
+                            "title",
+                            getString(R.string.menu_replacment)
+                        ).putExtra("type", 2)
+                    )
+                }
+
             }
             ActionType.Rate -> {
                 startActivityWithFade(RateMeActivity.getIntent(this))
@@ -194,7 +257,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 )
             }
             ActionType.Status -> {
-
+                startActivity(PointsActivity.getIntent(this))
+            }
+            ActionType.Wallet -> {
+                if (checkUserLogin()) {
+                    startActivity(WalletActivity.getIntent(this))
+                }
             }
             ActionType.Support -> {
                 val contact = "+00 9876543210" // use country code with your phone number

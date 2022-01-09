@@ -5,9 +5,11 @@ import com.example.mvvm_template.data.local.AppPrefrancesImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 @Module
 abstract class SharedPreferencesModule {
     @Binds

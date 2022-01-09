@@ -34,4 +34,7 @@
         />
 
 
+    <action android:id="@+id/purchase"
+        app:destination="@id/navigation_history"
+        />
 </navigation>
