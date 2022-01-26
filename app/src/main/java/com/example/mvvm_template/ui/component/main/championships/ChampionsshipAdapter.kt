@@ -3,42 +3,169 @@ package com.example.mvvm_template.ui.component.main.championships
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_template.R
-import com.example.mvvm_template.data.remote_service.response.customer.TransactionPoints
-import com.example.mvvm_template.databinding.ItemLayoutPointsBinding
+import com.example.mvvm_template.core.common.LIVE
+import com.example.mvvm_template.core.common.NEXT
+import com.example.mvvm_template.core.common.PRVIOUS
+import com.example.mvvm_template.databinding.ItemChampionshipsLiveLayoutBinding
+import com.example.mvvm_template.databinding.ItemChampionshipsNextLayoutBinding
+import com.example.mvvm_template.databinding.ItemChampionshipsPreviousLayoutBinding
+import com.example.mvvm_template.domain.entity.Challenge
+import com.example.mvvm_template.utils.DateAndTimeFormateUtil
+import com.example.mvvm_template.utils.loadImage
+import java.time.Duration
+import java.time.LocalDateTime
 
-class ChampionsshipAdapter(val list: List<TransactionPoints>) :
-    RecyclerView.Adapter<ChampionsshipAdapter.SingleRow>() {
+class ChampionsshipAdapter(val clickListnerJoin: (Challenge) -> Unit) :
+    androidx.recyclerview.widget.ListAdapter<Challenge, RecyclerView.ViewHolder>(
+        ChallengeDiffCallBack()
+    ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRow {
-        return SingleRow(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_layout_points,
-                parent,
-                false
-            )
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        when (viewType) {
+            LIVE -> {
+                return SingleRowLive(
+                    DataBindingUtil.inflate(
+                        LayoutInflater.from(parent.context),
+                        R.layout.item_championships_live_layout,
+                        parent,
+                        false
+                    )
+                )
+            }
+            NEXT -> {
+                return SingleRowNext(
+                    DataBindingUtil.inflate(
+                        LayoutInflater.from(parent.context),
+                        R.layout.item_championships_next_layout,
+                        parent,
+                        false
+                    )
+                )
+            }
+            PRVIOUS -> {
+                return SingleRowPrevious(
+                    DataBindingUtil.inflate(
+                        LayoutInflater.from(parent.context),
+                        R.layout.item_championships_previous_layout,
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> {
+                return SingleRowNext(
+                    DataBindingUtil.inflate(
+                        LayoutInflater.from(parent.context),
+                        R.layout.item_championships_next_layout,
+                        parent,
+                        false
+                    )
+                )
+            }
+        }
+
     }
 
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun getItemViewType(position: Int): Int {
+        val item = getItem(position)
+        return when (item.status) {
+            LIVE -> {
+                LIVE
+            }
+            NEXT -> {
+                NEXT
+            }
+            PRVIOUS -> {
+                PRVIOUS
+            }
+            else -> {
+                NEXT
+            }
+        }
     }
 
-    override fun onBindViewHolder(p0: SingleRow, p1: Int) {
-        p0.bind(p1)
+    override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
+        when (p0) {
+            is SingleRowLive -> {
+                p0.bind(p1)
+            }
+            is SingleRowNext -> {
+                p0.bind(p1)
+            }
+            is SingleRowPrevious -> {
+                p0.bind(p1)
+            }
+        }
     }
 
-    inner class SingleRow(var binding: ItemLayoutPointsBinding) :
+    inner class SingleRowLive(var binding: ItemChampionshipsLiveLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pos: Int) {
+            val item = getItem(pos)
+            binding.imgLive.loadImage(item.imagePath, R.drawable.ic_championship)
+            binding.numberOfParticipant.text = binding.root.context.getString(
+                R.string.numberOfChampions,
+                item.playersCount.toString()
+            )
+            binding.root.setOnClickListener { clickListnerJoin(item) }
+        }
+
+
+    }
+
+    inner class SingleRowNext(var binding: ItemChampionshipsNextLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(pos: Int) {
+            val item = getItem(pos)
+            binding.img.loadImage(item.imagePath, R.drawable.ic_championship)
+            if (item.startDate != null && item.endDate != null) {
+                val startDate = DateAndTimeFormateUtil.getDate(
+                    item.startDate,
+                    DateAndTimeFormateUtil.ISO_FORMATE
+                )
+                val endDate = DateAndTimeFormateUtil.getDate(
+                    item.endDate,
+                    DateAndTimeFormateUtil.ISO_FORMATE
+                )
+
+
+
+            }
+            binding.root.setOnClickListener {
+                clickListnerJoin(item)
+            }
+        }
+
+
+    }
+
+    inner class SingleRowPrevious(var binding: ItemChampionshipsPreviousLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(pos: Int) {
+            val item = getItem(pos)
+            binding.img.loadImage(item.imagePath, R.drawable.ic_championship)
+            binding.title.text = item.name
+            binding.winner.text = item.winner?.name
+            binding.root.setOnClickListener { clickListnerJoin(item) }
 
         }
 
 
+    }
+
+    private class ChallengeDiffCallBack : DiffUtil.ItemCallback<Challenge>() {
+        override fun areItemsTheSame(oldItem: Challenge, newItem: Challenge): Boolean =
+            oldItem.hashCode().toLong() == newItem.hashCode().toLong()
+
+        override fun areContentsTheSame(oldItem: Challenge, newItem: Challenge): Boolean =
+            oldItem == newItem
     }
 
 

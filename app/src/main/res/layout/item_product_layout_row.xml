@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_5sdp"
+    app:contentPadding="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_6sdp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="70dp"
+            android:id="@+id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="90dp"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/name"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            style="@style/TextMediumFont"
+            app:layout_constraintEnd_toStartOf="@id/price"
+            app:layout_constraintStart_toEndOf="@id/image"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/metaDesc"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            style="@style/TextMediumFont"
+            app:layout_constraintEnd_toStartOf="@id/tv_old_price"
+            app:layout_constraintStart_toEndOf="@id/image"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/price"
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/_5sdp"
+            style="@style/TextMediumFont"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:alpha="0.8"
+            android:gravity="start"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
+            android:singleLine="true"
+            android:text="200 ddddddddddSAR"
+            android:textAlignment="viewStart"
+            android:textColor="@color/txt_color2"
+            android:textSize="@dimen/text_size13"
+            app:layout_constraintBottom_toBottomOf="@+id/metaDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen1"
+            android:layout_gravity="center"
+            android:alpha="0.8"
+            app:layout_constraintTop_toTopOf="@id/tv_old_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_old_price"
+            app:layout_constraintStart_toStartOf="@id/tv_old_price"
+            app:layout_constraintEnd_toEndOf="@id/tv_old_price"
+            android:background="@color/txt_color2" />
+
+        <TextView
+            android:id="@+id/addCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/back_strok_color_accent"
+            android:text="@string/add_cart"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:padding="@dimen/_3sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_old_price"
+            app:layout_constraintStart_toEndOf="@+id/buyNow" />
+
+
+        <TextView
+            android:id="@+id/buyNow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="7dp"
+            android:padding="@dimen/_3sdp"
+            android:background="@drawable/back_strok_solid_color_accent"
+            android:text="@string/buyNow"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/metaDesc"
+            app:layout_constraintBaseline_toBaselineOf="@+id/addCart"
+            app:layout_constraintEnd_toStartOf="@+id/addCart"
+            app:layout_constraintStart_toEndOf="@id/image" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+</layout>

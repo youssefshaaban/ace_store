@@ -58,6 +58,11 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun createChallengeApi(servisGenerator: ServiceGenerator): ChallengeApi =
+        servisGenerator.createService(ChallengeApi::class.java)
+
+    @Singleton
+    @Provides
     fun createCartApi(servisGenerator: ServiceGenerator): CartApi =
         servisGenerator.createService(CartApi::class.java)
 

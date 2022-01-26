@@ -11,7 +11,11 @@ import com.example.mvvm_template.domain.interactor.account.GetProfileUseCase
 import com.example.mvvm_template.domain.interactor.account.LogOutUseCase
 import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.domain.interactor.order.GetMyLastUnrateOrderUseCse
+import com.example.mvvm_template.service.FireBaseMessage
+import com.example.mvvm_template.utils.LogUtil
 import com.example.mvvm_template.utils.SingleLiveEvent
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -49,10 +53,17 @@ class MainViewModel @Inject constructor(
 
 
     fun updateFirebaseToken(param:UpdateFirBaseTokenUseCase.RequestUpdateFirbase){
-        viewModelScope.launch {
-            updateFirBaseTokenUseCase.execute(param).collect {
-
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
+            if (!task.isSuccessful) {
+                return@addOnCompleteListener
+            }
+            param.token=task.result
+            viewModelScope.launch {
+                updateFirBaseTokenUseCase.execute(param).collect {
+                        LogUtil.debug("tokenFire","success")
+                }
             }
         }
+
     }
 }

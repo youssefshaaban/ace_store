@@ -11,6 +11,9 @@ const val CHARGE_BY_VISA="ChargeByVisa"
 const val BUY_PRODUCT="BuyProduct"
 const val CART_UPDATE="cart_update"
 const val CART_COUNT="cart_count"
+const val LIVE=1
+const val NEXT=2
+const val PRVIOUS=3
 fun getDeviceId(context: Context): String? {
     return Settings.Secure.getString(
         context.contentResolver,

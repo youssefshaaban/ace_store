@@ -29,7 +29,7 @@ class UpdateFirBaseTokenUseCase @Inject constructor(
     data class RequestUpdateFirbase(
         val deviceId: String,
         val deviceType: String="ANDROID",
-        val token: String=""
+        var token: String=""
     )
 
 }

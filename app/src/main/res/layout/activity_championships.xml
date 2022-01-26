@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_layout_points"
+            tools:listitem="@layout/item_championships_live_layout"
             android:id="@+id/rv_championships"
             android:layout_height="0dp">
 

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -22,9 +23,12 @@ import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityMainBinding
 import com.example.mvvm_template.domain.entity.Profile
 import com.example.mvvm_template.domain.entity.RateOrder
+import com.example.mvvm_template.domain.interactor.account.UpdateFirBaseTokenUseCase
 import com.example.mvvm_template.ui.component.auth.logout.LogoutDialog
 
 import com.example.mvvm_template.ui.component.main.bottom.offer.DialogOfferFragment
+import com.example.mvvm_template.ui.component.main.championships.ChampionshipsActivity
+import com.example.mvvm_template.ui.component.main.member_ship.MemberShipActivity
 import com.example.mvvm_template.ui.component.main.points.PointsActivity
 import com.example.mvvm_template.ui.component.main.pojo.ActionType
 import com.example.mvvm_template.ui.component.main.pojo.MenuItem
@@ -58,7 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 if (it != 0) {
                     getViewDataBinding().contentLayout.contentMain.number.text = "$it"
                     getViewDataBinding().contentLayout.contentMain.number.toVisible()
-                }else{
+                } else {
                     getViewDataBinding().contentLayout.contentMain.number.text = ""
                     getViewDataBinding().contentLayout.contentMain.number.toGone()
                 }
@@ -75,8 +79,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onDestroy()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
     }
+
     private fun getListMenu(): List<MenuItem> {
         return arrayListOf(
+            MenuItem(
+                getString(R.string.menu_member_ship),
+                R.drawable.ic_member,
+                ActionType.MemberShip
+            ),
             MenuItem(getString(R.string.menu_status), R.drawable.ic_point, ActionType.Status),
             MenuItem(getString(R.string.menu_wallet), R.drawable.ic_wallet, ActionType.Wallet),
             MenuItem(
@@ -110,6 +120,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     R.drawable.bg_no_image
                 )
                 getViewDataBinding().navView.phone.text = dataState.data.mobileNumber
+                getViewDataBinding().navView.memberType.text = dataState.data.memberType?.name +" ("+dataState.data.point?.totalPoints+")"
+                dataState.data.memberType?.colorCode?.let {
+                    getViewDataBinding().navView.contentMember.background.setTint(Color.parseColor(it))
+                }
+
             }
             is DataState.Error -> {
                 handleFaluir(dataState.error)
@@ -143,7 +158,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         observeViewModels()
         LocalBroadcastManager.getInstance(this)
             .registerReceiver(receiver, IntentFilter(CART_UPDATE))
-        //viewModel.updateFirebaseToken(UpdateFirBaseTokenUseCase.RequestUpdateFirbase(getDeviceId(context = this),token = ))
+        if (App.getUser() != null)
+            viewModel.updateFirebaseToken(
+                UpdateFirBaseTokenUseCase.RequestUpdateFirbase(
+                    getDeviceId(
+                        context = this
+                    )!!
+                )
+            )
         checkUser()
 
     }
@@ -235,12 +257,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             ActionType.FAQQuestion -> {
             }
             ActionType.Replacement -> {
+                startActivityWithFade(
+                    WebViewActivity.getIntent(this).putExtra(
+                        "title",
+                        getString(R.string.menu_replacment)
+                    ).putExtra("type", 2)
+                )
+
+            }
+            ActionType.Championships -> {
                 if (checkUserLogin()) {
                     startActivityWithFade(
-                        WebViewActivity.getIntent(this).putExtra(
-                            "title",
-                            getString(R.string.menu_replacment)
-                        ).putExtra("type", 2)
+                        ChampionshipsActivity.getIntent(this)
+                    )
+                }
+
+            }
+            ActionType.MemberShip -> {
+                if (checkUserLogin()) {
+                    startActivityWithFade(
+                        MemberShipActivity.getIntent(this)
                     )
                 }
 
@@ -257,7 +293,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 )
             }
             ActionType.Status -> {
-                startActivity(PointsActivity.getIntent(this))
+                if (checkUserLogin()) {
+                    startActivity(PointsActivity.getIntent(this))
+                }
             }
             ActionType.Wallet -> {
                 if (checkUserLogin()) {

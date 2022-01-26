@@ -88,6 +88,7 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
             )
         }
         dialog.setCanceledOnTouchOutside(true)
+        dialog.setCancelable(false)
         return dialog
     }
 

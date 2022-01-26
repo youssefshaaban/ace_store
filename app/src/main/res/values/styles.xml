@@ -15,6 +15,7 @@
     <style name="TextBoldFont">
         <item name="android:textSize">@dimen/text_size15</item>
         <item name="fontFamily">@font/tajawal_bold</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="TextRegularFontDigit">
         <item name="android:textSize">@dimen/text_size15</item>

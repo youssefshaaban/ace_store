@@ -17,6 +17,33 @@
         android:theme="@style/Theme.MVVM_Template"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimaryDark" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_logo" />
+
+        <service
+            android:name="com.example.mvvm_template.service.FireBaseMessage"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service> <!-- end fireBase -->
+        <activity
+            android:name=".ui.component.main.championships.PlayerschallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.component.main.championships.ChallengeDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.component.main.member_ship.MemberShipActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.component.cart.SummeryOrderActivity"
             android:exported="false" />

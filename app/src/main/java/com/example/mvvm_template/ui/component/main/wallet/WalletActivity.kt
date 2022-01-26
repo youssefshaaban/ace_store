@@ -101,6 +101,7 @@ class WalletActivity : BaseActivity<ActivityWalletBinding>() {
                         ).putExtra("amount", amount)
                             .putExtra("paymentId", it.id)
                             .putExtra("currency", getString(R.string.currencyKSA))
+                            .putExtra("paymentId",it.id)
                     )
                 }
             dialog.dismiss()

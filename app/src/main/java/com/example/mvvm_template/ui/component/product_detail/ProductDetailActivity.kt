@@ -57,9 +57,9 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding>() {
     private fun handleClickCart(isBuy: Boolean) {
         isBuyNow = isBuy
         selectProduct?.let {
-            if (selectProduct!!.productType == 1) {
+            if (selectProduct!!.productType == 2) {
                 viewModel.addToCart(selectProduct?.id, isAddCart = !selectProduct!!.isAtCart)
-            } else if (selectProduct!!.productType == 2) {
+            } else if (selectProduct!!.productType == 1) {
                 // show dialog player id
                 showDialog(selectProduct!!)
             }
@@ -69,14 +69,14 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding>() {
 
     private fun showDialog(product: Product) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.set_your_amount))
+        builder.setTitle(getString(R.string.txt_title_for_player_id))
 
 // Set up the input
         val input = EditText(this)
         input.gravity = Gravity.CENTER
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setHint(getString(R.string.amount))
-        input.inputType = InputType.TYPE_CLASS_NUMBER
+        input.setHint(getString(R.string.player_id))
+        input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
 // Set up the buttons

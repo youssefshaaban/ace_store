@@ -3,11 +3,7 @@ package com.example.mvvm_template.ui.component.card_categories
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.InputType
-import android.view.Gravity
 import android.view.View
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.mvvm_template.R
@@ -17,17 +13,9 @@ import com.example.mvvm_template.core.common.CART_UPDATE
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityItemCategoriesBinding
-import com.example.mvvm_template.domain.entity.POINTS_PAYMENT_METHOD_TYPE
-import com.example.mvvm_template.domain.entity.PaymentMethod
 import com.example.mvvm_template.domain.entity.Product
-import com.example.mvvm_template.domain.entity.WALLET_PAYMENT_METHOD_TYPE
-import com.example.mvvm_template.ui.component.custom_dialogs.paymentType.DialogPaymentMethodFragment
-import com.example.mvvm_template.ui.component.payment.CHARGE_WALLET
-import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
-import com.example.mvvm_template.ui.component.payment.PaymentActivity
-
+import com.example.mvvm_template.ui.component.custom_dialogs.DialogPlayerIdFragment
 import com.example.mvvm_template.utils.*
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,56 +33,70 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
     @Inject
     lateinit var appNavigator: AppNavigator
     private val productCategoryAdapter by lazy {
-        ProductCategoryAdapter(::handleClickProduct, ::handleAddToCart, ::handleClickBuy)
+        GridProductCategoryAdapter(::handleClickProduct, ::handleAddToCart, ::handleClickBuy)
+    }
+
+    private val productListCategoryAdapter by lazy {
+        ProductListCategoryAdapter(::handleClickProduct, ::handleAddToCart, ::handleClickBuy)
     }
 
     private fun handleAddToCart(product: Product, position: Int) {
 
-        if (product.productType == 1) {
+        if (product.productType == 2) {
             viewModel.addToCart(product.id, position, isAddCart = !product.isAtCart)
-        } else if (product.productType == 2) {
+        } else if (product.productType == 1) {
             // show dialog player id
-            showDialog(product, position)
+            showDialogPlayerId(product, position)
         }
     }
 
-    private fun showDialog(product: Product, position: Int?=null) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(getString(R.string.set_your_amount))
-
-// Set up the input
-        val input = EditText(requireContext())
-        input.gravity = Gravity.CENTER
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setHint(getString(R.string.amount))
-        input.inputType = InputType.TYPE_CLASS_NUMBER
-        builder.setView(input)
-
-// Set up the buttons
-        builder.setPositiveButton(
-            getString(R.string.ok)
-        ) { dialog, which ->
-            // Here you get get input text from the Edittext
-            val player_id = input.text.toString()
-            if (!player_id.isNullOrEmpty()) {
-                viewModel.addToCart(
-                    product.id,
-                    position,
-                    playerId = player_id,
-                    isAddCart = !product.isAtCart
-                )
-                dialog.dismiss()
-            } else {
-                getViewDataBinding().grid.showToast(
-                    getString(R.string.message_should_enter_player_id),
-                    1000
-                )
-            }
+    private fun showDialogPlayerId(product: Product, position: Int?=null) {
+        DialogPlayerIdFragment().showDialog(childFragmentManager){
+            s, dialogPlayerIdFragment ->
+            viewModel.addToCart(
+                product.id,
+                position,
+                playerId = s,
+                isAddCart = !product.isAtCart
+            )
+            dialogPlayerIdFragment.dismiss()
         }
-        builder.setNegativeButton(
-            getString(R.string.cancel)
-        ) { dialog, which -> dialog.cancel() }
-        builder.show()
+//        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+//        builder.setTitle(getString(R.string.txt_title_for_player_id))
+//
+//// Set up the input
+//        val input = EditText(requireContext())
+//        input.gravity = Gravity.CENTER
+//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//        input.setHint(getString(R.string.player_id))
+//        input.inputType = InputType.TYPE_CLASS_TEXT
+//        builder.setView(input)
+//
+//// Set up the buttons
+//        builder.setPositiveButton(
+//            getString(R.string.ok)
+//        ) { dialog, which ->
+//            // Here you get get input text from the Edittext
+//            val player_id = input.text.toString()
+//            if (!player_id.isNullOrEmpty()) {
+//                viewModel.addToCart(
+//                    product.id,
+//                    position,
+//                    playerId = player_id,
+//                    isAddCart = !product.isAtCart
+//                )
+//                dialog.dismiss()
+//            } else {
+//                getViewDataBinding().grid.showToast(
+//                    getString(R.string.message_should_enter_player_id),
+//                    1000
+//                )
+//            }
+//        }
+//        builder.setNegativeButton(
+//            getString(R.string.cancel)
+//        ) { dialog, which -> dialog.cancel() }
+//        builder.show()
     }
 
 
@@ -105,7 +107,7 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
             viewModel.addToCart(product.id, isAddCart = !product.isAtCart)
         } else if (product.productType == 1) {
             // show dialog player id
-            showDialog(product)
+            showDialogPlayerId(product)
         }
     }
 
@@ -157,6 +159,8 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
     private fun actionGrid() {
         getViewDataBinding().grid.setColorFilter(resources.getColor(R.color.colorAccent))
         getViewDataBinding().list.setColorFilter(Color.parseColor("#bcbcbc"))
+        productCategoryAdapter.submitList(productListCategoryAdapter.currentList)
+        getViewDataBinding().content.emptyRecycle.adapter=productCategoryAdapter
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
     }
 
@@ -164,11 +168,18 @@ class ProductCategoriesFragment : BaseFragment<ActivityItemCategoriesBinding>() 
     private fun actionList() {
         getViewDataBinding().list.setColorFilter(resources.getColor(R.color.colorAccent))
         getViewDataBinding().grid.setColorFilter(Color.parseColor("#bcbcbc"))
+        productListCategoryAdapter.submitList(productCategoryAdapter.currentList)
+        getViewDataBinding().content.emptyRecycle.adapter=productListCategoryAdapter
         getViewDataBinding().content.emptyRecycle.configRecycle(true)
     }
 
     private fun handleDateStatCategory(products: List<Product>) {
-        productCategoryAdapter.submitList(productCategoryAdapter.currentList + products)
+        if (getViewDataBinding().content.emptyRecycle.adapter is GridProductCategoryAdapter){
+            productCategoryAdapter.submitList(productCategoryAdapter.currentList + products)
+        }else if (getViewDataBinding().content.emptyRecycle.adapter is ProductListCategoryAdapter){
+            productListCategoryAdapter.submitList(productListCategoryAdapter.currentList + products)
+        }
+
     }
 
     override fun getLayoutId(): Int {

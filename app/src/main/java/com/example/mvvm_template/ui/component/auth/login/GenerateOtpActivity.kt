@@ -72,7 +72,7 @@ class GenerateOtpActivity : BaseActivity<ActivityLoginBinding>() {
         isRegistration = intent?.extras?.getBoolean("isRegister")
     }
 
-    private fun handelDataStatGenerate(dataState: DataState<Boolean>) {
+    private fun handelDataStatGenerate(dataState: DataState<String>) {
         when (dataState) {
             is DataState.Loading -> showLoading()
             is DataState.Success -> {

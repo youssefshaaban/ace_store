@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/back_top_raduis_white"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_method"
+            style="@style/TextBoldFont"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/dimen4"
+            android:textSize="@dimen/text_size20"
+            android:text="@string/player_id"
+            />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancel"
+            android:src="@drawable/ic_close"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/dimen5"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextRegularFont"
+            android:id="@+id/title"
+            android:text="@string/txt_title_for_player_id"
+            android:textSize="@dimen/text_size16"
+            android:layout_marginTop="@dimen/dimen10"
+            app:layout_constraintTop_toBottomOf="@id/txt_method"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            style="@style/TextRegularFont"
+            android:id="@+id/et_player_id"
+            android:padding="@dimen/_10sdp"
+            android:background="@drawable/back_raduis_white"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm"
+            android:id="@+id/txt_confirm"
+            style="@style/TextRegularFont"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_player_id"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -41,7 +41,7 @@ class CartViewModel @Inject constructor(
 
     private val _idOrderPrivateLive = MutableLiveData<Int>()
     val orderIdLiveData: LiveData<Int> get() = _idOrderPrivateLive
-    fun addToCart(productId: Int, quantity: Int) {
+    fun addToCart(productId: Int, quantity: Int,playerId:String?=null) {
         viewModelScope.launch {
             _cartPrivateLive.value = DataState.Loading
             addCartUseCase.execute(

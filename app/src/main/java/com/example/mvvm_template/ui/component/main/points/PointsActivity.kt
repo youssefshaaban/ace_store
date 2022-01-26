@@ -13,11 +13,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PointsActivity : BaseActivity<ActivityPointsBinding>() {
-    val viewModel:PointsViewModel by viewModels()
+    val viewModel: PointsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getViewDataBinding().appBar.back.setOnClickListener { onBackPressed() }
-        getViewDataBinding().appBar.title.text=getString(R.string.menu_status)
+        getViewDataBinding().appBar.title.text = getString(R.string.menu_status)
         getViewDataBinding().rvPoints.configRecycle(true)
         setupObservable()
         viewModel.getPoints()
@@ -27,17 +27,21 @@ class PointsActivity : BaseActivity<ActivityPointsBinding>() {
     }
 
     private fun setupObservable() {
-        observe(viewModel.loaderVisibilityLiveData){
+        observe(viewModel.loaderVisibilityLiveData) {
             if (it)
                 showLoading()
             else
                 hideLoading()
         }
-        observe(viewModel.faluireLiveData,::handleFaluir)
-        observe(viewModel.pointsLiveData){
-            point->
-            getViewDataBinding().point=point
-            getViewDataBinding().totalPoints.setOnClickListener { startActivity(TransactionPointsActivity.getIntent(this)) }
+        observe(viewModel.faluireLiveData, ::handleFaluir)
+        observe(viewModel.pointsLiveData) { point ->
+            getViewDataBinding().point = point
+            point.gainMethods?.let {
+                getViewDataBinding().rvPoints.adapter = GainedMethodAdapter(it)
+            }
+            getViewDataBinding().totalPoints.setOnClickListener {
+                startActivity(TransactionPointsActivity.getIntent(this))
+            }
         }
     }
 
@@ -45,7 +49,7 @@ class PointsActivity : BaseActivity<ActivityPointsBinding>() {
         return R.layout.activity_points
     }
 
-    companion object{
+    companion object {
         fun getIntent(context: Context): Intent = Intent(context, PointsActivity::class.java)
     }
 }

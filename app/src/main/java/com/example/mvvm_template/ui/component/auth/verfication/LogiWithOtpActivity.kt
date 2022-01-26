@@ -54,6 +54,7 @@ class LogiWithOtpActivity : BaseActivity<ActivityVerficationBinding>() {
 
         })
         setupObserve()
+        getViewDataBinding().back.setOnClickListener { onBackPressed() }
     }
 
     private fun setupObserve() {

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titleJoin"
+                style="@style/TextBoldFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/joinChallenge"
+                android:textSize="@dimen/text_size16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/hint_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleJoin" />
+
+            <TextView
+                android:id="@+id/usernamLabel"
+                style="@style/TextMediumFont"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/userName"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textSize="@dimen/text_size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_desc" />
+
+            <EditText
+                android:id="@+id/userName"
+                android:background="@drawable/back_raduis_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/usernamLabel"
+                />
+
+            <TextView
+                android:id="@+id/lebalPalyerID"
+                style="@style/TextMediumFont"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                android:text="@string/player_id"
+                android:textSize="@dimen/text_size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userName" />
+
+            <EditText
+                android:id="@+id/playerId"
+                android:background="@drawable/back_raduis_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lebalPalyerID"
+                />
+
+
+            <TextView
+                android:id="@+id/join"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/send"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/playerId"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/join"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/progress"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

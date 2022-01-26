@@ -13,6 +13,7 @@ import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.ActivityCartBinding
 import com.example.mvvm_template.domain.entity.*
+import com.example.mvvm_template.ui.component.custom_dialogs.DialogPlayerIdFragment
 import com.example.mvvm_template.ui.component.custom_dialogs.paymentType.DialogPaymentMethodFragment
 import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
 import com.example.mvvm_template.ui.component.payment.PaymentActivity
@@ -49,7 +50,8 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
                     supportFragmentManager
                 ){
                     startActivity(PaymentActivity.getIntent(this).putExtra("amount",cartData?.total)
-                        .putExtra("currency",cartData?.products?.firstOrNull()?.name)
+                        .putExtra("currency",cartData?.products?.firstOrNull()?.currency?.name)
+                        .putExtra("paymentId",it.id)
                         .putExtra("type",PLACE_ORDER)
                     )
                 }
@@ -97,7 +99,7 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
         if (data != null) {
             cartData = data
             getViewDataBinding().contentEmpty.emptyRecycle.adapter =
-                CartAdapter(data.products!!, ::handleClickAddCart)
+                CartAdapter(data.products!!, ::handleClickAddCart,::handleClickShowDialogPlayerId)
             if (data.code != null) {
                 getViewDataBinding().subTotalContent.toVisible()
                 getViewDataBinding().discountContent.toVisible()
@@ -114,6 +116,17 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
             intent.putExtra(CART_COUNT, cartData?.products?.sumOf { prod->prod.quantity})
             LocalBroadcastManager.getInstance(getViewDataBinding().root.context)
                 .sendBroadcast(intent)
+        }
+    }
+
+    private fun handleClickShowDialogPlayerId(product: Product) {
+        DialogPlayerIdFragment().showDialog(supportFragmentManager) { s, dialogPlayerIdFragment ->
+            viewModel.addToCart(
+                product.id,
+                playerId = s,
+                quantity = product.quantity
+            )
+            dialogPlayerIdFragment.dismiss()
         }
     }
 

@@ -7,19 +7,16 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
-import com.example.mvvm_template.App
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseFragment
 import com.example.mvvm_template.core.navigation.AppNavigator
 import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.DialogOfferFragmentBinding
-import com.example.mvvm_template.domain.entity.POINTS_PAYMENT_METHOD_TYPE
-import com.example.mvvm_template.domain.entity.PaymentMethod
 import com.example.mvvm_template.domain.entity.Product
-import com.example.mvvm_template.domain.entity.WALLET_PAYMENT_METHOD_TYPE
-import com.example.mvvm_template.ui.component.card_categories.ProductCategoryAdapter
 import com.example.mvvm_template.ui.component.card_categories.ProductsViewModel
+import com.example.mvvm_template.ui.component.custom_dialogs.DialogPlayerIdFragment
 import com.example.mvvm_template.ui.component.custom_dialogs.paymentType.DialogPaymentMethodFragment
 import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
 import com.example.mvvm_template.ui.component.payment.PaymentActivity
@@ -35,7 +32,8 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
     var product: Product? = null
 
     @Inject
-    lateinit var navigator:AppNavigator
+    lateinit var navigator: AppNavigator
+
     companion object {
         fun newInstance() = DialogOfferFragment()
     }
@@ -47,22 +45,35 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
     }
 
     private fun handleClickBuy(product: Product) {
-        this.product=product
-        if (checkUserLogin()){
-            DialogPaymentMethodFragment().apply {
-                arguments=Bundle().apply {
-                    putDouble("amount",product.priceAfterDiscount!!)
-                    putString("currency",product.currency?.name)
-                    putString("type", PLACE_ORDER)
-                }
-            }.showDialog(
-                childFragmentManager
-            ){
-                startActivity(PaymentActivity.getIntent(requireContext()).putExtra("amount",product.priceAfterDiscount)
-                    .putExtra("currency",product.currency?.name)
-                    .putExtra("type",PLACE_ORDER)
-                )
+        this.product = product
+        if (checkUserLogin()) {
+            if (product.productType == 2) {
+                viewModel.addToCart(productId = product.id, isAddCart = true)
+            } else if (product.productType == 1) {
+                // show dialog player id
+                showDialog(product)
             }
+
+        }
+    }
+
+    private fun showDialogPay(product: Product) {
+        DialogPaymentMethodFragment().apply {
+            arguments = Bundle().apply {
+                putDouble("amount", product.priceAfterDiscount!!)
+                putString("currency", product.currency?.name)
+                putString("type", PLACE_ORDER)
+            }
+        }.showDialog(
+            childFragmentManager
+        ) {
+            startActivity(
+                PaymentActivity.getIntent(requireContext())
+                    .putExtra("amount", product.priceAfterDiscount)
+                    .putExtra("currency", product.currency?.name)
+                    .putExtra("type", PLACE_ORDER)
+                    .putExtra("paymentId", it.id)
+            )
         }
     }
 
@@ -85,7 +96,7 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
         super.onViewCreated(view, savedInstanceState)
         getViewDataBinding().content.emptyRecycle.configGridRecycle(2, true)
         getViewDataBinding().content.emptyRecycle.setEmptyView(getViewDataBinding().content.contentEmptyView)
-        getViewDataBinding().content.emptyRecycle.adapter=productCategoryAdapter
+        getViewDataBinding().content.emptyRecycle.adapter = productCategoryAdapter
         viewModel.getProducts(offer = true, pageIndex = pagNumber)
         getViewDataBinding().content.emptyRecycle.addEndlessScroll(::handleLoadMore)
     }
@@ -148,6 +159,10 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
                 handleFaluir(it)
             }
         }
+        observe(viewModel.cartLiveData){
+            //showDialogPay(this.product!!)
+            navigator.navigateTo(Screen.CART)
+        }
     }
 
     private fun handleDateStatCategory(products: List<Product>) {
@@ -158,6 +173,16 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
         position?.let {
             getViewDataBinding().content.emptyRecycle.adapter?.notifyItemChanged(position)
         }
+    }
+
+    private fun showDialog(product: Product) {
+        DialogPlayerIdFragment().showDialog(childFragmentManager) { player_id, dialogPlayerIdFragment ->
+            viewModel.addToCart(productId = product.id, playerId = player_id, isAddCart = true)
+            dialogPlayerIdFragment.dismiss()
+        }
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.txt_title_for_player_id))
+
     }
 
 

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.component.main.web_view.WebViewActivity">
+
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/join"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgLive"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_170sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_championship"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/CornerSize16dp" />
+
+                <ImageView
+                    android:id="@+id/pub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_pub"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgLive" />
+
+                <ImageView
+                    android:id="@+id/pub1"
+                    android:layout_width="26dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_pub"
+                    app:layout_constraintStart_toEndOf="@id/pub"
+                    app:layout_constraintTop_toBottomOf="@id/imgLive" />
+
+                <ImageView
+                    android:id="@+id/pub2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_pub"
+                    app:layout_constraintStart_toEndOf="@id/pub1"
+                    app:layout_constraintTop_toBottomOf="@id/imgLive" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_group"
+                    app:layout_constraintBottom_toBottomOf="@id/pub"
+                    android:layout_marginStart="-5dp"
+                    android:id="@+id/plus"
+                    app:layout_constraintStart_toEndOf="@id/pub2"
+                    />
+
+
+                <TextView
+                    android:id="@+id/numberOfParticipant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/numberOfChampions"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@id/imgLive"
+                    app:layout_constraintStart_toEndOf="@id/plus"/>
+
+                <org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/description"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="@id/pub"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:text="@string/instraction"
+                    style="@style/TextMediumFont"
+                    android:id="@+id/instraction"
+                    app:layout_constraintTop_toBottomOf="@id/description"
+                    />
+                <org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/instractionValue"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="@id/instraction"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:text="@string/rewards"
+                    style="@style/TextMediumFont"
+                    android:id="@+id/rewards"
+                    app:layout_constraintTop_toBottomOf="@id/instractionValue"
+                    />
+                <org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rewardsValue"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="@id/rewards"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/join"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="@string/joinChallenge"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

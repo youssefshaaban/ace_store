@@ -28,7 +28,8 @@ data class Product(
     val totalPriceAfterDiscountTaxIncl: Double,
     val totalPriceTaxExcl: Double,
     val totalPriceTaxIncl: Double,
-    val totalTaxValue: Double
+    val totalTaxValue: Double,
+    var productType:Int?=null
 )
 
 fun Product.toProduct(): com.example.mvvm_template.domain.entity.Product {
@@ -41,6 +42,7 @@ fun Product.toProduct(): com.example.mvvm_template.domain.entity.Product {
         name = this.name,
         metaDescription = "",
         quantity = this.quantity,
+        productType=this.productType,
         priceAfterDiscount = this.priceAfterDiscount
     )
 }

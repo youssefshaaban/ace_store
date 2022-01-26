@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "466958473749",
+    "project_id": "acestore-9c3a3",
+    "storage_bucket": "acestore-9c3a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466958473749:android:3ef873ddf6931816160c1c",
+        "android_client_info": {
+          "package_name": "com.ace_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466958473749-j7vq982il135v24uf5d1s7b24q7c0nir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALRhAFBinCCXD-Wm9FuNhO3zwhjRG6FZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466958473749-j7vq982il135v24uf5d1s7b24q7c0nir.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "466958473749-k3tctut7gq96gmuoieq4rvof0j3jc6qa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AceStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

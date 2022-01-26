@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_template.R
+import com.example.mvvm_template.core.common.AbstractViewHolder
 import com.example.mvvm_template.databinding.ItemLayoutProductBinding
 import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.utils.loadImage
 
-class ProductCategoryAdapter(val clickItem:(Product)->Unit,
-                             val clickAddCart:(Product,Int)->Unit,
-                             val clickBuy:(Product)->Unit
+class GridProductCategoryAdapter(val clickItem:(Product)->Unit,
+                                 val clickAddCart:(Product,Int)->Unit,
+                                 val clickBuy:(Product)->Unit
                              ):
-    ListAdapter<Product,ProductCategoryAdapter.SingleRow>(CategoryDiffCallBack()) {
+    ListAdapter<Product,GridProductCategoryAdapter.SingleRow>(CategoryDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleRow {
         return SingleRow(
@@ -28,31 +28,31 @@ class ProductCategoryAdapter(val clickItem:(Product)->Unit,
         )
     }
     override fun onBindViewHolder(p0: SingleRow, p1: Int) {
-        p0.bind(p1)
+        p0.bind(getItem(p1),p1)
+        p0.binding.buy.setOnClickListener { clickBuy(getItem(p1)) }
+        p0.binding.root.setOnClickListener {
+            clickItem(getItem(p1))
+        }
+        p0.binding.addCart.setOnClickListener {
+            clickAddCart(getItem(p1),p1)
+        }
     }
 
-    inner class SingleRow(var binding: ItemLayoutProductBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int) {
-            val item=getItem(pos)
+    class SingleRow(var binding: ItemLayoutProductBinding) :
+        AbstractViewHolder<Product>(binding.root) {
+        override fun bind(item: Product, position: Int) {
             binding.name.text=item.name
             binding.tvOldPrice.setText("${item.price} ${item.currency?.symbol}")
             binding.price.setText("${item.priceAfterDiscount ?: ""} ${item.currency?.symbol ?:""}")
             binding.code.text = item.metaDescription ?: ""
             binding.image.loadImage(item.imagePath,R.drawable.bg_no_image)
-            binding.buy.setOnClickListener { clickBuy(item) }
-            binding.root.setOnClickListener {
-                clickItem(item)
-            }
+
             if (item.isAtCart){
                 binding.addCart.setColorFilter(binding.addCart.context.resources.getColor(R.color.white))
                 binding.contentCart.background=binding.addCart.context.resources.getDrawable(R.drawable.back_strok_solid_color_accent)
             }else{
                 binding.addCart.setColorFilter(binding.addCart.context.resources.getColor(R.color.colorAccent))
                 binding.contentCart.background=binding.addCart.context.resources.getDrawable(R.drawable.back_strok_color_accent)
-            }
-            binding.addCart.setOnClickListener {
-                clickAddCart(item,pos)
             }
         }
     }

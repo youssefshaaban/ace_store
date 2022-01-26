@@ -9,4 +9,8 @@ data class Profile(
     val name: String?=null,
     val firstName: String?=null,
     val secondName: String?=null,
+    val sendCardCodeByEmail:Boolean?=null,
+    val sendCardCodeByMobileNumber:Boolean?=null,
+    val memberType: MemberType?=null,
+    val point: Point?=null
 )

@@ -51,4 +51,7 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun binCustomerRepo(resourcesImp: CustomerRepositoryImp):CustomerRepo
+    @Binds
+    @Singleton
+    abstract fun bindRepoChallengeImp(resourcesImp: RepoChallengeImp):ChallengeRepo
 }

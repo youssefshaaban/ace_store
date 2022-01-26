@@ -93,6 +93,13 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_id"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/playerId"
+                    />
             </LinearLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <View

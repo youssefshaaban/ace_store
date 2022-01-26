@@ -5,8 +5,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class OrderDetail(
-    val imagePath: String?=null,
-    val productName: String?=null,
-    val quantity: Int?=null,
-    val totalPrice: Double?=null
-):Parcelable
+    val imagePath: String? = null,
+    val productName: String? = null,
+    val quantity: Int? = null,
+    val totalPrice: Double? = null,
+    val codes: List<String>? = null
+) : Parcelable

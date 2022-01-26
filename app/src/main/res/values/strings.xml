@@ -128,7 +128,7 @@
     <string name="orderTotal">الأجمالى : </string>
     <string name="number">عدد</string>
     <string name="total_points">النقاط المجمعه</string>
-    <string name="numberOfChampions"> عدد المتسابقين d% متسابق</string>
+    <string name="numberOfChampions"> عدد المتسابقين %s متسابق</string>
     <string name="join">انضم</string>
     <string name="day">يوم</string>
     <string name="hour">ساعة</string>
@@ -145,4 +145,18 @@
     <string name="txt_missing_order_value">لابد من إدخال التقيم</string>
     <string name="txt_message_must_login_to_get_orders">"لابد من تسجيل دخول للحصول على مشترياتك "</string>
     <string name="message_should_enter_player_id">"لابد من ادخال رقم اللاعب "</string>
+    <string name="txt_title_for_player_id">رقم الآيدي الخاص بك باللعبة</string>
+    <string name="player_id">رقم اللاعب</string>
+    <string name="menu_member_ship">العضويات</string>
+    <string name="joinChallenge">إنضم للمسابقة</string>
+    <string name="instraction">تعليمات المسابقة</string>
+    <string name="rewards">"الجوائز "</string>
+    <string name="hint_title">من فضلك ادخل البيانات الاتيه لتتمكن من الانضمام للمسابقة</string>
+    <string name="txt_message_enter_playername">من فضلك ادخل اسم اللاعب</string>
+    <string name="txt_message_enter_player_id">"من فضلك ادخل رقم اللاعب "</string>
+    <string name="save_succes_join_challenge">"تم الاشتراك بنجاح "</string>
+    <string name="confirm">تأكيد</string>
+    <string name="default_notification_channel_id" translatable="false">default_notification_channel_id</string>
+    <string name="copyCode">إنسخ الكود</string>
+    <string name="add_cart">أضف الى السلة</string>
 </resources>

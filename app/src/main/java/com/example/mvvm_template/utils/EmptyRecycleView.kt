@@ -23,7 +23,7 @@ class EmptyRecycleView : RecyclerView {
             if (adapter == null || adapter!!.itemCount == 0) View.GONE else View.VISIBLE
     }
 
-    internal val observer: RecyclerView.AdapterDataObserver =
+    private val observer: RecyclerView.AdapterDataObserver =
         object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()

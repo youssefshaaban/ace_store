@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
 }
 
 
@@ -73,9 +74,8 @@ dependencies {
     implementation Libs.INSTANCE.gson
     implementation Libs.INSTANCE.gsonConverter
     implementation project(path: ':vFilePicker')
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
     kapt Libs.INSTANCE.permissionsDispatcherProcessor
     implementation Libs.INSTANCE.timber
     implementation Libs.INSTANCE.hiltAndroid
@@ -90,6 +90,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.wanjian:expandable-recyclerview:0.0.1'
+    implementation "org.sufficientlysecure:html-textview:3.9"
     implementation Libs.INSTANCE.glide
     debugImplementation Libs.INSTANCE.chuckerteamDebug
     releaseImplementation Libs.INSTANCE.chuckerteamRelease
@@ -100,6 +101,8 @@ dependencies {
     implementation Libs.INSTANCE.rxBinding
     implementation Libs.INSTANCE.multidex
     implementation Libs.INSTANCE.blurry
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+    implementation 'com.google.firebase:firebase-analytics'
 
 }
 repositories {

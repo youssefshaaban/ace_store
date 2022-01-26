@@ -19,13 +19,13 @@ import javax.inject.Inject
 class AccountRepoImp @Inject constructor(private val accountApiService: AccountApiService) :
     AccountRepository, BaseDataSource() {
     private val mapProfileReponseToProfile=MapProfileReponseToProfile()
-    override suspend fun generateOtp(requestOTP: GenerateOtpUseCase.RequestOTP): DataState<Boolean> {
+    override suspend fun generateOtp(requestOTP: GenerateOtpUseCase.RequestOTP): DataState<String> {
            val res=getResult {
                 accountApiService.generateOtp(requestOTP)
             }
         return if (res is DataState.Success){
-            Log.e("code",res.data.result.code)
-            DataState.Success(true)
+            Log.e("codeOTP",res.data.result.code)
+            DataState.Success(res.data.result.code)
         }else{
             DataState.Error((res as DataState.Error).error)
         }

@@ -84,18 +84,22 @@ class DialogOrderDetailFragment : BaseFragment<DialogOrderDetailFragmentBinding>
             else
                 hideLoading()
         }
-        observe(viewModel.orderDetailLiveData){
+        observe(viewModel.orderDetailLiveData) {
             setData(it)
         }
     }
 
     private fun setData(it: Order) {
-        it.orderDetails?.let {  getViewDataBinding().rvOrders.adapter=OrderItemDetailAdapter(it)}
-        getViewDataBinding().orderNum.text=it.id.toString()
-        getViewDataBinding().orderVat.text=it.tax.toString()
-        getViewDataBinding().orderPrice.text=it.totalPrice.toString()
-        getViewDataBinding().orderTotal.text=it.totalPriceBeforDiscount.toString()
-        getViewDataBinding().orderDiscount.text=it.discountValue.toString()
+        it.orderDetails?.let {
+            val adapter=OrderItemDetailAdapter(it)
+            getViewDataBinding().rvOrders.adapter =adapter
+            adapter.expandAllGroup()
+        }
+        getViewDataBinding().orderNum.text = it.id.toString()
+        getViewDataBinding().orderVat.text = it.tax.toString()
+        getViewDataBinding().orderPrice.text = it.totalPrice.toString()
+        getViewDataBinding().orderTotal.text = it.totalPriceBeforDiscount.toString()
+        getViewDataBinding().orderDiscount.text = it.discountValue.toString()
     }
 
 

@@ -26,8 +26,8 @@ class GenrateOtpViewModel @Inject constructor(
     private val getCountryUseCase: GetCountryUseCase
 ) :
     ViewModel() {
-    private val generateOtpLiveDat = SingleLiveEvent<DataState<Boolean>>()
-    val generateSuccess: LiveData<DataState<Boolean>> get() = generateOtpLiveDat
+    private val generateOtpLiveDat = SingleLiveEvent<DataState<String>>()
+    val generateSuccess: LiveData<DataState<String>> get() = generateOtpLiveDat
     private val validationOtpLiveDat = SingleLiveEvent<ValidationPhone>()
     val observeValidation: LiveData<ValidationPhone> get() = validationOtpLiveDat
     val loadingVisiblilty = MutableLiveData(false)
