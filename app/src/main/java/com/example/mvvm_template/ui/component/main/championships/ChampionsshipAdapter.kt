@@ -14,6 +14,7 @@ import com.example.mvvm_template.databinding.ItemChampionshipsNextLayoutBinding
 import com.example.mvvm_template.databinding.ItemChampionshipsPreviousLayoutBinding
 import com.example.mvvm_template.domain.entity.Challenge
 import com.example.mvvm_template.utils.DateAndTimeFormateUtil
+import com.example.mvvm_template.utils.LogUtil
 import com.example.mvvm_template.utils.loadImage
 import java.time.Duration
 import java.time.LocalDateTime
@@ -124,18 +125,22 @@ class ChampionsshipAdapter(val clickListnerJoin: (Challenge) -> Unit) :
         fun bind(pos: Int) {
             val item = getItem(pos)
             binding.img.loadImage(item.imagePath, R.drawable.ic_championship)
-            if (item.startDate != null && item.endDate != null) {
-                val startDate = DateAndTimeFormateUtil.getDate(
-                    item.startDate,
-                    DateAndTimeFormateUtil.ISO_FORMATE
-                )
-                val endDate = DateAndTimeFormateUtil.getDate(
-                    item.endDate,
-                    DateAndTimeFormateUtil.ISO_FORMATE
-                )
-
-
-
+            if (item.startDate != null && item.endDate != null&&item.status==2) {
+//                val startDate = DateAndTimeFormateUtil.getDate(
+//                    item.startDate,
+//                    DateAndTimeFormateUtil.ISO_FORMATE
+//                )
+//                LogUtil.error("date",startDate?.time.toString())
+//
+                item.getDays()?.let {
+                    binding.firstdigitDay.text="${it}"
+                }
+                item.getHour()?.let {
+                    binding.seconDigitDay.text="${it}"
+                }
+                item.getMin()?.let {
+                    binding.thirdDigithour.text="${it}"
+                }
             }
             binding.root.setOnClickListener {
                 clickListnerJoin(item)

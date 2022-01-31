@@ -123,6 +123,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 getViewDataBinding().navView.memberType.text = dataState.data.memberType?.name +" ("+dataState.data.point?.totalPoints+")"
                 dataState.data.memberType?.colorCode?.let {
                     getViewDataBinding().navView.contentMember.background.setTint(Color.parseColor(it))
+                    getViewDataBinding().navView.imageView.borderColor=Color.parseColor(it)
                 }
 
             }

@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#3E047E"
     tools:context=".ui.component.SplashActivity">
 
-    <ImageView
-        android:layout_width="@dimen/_144sdp"
-        android:src="@drawable/ic_splash_log"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/iv_gif"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="@dimen/_116sdp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        />
+
+<!--    <ImageView-->
+<!--        android:layout_width="@dimen/_144sdp"-->
+<!--        android:src="@drawable/ic_splash_log"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_height="@dimen/_116sdp"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

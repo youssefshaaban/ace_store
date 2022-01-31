@@ -31,7 +31,7 @@
     <string name="validate_must_enter_second_name">لابد من إدخال الإسم العائبة</string>
     <string name="validate_must_enter_email">لابد من إدخال الأيميل</string>
     <string name="title_profile">حسابى</string>
-    <string name="title_home">الرئيسية</string>
+    <string name="title_home">ايس ستور</string>
     <string name="title_cards">البطاقات</string>
     <string name="title_purchases">مشترياتى</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -156,4 +156,5 @@
     <string name="confirm">تأكيد</string>
     <string name="copyCode">إنسخ الكود</string>
     <string name="add_cart">أضف الى السلة</string>
+    <string name="txt_title_policy">بالإنتقال للدفع فإنك توافق على</string>
 </resources>

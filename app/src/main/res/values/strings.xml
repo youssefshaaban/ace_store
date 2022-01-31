@@ -30,7 +30,7 @@
     <string name="validate_must_enter_usern">لابد من إدخال اسم الإسم الاول</string>
     <string name="validate_must_enter_second_name">لابد من إدخال الإسم العائبة</string>
     <string name="validate_must_enter_email">لابد من إدخال الأيميل</string>
-    <string name="title_home">الرئيسية</string>
+    <string name="title_home">أيس ستور</string>
     <string name="title_cards">البطاقات</string>
     <string name="title_purchases">مشترياتى</string>
     <string name="title_profile">حسابى</string>
@@ -159,4 +159,5 @@
     <string name="default_notification_channel_id" translatable="false">default_notification_channel_id</string>
     <string name="copyCode">إنسخ الكود</string>
     <string name="add_cart">أضف الى السلة</string>
+    <string name="txt_title_policy">بالإنتقال للدفع فإنك توافق على</string>
 </resources>

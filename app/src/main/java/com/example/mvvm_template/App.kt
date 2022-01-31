@@ -30,3 +30,39 @@ class App : Application() {
     }
 }
 
+
+
+
+//fun solution(A: IntArray): Int {
+//    val a=A.filter { x->x>0 }
+//    a.distinct().sorted()
+//    print(a)
+//    var smalest=1
+//    for ( i in 0..a.size){
+//        if (a[i]==smalest){
+//            smalest+=1
+//        }
+//    }
+//    return smalest
+//}
+
+
+fun solution(A: IntArray): Int {
+    // write your code in Kotlin 1.3.11 (Linux)
+    var numberOfDigitLesstThanone=0
+    for (i in A.indices){
+        if (A[i]==0)
+            return 0
+        else if (A[i]<0){
+            numberOfDigitLesstThanone++
+        }
+    }
+    return when {
+        numberOfDigitLesstThanone%2==0 -> 1
+        else -> -1
+    }
+}
+fun main(){
+   // IntArray()
+    solution(intArrayOf(1, 2, 3, 4, 1))
+}

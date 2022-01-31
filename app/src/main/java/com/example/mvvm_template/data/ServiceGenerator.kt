@@ -60,6 +60,8 @@ class ServiceGenerator (private val device:String) {
         App.getUser()?.let {
             requestBuilder.addHeader(authrization,"Bearer ${it.token}")
         }
+        val st=""
+        st.isNullOrEmpty()
         requestBuilder.addHeader("DeviceId",device)
         requestBuilder.addHeader("DeviceType","Android")
         requestBuilder.addHeader("LanguageId","2")

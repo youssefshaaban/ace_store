@@ -57,7 +57,7 @@ class CategoryCardAdapter(val clickItem: (Category) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             val item = getItem(pos)
-            binding.name.text = item.name
+            //binding.name.text = item.name
             binding.image.loadImage(item.imagePath, R.drawable.bg_no_image)
             binding.root.setOnClickListener {
                 clickItem(item)

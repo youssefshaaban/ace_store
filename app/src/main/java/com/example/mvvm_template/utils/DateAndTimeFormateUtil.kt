@@ -57,7 +57,7 @@ object DateAndTimeFormateUtil {
     fun getDate(inputStr: String?, inputFormate: String): Date? {
         return try {
             val tz = TimeZone.getTimeZone("UTC")
-            val df = SimpleDateFormat(inputFormate)
+            val df = SimpleDateFormat(inputFormate, Locale.ENGLISH)
             df.setTimeZone(tz)
             val time1 = df.parse(inputStr)
             time1

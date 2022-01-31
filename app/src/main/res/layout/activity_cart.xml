@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:text="@string/copoun"
                     android:padding="@dimen/_5sdp"
+                    style="@style/TextBoldFont"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_15sdp"
@@ -53,17 +54,37 @@
                         android:padding="@dimen/_5sdp"
                         android:hint="@string/hintCopoun"
                         android:background="@null"
+                        android:fontFamily="@font/tajawal_regular"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:text="@string/apply"
                         android:padding="@dimen/_5sdp"
                         android:id="@+id/apply"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
                         android:textColor="@color/white"
                         style="@style/TextRegularFont"
                         android:background="@color/colorPrimary"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_title_policy"
+                    style="@style/TextRegularFont"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_policy"
+                    style="@style/TextRegularFont"
+                    android:gravity="center"
+                    android:id="@+id/txt_policy"
+                    android:textColor="@color/colorAccent"
+                    />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
