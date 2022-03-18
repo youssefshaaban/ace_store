@@ -17,9 +17,7 @@ import com.example.mvvm_template.databinding.DialogOfferFragmentBinding
 import com.example.mvvm_template.domain.entity.Product
 import com.example.mvvm_template.ui.component.card_categories.ProductsViewModel
 import com.example.mvvm_template.ui.component.custom_dialogs.DialogPlayerIdFragment
-import com.example.mvvm_template.ui.component.custom_dialogs.paymentType.DialogPaymentMethodFragment
-import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
-import com.example.mvvm_template.ui.component.payment.PaymentActivity
+
 import com.example.mvvm_template.utils.*
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,30 +51,8 @@ class DialogOfferFragment : BaseFragment<DialogOfferFragmentBinding>() {
                 // show dialog player id
                 showDialog(product)
             }
-
         }
     }
-
-    private fun showDialogPay(product: Product) {
-        DialogPaymentMethodFragment().apply {
-            arguments = Bundle().apply {
-                putDouble("amount", product.priceAfterDiscount!!)
-                putString("currency", product.currency?.name)
-                putString("type", PLACE_ORDER)
-            }
-        }.showDialog(
-            childFragmentManager
-        ) {
-            startActivity(
-                PaymentActivity.getIntent(requireContext())
-                    .putExtra("amount", product.priceAfterDiscount)
-                    .putExtra("currency", product.currency?.name)
-                    .putExtra("type", PLACE_ORDER)
-                    .putExtra("paymentId", it.id)
-            )
-        }
-    }
-
 
     private fun handleClickProduct(product: Product) {
         appNavigator.navigateTo(Screen.PRODUCT_DETAIL, Bundle().apply {

@@ -19,10 +19,10 @@ import com.example.mvvm_template.core.navigation.Screen
 import com.example.mvvm_template.databinding.DialogPaymentMethodFragmentBinding
 import com.example.mvvm_template.domain.entity.POINTS_PAYMENT_METHOD_TYPE
 import com.example.mvvm_template.domain.entity.PaymentMethod
-import com.example.mvvm_template.domain.entity.WALLET_PAYMENT_METHOD_TYPE
-import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
-import com.example.mvvm_template.ui.component.payment.PaymentActivity
+
+
 import com.example.mvvm_template.utils.*
+import com.example.mvvm_template.utils.ConstantMethod.PLACE_ORDER
 import com.payfort.fortpaymentsdk.FortSdk
 import com.payfort.fortpaymentsdk.callbacks.FortCallBackManager
 import com.payfort.fortpaymentsdk.callbacks.FortCallback
@@ -62,6 +62,7 @@ class DialogPaymentMethodFragment : BaseFragment<DialogPaymentMethodFragmentBind
         getViewDataBinding().rvMethodType.configGridRecycle(3, true)
         viewModel.getPaymentMethod()
         getViewDataBinding().type = type
+        getViewDataBinding().currency = currency
         getViewDataBinding().cancel.setOnClickListener { dismiss() }
         fortCallback = FortCallback()
         getViewDataBinding().contentWallet.setOnClickListener {

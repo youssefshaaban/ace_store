@@ -36,7 +36,7 @@ class ChargeWalletUseCase @Inject constructor(
     private fun validation(requestChargeWallet: RequestChargeWallet): Boolean {
         if (requestChargeWallet.amount == null || requestChargeWallet.amount == 0.0) {
             throw AmountMissingException()
-        } else if (requestChargeWallet.cryptedData.isNullOrEmpty()) {
+        } else if (requestChargeWallet.fortId == null) {
             throw CryptoDataMissingException()
         } else if (requestChargeWallet.paymentMethodId == null || requestChargeWallet.paymentMethodId == 0) {
             throw CryptoDataMissingException()
@@ -44,9 +44,15 @@ class ChargeWalletUseCase @Inject constructor(
         return true
     }
 
-    class PaymentMethodIdNotFoundException(override val message: String?="PaymentMethodIdNotFoundException") : Throwable()
-    class CryptoDataMissingException(override val message: String?="CryptoDataMissingException") : Throwable()
-    class AmountMissingException(override val message: String?="AmountMissingException") : Throwable()
+    class PaymentMethodIdNotFoundException(override val message: String? = "PaymentMethodIdNotFoundException") :
+        Throwable()
+
+    class CryptoDataMissingException(override val message: String? = "fort_id_method") :
+        Throwable()
+
+    class AmountMissingException(override val message: String? = "AmountMissingException") :
+        Throwable()
+
     class MissingException : Throwable()
 
 }

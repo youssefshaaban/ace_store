@@ -14,10 +14,10 @@ object RxSearchObservable {
     fun EditText.getQueryTextChangeStateFlow():StateFlow<String>{
         val query = MutableStateFlow("")
         addTextChangedListener(onTextChanged = {
-            text, start, before, count ->
+            text, _, _, _ ->
             query.value=text.toString()
         })
-        setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        setOnEditorActionListener(OnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 return@OnEditorActionListener true
             }

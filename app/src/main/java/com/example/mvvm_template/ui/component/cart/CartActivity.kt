@@ -15,8 +15,6 @@ import com.example.mvvm_template.databinding.ActivityCartBinding
 import com.example.mvvm_template.domain.entity.*
 import com.example.mvvm_template.ui.component.custom_dialogs.DialogPlayerIdFragment
 import com.example.mvvm_template.ui.component.custom_dialogs.paymentType.DialogPaymentMethodFragment
-import com.example.mvvm_template.ui.component.payment.PLACE_ORDER
-import com.example.mvvm_template.ui.component.payment.PaymentActivity
 import com.example.mvvm_template.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,7 +41,7 @@ class CartActivity : BaseActivity<ActivityCartBinding>() {
                 DialogPaymentMethodFragment().apply {
                     arguments=Bundle().apply {
                         putDouble("amount",cartData?.total!!)
-                        putString("currency",cartData?.products?.firstOrNull()?.name)
+                        putString("currency",cartData?.products?.firstOrNull()?.currency?.name ?: "")
                         putString("type", PLACE_ORDER)
                     }
                 }.showDialog(

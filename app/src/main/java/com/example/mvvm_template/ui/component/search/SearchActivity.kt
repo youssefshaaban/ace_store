@@ -39,6 +39,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
 
+    @ExperimentalCoroutinesApi
     fun observeSearch() {
         job = scope.launch {
             getViewDataBinding().search.getQueryTextChangeStateFlow()
@@ -63,7 +64,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var flags: Int = view.getSystemUiVisibility()
             flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            view.setSystemUiVisibility(flags)
+            view.systemUiVisibility = flags
             window.statusBarColor = Color.WHITE
         }
     }

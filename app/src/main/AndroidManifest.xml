@@ -61,9 +61,6 @@
             android:name=".ui.component.main.points.PointsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.component.payment.PaymentActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.component.cart.CartActivity"
             android:exported="true"
             android:screenOrientation="portrait" />

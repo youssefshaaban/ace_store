@@ -23,4 +23,4 @@ data class GainedMethodsResponse(
 
 fun GainedMethodsResponse.toGainedMethod():GainedMethod= GainedMethod(this.gainMethod,this.points)
 
-fun PointResponse.toPoint():Point=Point(this.equivalentAmount,this.replacedPoints,this.totalPoints,this?.transactions,gainMethods?.map { t->t.toGainedMethod() })
+fun PointResponse.toPoint():Point=Point(this.equivalentAmount,this.replacedPoints,this.totalPoints,this.transactions,gainMethods?.map { t->t.toGainedMethod() })

@@ -1,6 +1,5 @@
 package com.example.mvvm_template.ui.component.cart
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,16 +12,14 @@ import com.example.mvvm_template.domain.error.Failure
 import com.example.mvvm_template.domain.interactor.cart.AddCartUseCase
 import com.example.mvvm_template.domain.interactor.cart.GetCartUseCase
 import com.example.mvvm_template.domain.interactor.order.PlaceOrderUseCse
-import com.example.mvvm_template.ui.component.payment.PaymentViewModel
-import com.example.mvvm_template.utils.LogUtil
-import com.example.mvvm_template.utils.RSA
-import com.google.gson.Gson
+
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.roundToLong
 
 @HiltViewModel
 class CartViewModel @Inject constructor(

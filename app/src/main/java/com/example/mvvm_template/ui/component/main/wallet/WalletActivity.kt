@@ -2,9 +2,7 @@ package com.example.mvvm_template.ui.component.main.wallet
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.Gravity
@@ -14,32 +12,82 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.mvvm_template.R
 import com.example.mvvm_template.core.common.BaseActivity
-import com.example.mvvm_template.databinding.ActivityPaymentBinding
 import com.example.mvvm_template.databinding.ActivityWalletBinding
-import com.example.mvvm_template.ui.component.custom_dialogs.order_detail.DialogOrderDetailFragment
+import com.example.mvvm_template.domain.entity.PaymentMethod
 import com.example.mvvm_template.ui.component.custom_dialogs.paymentType.DialogPaymentMethodFragment
-import com.example.mvvm_template.ui.component.main.bottom.purchase.PurchasedCardAdapter
-import com.example.mvvm_template.ui.component.payment.CHARGE_WALLET
-import com.example.mvvm_template.ui.component.payment.PaymentActivity
+import com.example.mvvm_template.utils.LogUtil
 import com.example.mvvm_template.utils.configRecycle
 import com.example.mvvm_template.utils.observe
+import com.payfort.fortpaymentsdk.FortSdk
+import com.payfort.fortpaymentsdk.callbacks.FortCallBackManager
+import com.payfort.fortpaymentsdk.callbacks.FortInterfaces
+import com.payfort.fortpaymentsdk.domain.model.FortRequest
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WalletActivity : BaseActivity<ActivityWalletBinding>() {
     val viewModel: WalletViewModel by viewModels()
     var amount: Double = 0.0
+    lateinit var selectedPayment: PaymentMethod
+    val REQUEST_CODE_PAY = 5
+    var fortCallback: FortCallBackManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getViewDataBinding().appBar.title.text = getString(R.string.menu_wallet)
         getViewDataBinding().appBar.back.setOnClickListener { onBackPressed() }
         getViewDataBinding().rvTransaction.configRecycle(true)
         viewModel.getWallet()
+        fortCallback = FortCallBackManager.Factory.create()
         getViewDataBinding().chargeWallet.setOnClickListener {
             goToChargeWallet()
         }
         setUpObservable()
     }
+
+
+    private fun payWithSdk(fortRequest: FortRequest) {
+        FortSdk.getInstance().registerCallback(this,
+            fortRequest,
+            FortSdk.ENVIRONMENT.TEST,
+            REQUEST_CODE_PAY,
+            fortCallback,
+            true,
+            object : FortInterfaces.OnTnxProcessed {
+                override fun onCancel(
+                    requestParamsMap: MutableMap<String, Any>?,
+                    p1: MutableMap<String, Any>?
+                ) {
+                    LogUtil.error("payment cancel", requestParamsMap.toString())
+                    LogUtil.error("payment cancel", p1.toString())
+                }
+
+                override fun onSuccess(
+                    requestParamsMap: MutableMap<String, Any>?,
+                    p1: MutableMap<String, Any>?
+                ) {
+                    p1?.let {
+                        LogUtil.error("payment success", requestParamsMap.toString())
+                        LogUtil.error("payment success", p1.toString())
+                        viewModel.chargeWallet(
+                            amount,
+                            selectedPayment.id!!,
+                            p1["merchant_reference"],
+                            p1["fort_id"]
+                        )
+                    }
+                }
+
+                override fun onFailure(
+                    requestParamsMap: MutableMap<String, Any>?,
+                    p1: MutableMap<String, Any>?
+                ) {
+                    LogUtil.error("payment onFailure", requestParamsMap.toString())
+                    LogUtil.error(" payment onFailure", p1.toString())
+                }
+
+            })
+    }
+
 
     private fun setUpObservable() {
         observe(viewModel.loaderVisibilityLiveData) {
@@ -55,6 +103,12 @@ class WalletActivity : BaseActivity<ActivityWalletBinding>() {
                     WalletTransactionAdapter(it.transactions)
             }
         }
+        observe(viewModel.successChargeLiveData) {
+            if (it) {
+                viewModel.getWallet()
+            }
+        }
+        observe(viewModel.fortRequestLiveData, ::payWithSdk)
     }
 
     private fun goToChargeWallet() {
@@ -72,10 +126,8 @@ class WalletActivity : BaseActivity<ActivityWalletBinding>() {
     private fun showDialogTakeAmount() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.set_your_amount))
-
-// Set up the input
         val input = EditText(this)
-        input.gravity=Gravity.CENTER
+        input.gravity = Gravity.CENTER
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setHint(getString(R.string.amount))
         input.inputType = InputType.TYPE_CLASS_NUMBER
@@ -84,7 +136,7 @@ class WalletActivity : BaseActivity<ActivityWalletBinding>() {
 // Set up the buttons
         builder.setPositiveButton(
             getString(R.string.ok)
-        ) { dialog, which ->
+        ) { dialog, _ ->
             // Here you get get input text from the Edittext
             amount = input.text.toString().toDouble()
             DialogPaymentMethodFragment.newInstance()
@@ -94,21 +146,14 @@ class WalletActivity : BaseActivity<ActivityWalletBinding>() {
                     }
                 }
                 .showDialog(supportFragmentManager) {
-                    launchSomeActivity.launch(
-                        PaymentActivity.getIntent(this).putExtra(
-                            "type",
-                            CHARGE_WALLET
-                        ).putExtra("amount", amount)
-                            .putExtra("paymentId", it.id)
-                            .putExtra("currency", getString(R.string.currencyKSA))
-                            .putExtra("paymentId",it.id)
-                    )
+                    selectedPayment = it
+                    viewModel.getForRequest(amount)
                 }
             dialog.dismiss()
         }
         builder.setNegativeButton(
             getString(R.string.cancel)
-        ) { dialog, which -> dialog.cancel() }
+        ) { dialog, _ -> dialog.cancel() }
         builder.show()
     }
 

@@ -29,4 +29,22 @@ class App : Application() {
         fun getUser(): User? = SavePrefs(context, User::class.java).load()
     }
 }
+//
+//fun pointsBelong(x1:Int, y1:Int,x2:Int, y2:Int, x3:Int, y3:Int, xp:Int, yp:Int, xq:Int, yq:Int):Int{
+//    // A(x1,y1)
+//    // B(x2,y2)
+//    // C(x3,y3)
+//
+//    val main = x1 * (y2 - y3) +
+//            x2 * (y3 - y1) +
+//            x3 * (y1 - y2)
+//
+//}
+//
+//fun isTriangel(x1:Int, y1:Int,x2:Int, y2:Int, x3:Int, y3:Int):Boolean{
+//    val a = x1 * (y2 - y3) +
+//            x2 * (y3 - y1) +
+//            x3 * (y1 - y2)
+//    return a != 0
+//}
 

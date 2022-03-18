@@ -9,7 +9,7 @@ import android.util.TypedValue
 
 object ConstantMethod {
 
-
+    const val PLACE_ORDER="place_order"
     fun pxToDp(px: Int): Int {
         return (px / Resources.getSystem().displayMetrics.density).toInt()
     }
